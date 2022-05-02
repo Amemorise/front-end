@@ -3,6 +3,8 @@ import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Search as SearchIcon, Menu as MenuIcon } from "@mui/icons-material";
 import { User } from "../helpers/baseTypes";
+import { signOut } from "../helpers/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -46,8 +48,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 interface NavbarProps {
     user: User;
+    leftBarOpen: boolean;
+    toggleLeftBarOpen: React.Dispatch<boolean>;
 }
-const Navbar = ({ user }: NavbarProps) => {
+const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
+    const navigate = useNavigate();
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
     const isMenuOpen = Boolean(anchorEl);
@@ -77,18 +83,18 @@ const Navbar = ({ user }: NavbarProps) => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+            <MenuItem onClick={() => navigate("/settings")}>Settings</MenuItem>
             <Divider />
-            <MenuItem onClick={handleMenuClose}>Log Out</MenuItem>
+            <MenuItem onClick={() => signOut(navigate)}>Log Out</MenuItem>
         </Menu>
     );
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ backgroundColor: "#1b3b6f" }}>
                 <Toolbar>
-                    <IconButton size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
+                    <IconButton onClick={() => toggleLeftBarOpen(!leftBarOpen)} size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div" sx={{ display: { xs: "none", sm: "block" } }}>
@@ -103,16 +109,6 @@ const Navbar = ({ user }: NavbarProps) => {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: "flex" }}>
-                        {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton> */}
                         <IconButton size="small" edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} color="inherit">
                             <Avatar alt={user.displayName} src={user.photoURL} />
                         </IconButton>

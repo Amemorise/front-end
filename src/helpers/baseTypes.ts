@@ -4,3 +4,9 @@ export interface User {
     email: string;
     emailVerified: boolean;
 }
+
+export interface ProfileInterface {
+    displayName: string;
+    photoURL: string;
+    profileURL: string;
+}

@@ -1,0 +1,62 @@
+.leftBar {
+    border-right: 1px solid #d2d7d8;
+
+    ul {
+        height: 100%;
+        a {
+            text-decoration: none;
+            color: inherit;
+            li {
+                .MuiListItemIcon-root {
+                    min-width: unset;
+                    svg {
+                        padding: 0 0.5rem;
+                    }
+                }
+                padding: 1rem;
+                &:hover {
+                    background: #0000000a;
+                }
+            }
+        }
+    }
+}
+
+.mainDisplay {
+    flex: 1;
+}
+.rightBar {
+    border-left: 1px solid #d2d7d8;
+    width: 30%;
+    padding: 1rem;
+    max-width: 360px;
+    box-sizing: border-box;
+    .friends {
+        a {
+            text-decoration: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .leftBar {
+        background: #1b3b6f;
+        color: white;
+        ul {
+            height: 100%;
+            a {
+                li {
+                    &:hover {
+                        background: #2b4d84;
+                    }
+                    .MuiListItemText-root {
+                        display: none;
+                    }
+                    svg {
+                        fill: white;
+                    }
+                }
+            }
+        }
+    }
+}

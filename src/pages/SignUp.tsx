@@ -78,8 +78,7 @@ const SignUp = ({ setUser }: SignUpProps) => {
                         displayName,
                     });
                     sendEmailVerification(user);
-                    completeSignIn(userCredential, setUser);
-                    navigate("/home");
+                    completeSignIn(userCredential, setUser, navigate);
                 })
                 .catch((error) => {
                     setSignInError(trimFirebaseErrors(error.message));
@@ -105,8 +104,7 @@ const SignUp = ({ setUser }: SignUpProps) => {
             return;
         }
 
-        completeSignIn(user, setUser);
-        navigate("/home");
+        completeSignIn(user, setUser, navigate);
     };
 
     return (

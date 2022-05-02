@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import { FacebookAuthProvider, getAuth, GoogleAuthProvider, signInWithPopup, UserCredential } from "firebase/auth";
 import { User } from "./baseTypes";
+import { NavigateFunction } from "react-router-dom";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -48,7 +49,7 @@ export const trimFirebaseErrors = (str: string) => {
     return str.replace("Firebase: Error (auth/", "").replaceAll("-", " ").replace(")", "");
 };
 
-export const completeSignIn = (userCredential: UserCredential | undefined, setUser: React.Dispatch<React.SetStateAction<User | undefined>>) => {
+export const completeSignIn = (userCredential: UserCredential | undefined, setUser: React.Dispatch<User | undefined>, navigate: NavigateFunction) => {
     if (userCredential) {
         const { displayName, email, photoURL, emailVerified } = userCredential.user;
 
@@ -59,4 +60,18 @@ export const completeSignIn = (userCredential: UserCredential | undefined, setUs
             emailVerified: emailVerified,
         });
     }
+
+    navigate("/home");
+};
+
+export const signOut = (navigate: NavigateFunction) => {
+    firebaseAuth.signOut().then(
+        function () {
+            console.log("Signed Out");
+            navigate("/login");
+        },
+        function (error) {
+            console.error("Sign Out Error", error);
+        }
+    );
 };

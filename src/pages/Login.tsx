@@ -30,11 +30,6 @@ const Login = ({ setUser }: LoginProps) => {
                 isRequired: true,
                 isEmail: true,
             },
-            password: {
-                value: password,
-                isRequired: true,
-                minLength: 6,
-            },
         });
 
         if (validator !== null) {
@@ -52,8 +47,7 @@ const Login = ({ setUser }: LoginProps) => {
         if (validate) {
             signInWithEmailAndPassword(firebaseAuth, email, password)
                 .then((userCredential) => {
-                    completeSignIn(userCredential, setUser);
-                    navigate("/home");
+                    completeSignIn(userCredential, setUser, navigate);
                 })
                 .catch(() => {
                     setSignInError("Incorrect email/password combination");
@@ -68,8 +62,7 @@ const Login = ({ setUser }: LoginProps) => {
             return;
         }
 
-        completeSignIn(user, setUser);
-        navigate("/home");
+        completeSignIn(user, setUser, navigate);
     };
 
     const toggleClickShowPassword = () => {
@@ -84,7 +77,7 @@ const Login = ({ setUser }: LoginProps) => {
             <form className="content" onSubmit={handleLogin}>
                 <TextField error={validate && !!validate.email} id="email" label="Email" type={"email"} className="inputField" onChange={(e) => setEmail(e.target.value)} />
                 {validate && validate.email ? <div className={`invalid-feedback`}> {validate.email[0] || ""}</div> : null}
-                <FormControl sx={{ margin: "1rem 0" }} variant="outlined" error={validate && !!validate.password}>
+                <FormControl sx={{ margin: "1rem 0" }} variant="outlined">
                     <InputLabel htmlFor="password">Password</InputLabel>
                     <OutlinedInput
                         id="password"
@@ -101,7 +94,6 @@ const Login = ({ setUser }: LoginProps) => {
                         }
                     />
                 </FormControl>
-                {validate && validate.password ? <div className={`invalid-feedback`}> {validate.password[0] || ""}</div> : null}
                 {signInError ? (
                     <Alert severity="error" variant="filled">
                         {signInError}
