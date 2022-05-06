@@ -9,11 +9,13 @@ import { completeSignIn, firebaseAuth, signInWithProvider } from "../helpers/fir
 import { Link, useNavigate } from "react-router-dom";
 import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
 import { User } from "../helpers/baseTypes";
+import { setPageTitle } from "../helpers/helpers";
 
 interface LoginProps {
     setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 }
 const Login = ({ setUser }: LoginProps) => {
+    React.useEffect(() => setPageTitle("Login"), []);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [validate, setValidate] = useState<ErrorMessages>({});

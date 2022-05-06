@@ -91,9 +91,9 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: "#1b3b6f" }}>
-                <Toolbar>
+        <Box sx={{ flexGrow: 1, position: "sticky", top: 0, zIndex: 1000 }}>
+            <AppBar position="static" sx={{ backgroundColor: "#1b3b6f", alignItems: "center" }}>
+                <Toolbar sx={{ maxWidth: "2000px", width: "100%", boxSizing: "border-box" }}>
                     <IconButton onClick={() => toggleLeftBarOpen(!leftBarOpen)} size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
                         <MenuIcon />
                     </IconButton>

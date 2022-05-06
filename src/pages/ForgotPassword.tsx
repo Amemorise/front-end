@@ -2,9 +2,11 @@ import { TextField, Alert, Button, Snackbar } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
 import { firebaseAuth, trimFirebaseErrors } from "../helpers/firebase";
+import { setPageTitle } from "../helpers/helpers";
 import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
 
 const ForgotPassword = () => {
+    React.useEffect(() => setPageTitle("Password Reset"), []);
     const [email, setEmail] = useState("");
     const [validate, setValidate] = useState<ErrorMessages>({});
     const [emailError, setEmailError] = useState("");

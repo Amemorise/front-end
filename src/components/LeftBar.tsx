@@ -1,5 +1,5 @@
-import { CollectionsBookmarkOutlined, HomeOutlined, LeaderboardOutlined } from "@mui/icons-material";
-import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { CollectionsBookmarkOutlined, HomeOutlined } from "@mui/icons-material";
+import { List, ListItem, ListItemIcon, ListItemText, Slide } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./styles/bars.scss";
 
@@ -8,8 +8,8 @@ interface LeftBarProps {
 }
 const LeftBar = ({ leftBarOpen }: LeftBarProps) => {
     return leftBarOpen ? (
-        <div className="leftBar">
-            <div>
+        <Slide direction="right" in={leftBarOpen} mountOnEnter unmountOnExit>
+            <div className="leftBar">
                 <List sx={{ height: "100%" }}>
                     <Link to="/home">
                         <ListItem>
@@ -27,17 +27,17 @@ const LeftBar = ({ leftBarOpen }: LeftBarProps) => {
                             <ListItemText>Collections</ListItemText>
                         </ListItem>
                     </Link>
-                    <Link to="/leaderboard">
+                    {/* <Link to="/leaderboard">
                         <ListItem>
                             <ListItemIcon>
                                 <LeaderboardOutlined fontSize="small" />
                             </ListItemIcon>
                             <ListItemText>Leader Board</ListItemText>
                         </ListItem>
-                    </Link>
+                    </Link> */}
                 </List>
             </div>
-        </div>
+        </Slide>
     ) : null;
 };
 

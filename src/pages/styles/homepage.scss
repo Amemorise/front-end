@@ -1,0 +1,16 @@
+.homepage-content {
+    padding: 1.5rem;
+    .homepage-cards {
+        margin: 1rem 0 2rem;
+        .cards-list {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.summary-banner {
+    background-color: #009ffd44;
+    height: 10rem;
+    padding: 1.5rem;
+}

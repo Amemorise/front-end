@@ -2,7 +2,10 @@
     border-right: 1px solid #d2d7d8;
 
     ul {
-        height: 100%;
+        box-sizing: border-box;
+        height: unset;
+        position: sticky;
+        top: 64px;
         a {
             text-decoration: none;
             color: inherit;
@@ -10,7 +13,7 @@
                 .MuiListItemIcon-root {
                     min-width: unset;
                     svg {
-                        padding: 0 0.5rem;
+                        padding: 0.5rem;
                     }
                 }
                 padding: 1rem;
@@ -21,9 +24,30 @@
         }
     }
 }
+.app {
+    .app-body {
+        display: flex;
+        max-width: 2000px;
+        margin: auto;
+        .mainDisplay {
+            flex: 1;
+            min-height: 90vh;
+            min-width: 0;
+        }
+    }
+}
 
-.mainDisplay {
-    flex: 1;
+.add-button {
+    position: fixed;
+    bottom: 15px;
+    right: 5%;
+
+    button {
+        transition: 0.5s;
+        &:hover {
+            transform: scale(1.25);
+        }
+    }
 }
 .rightBar {
     border-left: 1px solid #d2d7d8;
@@ -43,7 +67,6 @@
         background: #1b3b6f;
         color: white;
         ul {
-            height: 100%;
             a {
                 li {
                     &:hover {

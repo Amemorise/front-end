@@ -11,11 +11,13 @@ import { debounce } from "lodash";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { User } from "../helpers/baseTypes";
 import { useNavigate } from "react-router-dom";
+import { setPageTitle } from "../helpers/helpers";
 
 interface SignUpProps {
     setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 }
 const SignUp = ({ setUser }: SignUpProps) => {
+    React.useEffect(() => setPageTitle("Sign Up"), []);
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [password, setPassword] = useState("");

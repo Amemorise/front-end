@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import LandingPage from "./pages/LandingPage";
@@ -13,15 +13,15 @@ import Settings from "./pages/Settings";
 import Collections from "./pages/Collections";
 import MyProfile from "./pages/MyProfile";
 import Users from "./pages/Users";
+import { TEST_USER } from "./helpers/constants";
 
 function App() {
     const [user, setUser] = useState<User | undefined>(undefined);
-    const testUSer = { displayName: "Kofi Twum-Ampofo", email: "peterperfect96@gmail.com", emailVerified: true, photoURL: "https://lh3.googleusercontent.com/a-/AOh14GhVrrHKLdSo9ieDv4xhjPyvoKXYnTMguODKYuE0og=s96-c" };
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<ProtectedRoute user={user || testUSer} redirectPath={"login"} />}>
+                <Route path="/" element={<ProtectedRoute user={user || TEST_USER} redirectPath={"login"} />}>
                     <Route path="home" element={<Homepage />} />
                     <Route path="Settings" element={<Settings />} />
                     <Route path="collections" element={<Collections />} />

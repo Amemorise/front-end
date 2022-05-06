@@ -4,6 +4,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import LeftBar from "./LeftBar";
 import Navbar from "./Navbar";
 import { RightBar } from "./RightBar";
+import "./styles/bars.scss";
+import AddCollectionButton from "./AddCollectionButton";
 
 interface ProtectedRouteProps {
     user?: User;
@@ -13,24 +15,25 @@ interface ProtectedRouteProps {
 const ProtectedRoute = (props: ProtectedRouteProps) => {
     const { user, redirectPath, children } = props;
     const [leftBarOpen, toggleLeftBarOpen] = useState(true);
+
     if (!user) {
         return <Navigate to={redirectPath} replace />;
     }
 
     return children ? (
-        <>children</>
+        <>{children}</>
     ) : (
-        <>
-            {/*Todo #change back for proper functioning*/}
+        <div className="app">
             <Navbar user={user} leftBarOpen={leftBarOpen} toggleLeftBarOpen={toggleLeftBarOpen} />
-            <div style={{ display: "flex", height: "calc(100vh - 64px" }}>
+            <div className="app-body">
                 <LeftBar leftBarOpen={leftBarOpen} />
                 <div className="mainDisplay">
                     <Outlet />
+                    <AddCollectionButton />
                 </div>
                 <RightBar />
             </div>
-        </>
+        </div>
     );
 };
 export default ProtectedRoute;
