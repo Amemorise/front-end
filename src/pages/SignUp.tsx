@@ -12,6 +12,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { User } from "../helpers/baseTypes";
 import { useNavigate } from "react-router-dom";
 import { setPageTitle } from "../helpers/helpers";
+import WebTitle from "../components/WebTitle";
 
 interface SignUpProps {
     setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
@@ -112,6 +113,7 @@ const SignUp = ({ setUser }: SignUpProps) => {
     return (
         <div className="login" onSubmit={handleSignUp}>
             <form className="content">
+                <WebTitle />
                 <TextField error={validate && !!validate.name} id="display-name" value={displayName} label="Display Name" type="text" className="inputField" onChange={(e) => setDisplayName(e.target.value)} />
                 {validate && validate.name ? <div className={`invalid-feedback`}> {validate.name[0] || ""}</div> : null}
                 <TextField error={validate && !!validate.email} id="email" value={email} label="Email" type={"email"} className="inputField" onChange={(e) => setEmail(e.target.value)} />

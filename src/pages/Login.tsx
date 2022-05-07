@@ -10,6 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
 import { User } from "../helpers/baseTypes";
 import { setPageTitle } from "../helpers/helpers";
+import WebTitle from "../components/WebTitle";
 
 interface LoginProps {
     setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
@@ -77,6 +78,7 @@ const Login = ({ setUser }: LoginProps) => {
     return (
         <div className="login">
             <form className="content" onSubmit={handleLogin}>
+                <WebTitle />
                 <TextField error={validate && !!validate.email} id="email" label="Email" type={"email"} className="inputField" onChange={(e) => setEmail(e.target.value)} />
                 {validate && validate.email ? <div className={`invalid-feedback`}> {validate.email[0] || ""}</div> : null}
                 <FormControl sx={{ margin: "1rem 0" }} variant="outlined">

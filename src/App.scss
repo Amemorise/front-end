@@ -1,7 +1,6 @@
-.App {
-    background-color: #1b3b6f;
+.display-padding {
+    padding: 1.5rem;
 }
-
 .bg-success {
     background-color: #198754 !important;
 }
@@ -108,4 +107,11 @@
 
 .d-flex {
     display: flex;
+}
+
+.invalid-feedback {
+    color: red;
+    text-align: left;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
 }

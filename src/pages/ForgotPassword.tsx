@@ -1,6 +1,7 @@
 import { TextField, Alert, Button, Snackbar } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
+import WebTitle from "../components/WebTitle";
 import { firebaseAuth, trimFirebaseErrors } from "../helpers/firebase";
 import { setPageTitle } from "../helpers/helpers";
 import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
@@ -51,8 +52,8 @@ const ForgotPassword = () => {
     return (
         <div className="login">
             <form className="content" onSubmit={handleSubmit}>
-                <p style={{ textAlign: "left" }}>Enter Email to reset Password</p>
-                <TextField error={validate && !!validate.email} id="email" label="Email" type={"email"} className="inputField" onChange={(e) => setEmail(e.target.value)} />
+                <WebTitle />
+                <TextField error={validate && !!validate.email} id="email" label="Enter Email to reset Password" type={"email"} className="inputField" onChange={(e) => setEmail(e.target.value)} />
                 {emailError || validate.email ? (
                     <Alert severity="error" variant="filled">
                         {emailError || validate.email}

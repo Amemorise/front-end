@@ -1,9 +1,8 @@
 import { Lock, Verified } from "@mui/icons-material";
 import Image from "../images/world-flag.jpg";
 import ProgressBar from "./ProgressBar";
-import { Rating } from "react-simple-star-rating";
 import { User } from "../helpers/baseTypes";
-import { Avatar } from "@mui/material";
+import { Avatar, Rating } from "@mui/material";
 import "./styles/card.scss";
 
 interface CollectionCardProps {
@@ -53,7 +52,7 @@ const CollectionCard = ({ title, isVerified, percentComplete, createdBy, isPriva
                                 <p className="text-muted m0"> {createdBy.displayName}</p>
                             </div>
                         ) : null}
-                        {ratingValue ? <Rating size={16} readonly initialValue={ratingValue} ratingValue={0} /> : null}
+                        {ratingValue ? <Rating size={"small"} readOnly value={5} /> : null}
                     </div>
                 </div>
                 <div className="row g-0">{percentComplete ? <ProgressBar percentComplete={percentComplete} /> : null}</div>

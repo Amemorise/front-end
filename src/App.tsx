@@ -14,6 +14,7 @@ import Collections from "./pages/Collections";
 import MyProfile from "./pages/MyProfile";
 import Users from "./pages/Users";
 import { TEST_USER } from "./helpers/constants";
+import CreateCollection from "./pages/CreateCollection";
 
 function App() {
     const [user, setUser] = useState<User | undefined>(undefined);
@@ -27,6 +28,7 @@ function App() {
                     <Route path="collections" element={<Collections />} />
                     <Route path="profile" element={<MyProfile />} />
                     <Route path="leaderboard" element={<LeaderBoards />} />
+                    <Route path="create" element={<CreateCollection />} />
                     <Route path="users" element={<Users />} />
                 </Route>
                 <Route path="login" element={<Login setUser={setUser} />} />

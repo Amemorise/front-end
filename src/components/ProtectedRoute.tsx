@@ -1,11 +1,12 @@
 import { User } from "../helpers/baseTypes";
 import React, { useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import LeftBar from "./LeftBar";
 import Navbar from "./Navbar";
 import { RightBar } from "./RightBar";
+import FABButton from "./FABButton";
+import { Add } from "@mui/icons-material";
 import "./styles/bars.scss";
-import AddCollectionButton from "./AddCollectionButton";
 
 interface ProtectedRouteProps {
     user?: User;
@@ -14,7 +15,9 @@ interface ProtectedRouteProps {
 }
 const ProtectedRoute = (props: ProtectedRouteProps) => {
     const { user, redirectPath, children } = props;
-    const [leftBarOpen, toggleLeftBarOpen] = useState(true);
+    const [leftBarOpen, toggleLeftBarOpen] = useState(false);
+    const location = useLocation();
+    const createScreen = location.pathname === "/create";
 
     if (!user) {
         return <Navigate to={redirectPath} replace />;
@@ -29,7 +32,7 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
                 <LeftBar leftBarOpen={leftBarOpen} />
                 <div className="mainDisplay">
                     <Outlet />
-                    <AddCollectionButton />
+                    {!createScreen ? <FABButton className={"add-button"} icon={<Add />} url="/create" title="Create Collection" /> : null}
                 </div>
                 <RightBar />
             </div>
