@@ -140,6 +140,7 @@
     .create-footer {
         position: sticky;
         bottom: 1rem;
+        z-index: 1050;
 
         justify-content: flex-end;
         display: flex;

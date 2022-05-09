@@ -4,7 +4,7 @@ import React from "react";
 const SummaryBanner = () => {
     return (
         <div className="summary-banner">
-            <h5>Summary</h5>
+            <h4>Summary</h4>
             <CircularProgress value={75} />
         </div>
     );

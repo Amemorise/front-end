@@ -61,7 +61,7 @@ export const completeSignIn = (userCredential: UserCredential | undefined, setUs
         });
     }
 
-    navigate("/home");
+    navigate("/");
 };
 
 export const signOut = (navigate: NavigateFunction) => {

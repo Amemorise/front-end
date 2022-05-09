@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import CollectionCard from "../components/CollectionCard";
 import SummaryBanner from "../components/SummaryBanner";
 import FABButton from "../components/FABButton";
-import { TEST_USER } from "../helpers/constants";
+import { DUMMY_USER } from "../helpers/constants";
 import { setPageTitle } from "../helpers/helpers";
 import "./styles/homepage.scss";
 import { ChevronRight } from "@mui/icons-material";
@@ -33,7 +33,7 @@ const Homepage = () => {
                     <div className="slider">
                         <div className={"slides"}>
                             <div className={"cards-list"}>
-                                <CollectionCard title={"Discover Card"} ratingValue={4} isVerified={true} createdBy={TEST_USER} />
+                                <CollectionCard title={"Discover Card"} ratingValue={4} isVerified={true} createdBy={DUMMY_USER} />
                                 <FABButton title="View More" url={"/collections"} icon={<ChevronRight />} />
                             </div>
                         </div>

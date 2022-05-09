@@ -1,17 +1,18 @@
+import { cloneDeep } from "lodash";
 import { Collection } from "./baseTypes";
 
+export const errorSchema = { collectionMetaData: { title: false, description: false }, cards: [{ photoURL: false, label: false }] };
+
 export const validateCollection = (collection: Collection) => {
-    const errors = { collectionMetaData: {}, cards: [""] };
+    const errors = cloneDeep(errorSchema);
+    errors.collectionMetaData.title = !collection.collectionMetaData.title;
+
+    errors.collectionMetaData.description = !collection.collectionMetaData.description;
     collection.cards.forEach((card, index) => {
-        let errorMessages = "";
-        if (!card.photoURL) {
-            errorMessages = "Image is required";
-        }
-        if (!card.label) {
-            errorMessages = "Label is required";
-        }
-        errors.cards[index] = errorMessages;
+        errors.cards[index] = { photoURL: !card.photoURL, label: !card.label };
     });
 
-    return errors;
+    errors.collectionMetaData.description = !collection.collectionMetaData.description;
+    const errorFound = JSON.stringify(errors).includes("true");
+    return { errors, errorFound };
 };

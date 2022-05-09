@@ -13,8 +13,9 @@ import Settings from "./pages/Settings";
 import Collections from "./pages/Collections";
 import MyProfile from "./pages/MyProfile";
 import Users from "./pages/Users";
-import { TEST_USER } from "./helpers/constants";
+import { DUMMY_USER } from "./helpers/constants";
 import CreateCollection from "./pages/CreateCollection";
+import ViewCollection from "./pages/ViewCollection";
 
 function App() {
     const [user, setUser] = useState<User | undefined>(undefined);
@@ -22,17 +23,20 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<ProtectedRoute user={user || TEST_USER} redirectPath={"login"} />}>
-                    <Route path="home" element={<Homepage />} />
+                <Route path="/" element={<ProtectedRoute user={user || DUMMY_USER} redirectPath={"login"} />}>
+                    <Route index element={<Homepage />} />
                     <Route path="Settings" element={<Settings />} />
-                    <Route path="collections" element={<Collections />} />
+                    <Route path="collections">
+                        <Route index element={<Collections />} />
+                        <Route path="create" element={<CreateCollection />} />
+                        <Route path=":id" element={<ViewCollection />} />
+                    </Route>
                     <Route path="profile" element={<MyProfile />} />
                     <Route path="leaderboard" element={<LeaderBoards />} />
-                    <Route path="create" element={<CreateCollection />} />
                     <Route path="users" element={<Users />} />
                 </Route>
                 <Route path="login" element={<Login setUser={setUser} />} />
-                <Route path="/" element={<LandingPage />} />
+                <Route path="/landingPage" element={<LandingPage />} />
                 <Route path="register" element={<SignUp setUser={setUser} />} />
                 <Route path="reset-password" element={<ForgotPassword />} />
             </Routes>

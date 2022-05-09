@@ -9,7 +9,7 @@ interface CreateCardProps {
     card: { label: string; hint: string; photoURL: string };
     updateCard: (newCard: Card, index: number) => void;
     deleteCard: (index: number) => void;
-    error: string;
+    error: { photoURL: boolean; label: boolean };
     index: number;
 }
 const CreateCard = (props: CreateCardProps) => {
@@ -43,18 +43,15 @@ const CreateCard = (props: CreateCardProps) => {
     };
     return (
         <div className="create-card-container">
-            <FormGroup className="form-fields">
+            <FormGroup className="form-fields" sx={{ flex: 1 }}>
                 <ImageUploading value={image} onChange={onChange} dataURLKey="dataURL">
-                    {({ imageList, onImageUpload, onImageRemove, isDragging, dragProps }) => (
-                        // write your building UI
-                        <div className={`upload__image-wrapper   ${!imageList.length ? " image-border" : ""}`}>
+                    {({ imageList, onImageUpload, onImageRemove, dragProps }) => (
+                        <div style={error.photoURL ? { borderColor: "red" } : undefined} className={`upload__image-wrapper ${!imageList.length ? " image-border" : ""}`}>
                             {imageList.length ? (
                                 imageList.map((image, index) => (
                                     <div key={index} className="image-item">
                                         <img src={image["dataURL"]} alt="" width="100" />
                                         <div className="image-item__btn-wrapper">
-                                            {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
-
                                             <IconButton
                                                 size="small"
                                                 sx={{ backgroundColor: "#f0f0f0" }}
@@ -76,20 +73,27 @@ const CreateCard = (props: CreateCardProps) => {
                                     </div>
                                 ))
                             ) : (
-                                <IconButton onClick={onImageUpload} {...dragProps} style={isDragging ? { color: "red" } : undefined}>
+                                <IconButton color={error.photoURL ? "error" : undefined} onClick={onImageUpload} {...dragProps} sx={{ width: "100%", height: "100%", borderRadius: 0 }}>
                                     <AddPhotoAlternate />
                                 </IconButton>
                             )}
                         </div>
                     )}
                 </ImageUploading>
-                <TextField required id="label" label="Label" defaultValue={label} onChange={(event) => onChangeCard(event.target as HTMLInputElement)} />
-                <TextField id="hint" label="Hint" defaultValue={hint} onChange={(event) => onChangeCard(event.target as HTMLInputElement)} />
-                {error ? <div className={`invalid-feedback`}>{error}</div> : null}
+                <TextField
+                    required
+                    error={error.label}
+                    helperText={error.label ? "Label is required" : error.photoURL ? "Image is required" : ""}
+                    id="label"
+                    label="Label"
+                    defaultValue={label}
+                    onChange={(event) => onChangeCard(event.target as HTMLInputElement)}
+                />
+                <TextField helperText={error.label || error.photoURL ? " " : ""} id="hint" label="Hint" defaultValue={hint} onChange={(event) => onChangeCard(event.target as HTMLInputElement)} />
             </FormGroup>
             <div className="card-ordering">
                 <span>
-                    <h6 className="m0">{index + 1}</h6>
+                    <h5 className="m0">{index + 1}</h5>
                 </span>
                 <span>
                     <IconButton size={"small"} onClick={() => deleteCard(index)}>

@@ -17,9 +17,13 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
     const { user, redirectPath, children } = props;
     const [leftBarOpen, toggleLeftBarOpen] = useState(false);
     const location = useLocation();
-    const createScreen = location.pathname === "/create";
+    console.log(location);
+    const createScreen = location.pathname === "/collections/create";
 
     if (!user) {
+        if (location.pathname === "/") {
+            return <Navigate to={"/landingPage"} replace />;
+        }
         return <Navigate to={redirectPath} replace />;
     }
 
@@ -32,7 +36,7 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
                 <LeftBar leftBarOpen={leftBarOpen} />
                 <div className="mainDisplay">
                     <Outlet />
-                    {!createScreen ? <FABButton className={"add-button"} icon={<Add />} url="/create" title="Create Collection" /> : null}
+                    {!createScreen ? <FABButton className={"add-button"} icon={<Add />} url="/collections/create" title="Create Collection" /> : null}
                 </div>
                 <RightBar />
             </div>

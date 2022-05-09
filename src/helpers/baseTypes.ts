@@ -26,7 +26,22 @@ export interface CollectionMetaData {
     tags: string[];
     private: boolean;
 }
+
+export interface PublishedCollectionMetaData extends CollectionMetaData {
+    verified: boolean;
+    createdBy: User;
+    creationDate: number;
+    rating: {
+        value: number;
+        raterCount: number;
+    };
+}
 export interface Collection {
     collectionMetaData: CollectionMetaData;
+    cards: Card[];
+}
+
+export interface PublishedCollection {
+    collectionMetaData: PublishedCollectionMetaData;
     cards: Card[];
 }

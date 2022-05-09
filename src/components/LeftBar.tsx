@@ -11,7 +11,7 @@ const LeftBar = ({ leftBarOpen }: LeftBarProps) => {
         <Slide direction="right" in={leftBarOpen} mountOnEnter unmountOnExit>
             <div className="leftBar">
                 <List sx={{ height: "100%" }}>
-                    <Link to="/home">
+                    <Link to="/">
                         <ListItem>
                             <ListItemIcon>
                                 <HomeOutlined fontSize="small" />

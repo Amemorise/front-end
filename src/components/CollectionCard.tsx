@@ -4,6 +4,7 @@ import ProgressBar from "./ProgressBar";
 import { User } from "../helpers/baseTypes";
 import { Avatar, Rating } from "@mui/material";
 import "./styles/card.scss";
+import { convertToDateString } from "../helpers/helpers";
 
 interface CollectionCardProps {
     title: string;
@@ -17,7 +18,7 @@ interface CollectionCardProps {
     coverImage?: string;
 }
 const CollectionCard = ({ title, isVerified, percentComplete, createdBy, isPrivate, lastAccessedDate, ratingValue }: CollectionCardProps) => {
-    const dateAccessed = lastAccessedDate ? new Date(lastAccessedDate * 1000).toDateString() : undefined;
+    const dateAccessed = lastAccessedDate ? convertToDateString(lastAccessedDate) : undefined;
     return (
         <div>
             <div className="card">
