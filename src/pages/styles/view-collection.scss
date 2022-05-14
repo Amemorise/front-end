@@ -1,0 +1,108 @@
+.view-collection {
+    .collection-metadata {
+        flex-direction: column;
+
+        .MuiDivider-root {
+            margin-bottom: 1rem;
+        }
+        .social-media-component {
+            button {
+                transition: 0.5s;
+                &:hover {
+                    transform: scale(1.2);
+                }
+                &:not(:last-child) {
+                    margin-right: 5px;
+                }
+            }
+        }
+        .collection-description {
+            margin: 0 auto 1rem;
+        }
+        .collection-tags {
+            margin: auto;
+
+            > div {
+                margin: 0 0.3rem;
+            }
+        }
+    }
+
+    .start-button {
+        position: sticky;
+        bottom: 2rem;
+        display: flex;
+        button {
+            margin: auto;
+            transition: 0.5s;
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+}
+
+.flashcard-container-outer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .flashcard-container-inner {
+        display: flex;
+        max-width: 40rem;
+        flex-direction: column;
+        border-radius: 25px;
+        box-shadow: 0 0 20px 8px #d0d0d0;
+        overflow: hidden;
+        .flashcard-image-container {
+            position: relative;
+            .flashcard-image {
+                width: calc(100% - 4rem);
+                padding: 2rem;
+
+                -webkit-transition: all 0.5s;
+                transition: all 0.5s;
+                -webkit-transform: rotateY(0);
+                transform: rotateY(0);
+                &.active {
+                    -webkit-transform: rotateY(180deg);
+                    transform: rotateY(180deg);
+                }
+            }
+
+            .flashcard-label {
+                -webkit-transition: all 0.5s;
+                position: absolute;
+                transition: all 0.5s;
+                top: 0;
+                width: 100%;
+                text-align: center;
+                height: 100%;
+                align-items: center;
+                justify-content: center;
+                font-size: 30px;
+                -webkit-transform: rotateY(90deg);
+                transform: rotateY(90deg);
+                &.active {
+                    display: flex;
+                    -webkit-transform: rotateY(0);
+                    transform: rotateY(0);
+                }
+            }
+        }
+        .flashcard-input-container {
+            display: flex;
+            border-top: 0.5px solid #c4c4c4;
+            form {
+                flex: 1;
+                display: flex;
+            }
+            .flashcard-input {
+                flex: 1;
+                outline: none;
+                border: none;
+                margin-left: 2rem;
+            }
+        }
+    }
+}

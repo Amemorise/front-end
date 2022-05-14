@@ -6,7 +6,7 @@ import { Card } from "../helpers/baseTypes";
 import "./styles/card.scss";
 
 interface CreateCardProps {
-    card: { label: string; hint: string; photoURL: string };
+    card: Card;
     updateCard: (newCard: Card, index: number) => void;
     deleteCard: (index: number) => void;
     error: { photoURL: boolean; label: boolean };

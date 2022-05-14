@@ -13,7 +13,6 @@ const Homepage = () => {
     return (
         <div>
             <SummaryBanner />
-
             <div className="homepage-content">
                 <div className={"homepage-cards"}>
                     Recent

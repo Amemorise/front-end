@@ -4,7 +4,7 @@ import { styled, alpha } from "@mui/material/styles";
 import { Search as SearchIcon, Menu as MenuIcon } from "@mui/icons-material";
 import { User } from "../helpers/baseTypes";
 import { signOut } from "../helpers/firebase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -97,9 +97,11 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                     <IconButton onClick={() => toggleLeftBarOpen(!leftBarOpen)} size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{ fontFamily: "Pacifico", display: { xs: "none", sm: "block" } }}>
-                        Amemorise
-                    </Typography>
+                    <Link to="/">
+                        <Typography variant="h6" noWrap component="div" sx={{ color: "white", textDecoration: "none", fontFamily: "Pacifico", display: { xs: "none", sm: "block" } }}>
+                            Amemorise
+                        </Typography>
+                    </Link>
                     <Box sx={{ flexGrow: 1 }} />
                     <Search>
                         <SearchIconWrapper>

@@ -13,18 +13,21 @@ export interface ProfileInterface {
 export interface Card {
     photoURL: string;
     hint: string;
-    index?: number;
     label: string;
     subCategory?: {
         [key: string]: string;
     };
+    id: number;
 }
+
+export interface PublishedCard extends Card {}
 
 export interface CollectionMetaData {
     title: string;
     description: string;
     tags: string[];
     private: boolean;
+    prompt: string;
 }
 
 export interface PublishedCollectionMetaData extends CollectionMetaData {
@@ -43,5 +46,8 @@ export interface Collection {
 
 export interface PublishedCollection {
     collectionMetaData: PublishedCollectionMetaData;
-    cards: Card[];
+    cards: PublishedCard[];
+}
+export interface LocationState {
+    collection: PublishedCollection;
 }

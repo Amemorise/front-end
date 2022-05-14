@@ -17,8 +17,7 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
     const { user, redirectPath, children } = props;
     const [leftBarOpen, toggleLeftBarOpen] = useState(false);
     const location = useLocation();
-    console.log(location);
-    const createScreen = location.pathname === "/collections/create";
+    const createScreen = location.pathname.includes("/collections/");
 
     if (!user) {
         if (location.pathname === "/") {

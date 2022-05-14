@@ -1,25 +1,36 @@
 import { Add, Save } from "@mui/icons-material";
-import { FormGroup, FormControlLabel, Switch, TextField, Button } from "@mui/material";
+import { FormGroup, FormControlLabel, Switch, TextField, Button, Tooltip } from "@mui/material";
 import { cloneDeep } from "lodash";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateCard from "../components/CreateCard";
 import Dropdown from "../components/Dropdown";
 import FABButton from "../components/FABButton";
-import { Card, CollectionMetaData } from "../helpers/baseTypes";
+import { Card, CollectionMetaData, PublishedCollection, User } from "../helpers/baseTypes";
 import { DEFAULT_NEW_CARDS } from "../helpers/constants";
 import { setPageTitle } from "../helpers/helpers";
 import { errorSchema, validateCollection } from "../helpers/validateCollection";
 
-const CreateCollection = () => {
+const CreateCollection = ({ user }: { user: User }) => {
     useEffect(() => setPageTitle("Create Collection"), []);
+    const navigate = useNavigate();
 
     const newCard: Card = {
         label: "",
         hint: "",
         photoURL: "",
+        id: 0,
     };
 
-    const [cards, setCards] = useState(new Array(DEFAULT_NEW_CARDS).fill(newCard));
+    const defaultCards = [];
+
+    for (let i = 0; i < DEFAULT_NEW_CARDS; i++) {
+        defaultCards.push({
+            ...newCard,
+            id: i,
+        });
+    }
+    const [cards, setCards] = useState([...defaultCards]);
 
     const updateCard = (newCard: Card, index: number) => {
         const newCards = [...cards];
@@ -37,7 +48,7 @@ const CreateCollection = () => {
         }
     };
 
-    const [collectionMetaData, setCollectionMetaData] = useState<CollectionMetaData>({ title: "", description: "", tags: [], private: false });
+    const [collectionMetaData, setCollectionMetaData] = useState<CollectionMetaData>({ title: "", description: "", tags: [], private: false, prompt: "What is this card?" });
 
     const onChange = (target: HTMLInputElement) => {
         setCollectionMetaData({
@@ -63,7 +74,21 @@ const CreateCollection = () => {
         let tempErrors = validateCollection({ collectionMetaData, cards });
         setErrors({ ...tempErrors.errors });
         if (!tempErrors.errorFound) {
-            console.log("create Collection");
+            const tempPublishedCollection: PublishedCollection = {
+                collectionMetaData: {
+                    ...collectionMetaData,
+                    verified: false,
+                    creationDate: Date.now(),
+                    rating: {
+                        value: 0,
+                        raterCount: 0,
+                    },
+                    createdBy: user,
+                },
+                cards,
+            };
+            const id = 6457;
+            navigate(`/collections/${id}`, { state: { collection: tempPublishedCollection } });
         }
     };
     return (
@@ -99,6 +124,19 @@ const CreateCollection = () => {
                             />
                             <Dropdown values={values} selectedValues={collectionMetaData.tags || []} setSelectedValues={setTags} />
                         </span>
+
+                        <TextField
+                            error={errors.collectionMetaData.prompt}
+                            helperText={errors.collectionMetaData.prompt ? "A prompt is required" : ""}
+                            onChange={(event) => onChange(event.target as HTMLInputElement)}
+                            required
+                            sx={{ margin: "0.5rem 0 1rem " }}
+                            value={collectionMetaData.prompt}
+                            size={"small"}
+                            id="prompt"
+                            label="Collection Prompt"
+                        />
+
                         <FormControlLabel control={<Switch checked={collectionMetaData.private} id={"private"} onChange={(event) => onChange(event.target as HTMLInputElement)} />} label="Private" />
                     </FormGroup>
                 </div>
@@ -111,7 +149,7 @@ const CreateCollection = () => {
                     title="Add Card"
                     icon={<Add />}
                     onClick={() => {
-                        setCards([...cards, cloneDeep(newCard)]);
+                        setCards([...cards, { ...newCard, id: cards.length }]);
                         setErrors({
                             ...errors,
                             cards: [...errors.cards, cloneDeep(errorSchema.cards[0])],
@@ -120,9 +158,11 @@ const CreateCollection = () => {
                 />
             </div>
             <div className="create-footer">
-                <Button disabled={!cards.length} variant="contained" endIcon={<Save />} onClick={createCollection}>
-                    Create Collection
-                </Button>
+                <Tooltip title={cards.length < 3 ? "Collection should have at least 3 cards" : ""}>
+                    <Button disabled={cards.length < 3} variant="contained" endIcon={<Save />} onClick={createCollection}>
+                        Create Collection
+                    </Button>
+                </Tooltip>
             </div>
         </div>
     );

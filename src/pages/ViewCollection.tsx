@@ -1,52 +1,60 @@
-import { useParams } from "react-router-dom";
 import { DUMMY_COLLECTION } from "../helpers/constants";
-import { Lock, PlayArrowOutlined, Verified } from "@mui/icons-material";
-import { Avatar, Button, Chip, Rating } from "@mui/material";
-import { convertToDateString } from "../helpers/helpers";
+import { Start } from "@mui/icons-material";
+import { Button, Chip, Divider } from "@mui/material";
+import SocialMediaShare from "../components/SocialMediaShare";
+import "./styles/view-collection.scss";
+import CoverImages from "../components/CoverImages";
+import { useState } from "react";
+import CardViews from "../components/CardViews";
+import _ from "lodash";
+import CollectionHeader from "../components/CollectionHeader";
+import { useLocation } from "react-router-dom";
+import { LocationState, PublishedCollection } from "../helpers/baseTypes";
 
 const ViewCollection = () => {
-    const { id } = useParams();
-    console.log(id);
-    const collection = DUMMY_COLLECTION;
+    const [learningMode, setLearningMode] = useState(false);
+
+    const commonSharedConfig = {
+        url: window.location.href,
+    };
+    const collection: PublishedCollection = (useLocation().state as LocationState)?.collection || DUMMY_COLLECTION;
 
     const { collectionMetaData, cards } = collection;
-    const { title, verified, createdBy, creationDate, description, tags, rating } = collectionMetaData;
+    const { description, tags, prompt } = collectionMetaData;
+    const coverImages = cards.map((card) => card.photoURL);
+
     return (
         <div className="view-collection display-padding">
-            <div className="collection-metadata d-flex" style={{ flexDirection: "column" }}>
-                <h2>
-                    {title}
-                    {"  "}
-                    {collectionMetaData.private ? <Lock fontSize={"small"} /> : null}
-                    {"  "}
-                    {verified ? <Verified color={"primary"} fontSize={"small"} /> : null}
-                </h2>
-                {description}
-                <Button sx={{ margin: "1rem 0" }} variant="outlined" color="success" endIcon={<PlayArrowOutlined />}>
-                    Start
-                </Button>
-                <span className="d-flex text-muted">
-                    <Avatar alt={createdBy.displayName} sx={{ width: "24px", height: "24px" }} sizes={"small"} src={createdBy.photoURL}>
-                        {createdBy.displayName}
-                    </Avatar>
-                    <p> by {createdBy.displayName}</p>
-                    <small> {convertToDateString(creationDate)}</small>
-                </span>
+            {learningMode ? (
+                <CardViews cards={_.shuffle(cards)} prompt={prompt} collectionMetaData={collectionMetaData} />
+            ) : (
+                <>
+                    <div className="collection-metadata d-flex">
+                        <CollectionHeader collectionMetaData={collectionMetaData} />
+                        <Divider>
+                            <SocialMediaShare {...commonSharedConfig} />
+                        </Divider>
 
-                <span className="collection-tags">
-                    {tags.map((tag) => {
-                        return <Chip key={tag} label={tag} variant="outlined" />;
-                    })}
-                </span>
-                {collectionMetaData.private ? null : (
-                    <span>
-                        <Rating value={rating.value} size={"small"} />
-                        <small>{rating.raterCount} ratings</small>
-                    </span>
-                )}
-                <p>{cards.length} cards</p>
-                <p></p>
-            </div>
+                        <CoverImages images={coverImages} />
+
+                        <p className="collection-description">{description}</p>
+
+                        {/* <Button sx={{ margin: "1rem 0" }} variant="outlined" color="success" endIcon={<PlayArrowOutlined />}>
+                    Start
+                </Button> */}
+                        <span className="collection-tags">
+                            {tags.map((tag) => {
+                                return <Chip key={tag} label={tag} variant="outlined" />;
+                            })}
+                        </span>
+                    </div>
+                    <div className="start-button">
+                        <Button onClick={() => setLearningMode(!learningMode)} variant="contained" sx={{ borderRadius: "20px" }} color={"success"} endIcon={<Start />}>
+                            Start
+                        </Button>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
