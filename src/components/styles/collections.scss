@@ -3,13 +3,9 @@
     --curve: 40;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 .collection-list-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
     gap: 2rem;
     margin: 4rem 5vw;
     padding: 0;
@@ -50,8 +46,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    gap: 2em;
-    padding: 2em;
+    gap: 1rem;
+    padding: 1rem;
     border-radius: calc(var(--curve) * 1px) 0 0 0;
     background-color: var(--surface-color);
     transform: translateY(-100%);

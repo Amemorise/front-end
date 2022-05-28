@@ -47,9 +47,8 @@ const CollectionCard = ({ title, isVerified, percentComplete, createdBy, isPriva
                     <div className={"card-summary"}>
                         {createdBy ? (
                             <div className={"d-flex"}>
-                                <Avatar alt={createdBy.displayName} src={createdBy.photoURL} sx={{ width: 20, height: 20 }}>
-                                    {createdBy.displayName}
-                                </Avatar>
+                                <Avatar alt={createdBy.displayName} src={createdBy.photoURL} sx={{ width: 20, height: 20 }} />
+
                                 <p className="text-muted m0"> {createdBy.displayName}</p>
                             </div>
                         ) : null}

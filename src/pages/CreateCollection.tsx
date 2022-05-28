@@ -78,6 +78,7 @@ const CreateCollection = ({ user }: { user: User }) => {
                 collectionMetaData: {
                     ...collectionMetaData,
                     verified: false,
+                    id: 46783,
                     creationDate: Date.now(),
                     rating: {
                         value: 0,

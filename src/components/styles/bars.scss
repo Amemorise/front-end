@@ -1,6 +1,6 @@
 .leftBar {
     border-right: 1px solid #d2d7d8;
-
+    display: none;
     ul {
         box-sizing: border-box;
         height: unset;
@@ -41,6 +41,7 @@
     position: fixed;
     bottom: 15px;
     right: 5%;
+    z-index: 10;
 
     button {
         transition: 0.5s;
@@ -66,6 +67,7 @@
     .leftBar {
         background: #1b3b6f;
         color: white;
+        display: block;
         ul {
             a {
                 li {

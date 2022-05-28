@@ -20,8 +20,6 @@ export interface Card {
     id: number;
 }
 
-export interface PublishedCard extends Card {}
-
 export interface CollectionMetaData {
     title: string;
     description: string;
@@ -33,6 +31,7 @@ export interface CollectionMetaData {
 export interface PublishedCollectionMetaData extends CollectionMetaData {
     verified: boolean;
     createdBy: User;
+    id: number;
     creationDate: number;
     rating: {
         value: number;
@@ -46,7 +45,7 @@ export interface Collection {
 
 export interface PublishedCollection {
     collectionMetaData: PublishedCollectionMetaData;
-    cards: PublishedCard[];
+    cards: Card[];
 }
 export interface LocationState {
     collection: PublishedCollection;

@@ -17,6 +17,7 @@ import { DUMMY_USER } from "./helpers/constants";
 import CreateCollection from "./pages/CreateCollection";
 import ViewCollection from "./pages/ViewCollection";
 import ReviewCollection from "./pages/ReviewCollection";
+import CardLearnSession from "./pages/CardLearnSession";
 
 function App() {
     const [user, setUser] = useState<User | undefined>(undefined);
@@ -33,6 +34,8 @@ function App() {
                         <Route path=":id">
                             <Route index element={<ViewCollection />} />
                             <Route path="review" element={<ReviewCollection />} />
+                            <Route path="start" element={<CardLearnSession />} />
+                            CardLearnSession
                         </Route>
                     </Route>
                     <Route path="profile" element={<MyProfile />} />

@@ -2,34 +2,38 @@ import { Send } from "@mui/icons-material";
 import { Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PublishedCard, Card, PublishedCollectionMetaData } from "../helpers/baseTypes";
+import { Card, PublishedCollection } from "../helpers/baseTypes";
+import { DUMMY_COLLECTION } from "../helpers/constants";
 import { ReviewState } from "../pages/ReviewCollection";
 
-const CardViews = ({ cards, prompt, collectionMetaData }: { collectionMetaData: PublishedCollectionMetaData; cards: PublishedCard[]; prompt: string }) => {
+const CardViews = ({ cards, collectionMetaData }: PublishedCollection) => {
     const navigate = useNavigate();
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const cardList = cards.length ? cards : DUMMY_COLLECTION.cards;
     const [userAnswer, setUserAnswer] = useState("");
-    const { photoURL, hint, label } = cards[currentQuestion];
+    const { photoURL, hint, label } = cardList[currentQuestion];
     const [isCorrect, setIsCorrect] = useState(false);
     const [flipCard, setFlipCard] = useState(false);
 
-    const [results, setResults] = useState<{ card: Card; isCorrect: boolean }[]>([]);
+    const [results, setResults] = useState<{ card: Card; isCorrect: boolean; userResponse: string }[]>([]);
 
-    const onSubmitAnswer = () => {
+    const onSubmitAnswer = (event: any) => {
+        event.preventDefault();
         const answerCorrect = label.toLocaleLowerCase() === userAnswer.toLocaleLowerCase();
         setIsCorrect(answerCorrect);
         setFlipCard(true);
         const tempResults = [...results];
         tempResults.push({
-            card: cards[currentQuestion],
+            card: cardList[currentQuestion],
             isCorrect: answerCorrect,
+            userResponse: userAnswer,
         });
         setResults(tempResults);
     };
 
     const onNextClick = () => {
-        if (currentQuestion >= cards.length - 1) {
-            navigate("review", {
+        if (currentQuestion >= cardList.length - 1) {
+            navigate(`/collections/${collectionMetaData.id}/review`, {
                 state: {
                     collectionMetaData,
                     review: results,
@@ -44,8 +48,8 @@ const CardViews = ({ cards, prompt, collectionMetaData }: { collectionMetaData: 
     };
 
     return (
-        <div className="flashcard-container-outer">
-            <h2>{prompt}</h2>
+        <div className="flashcard-container-outer display-padding">
+            <h2>{collectionMetaData.prompt}</h2>
             <div className="flashcard-container-inner">
                 <div className="flashcard-image-container">
                     <img className={`flashcard-image ${flipCard ? "active" : ""}`} src={photoURL} alt={hint} />
@@ -57,12 +61,12 @@ const CardViews = ({ cards, prompt, collectionMetaData }: { collectionMetaData: 
                 <div className="flashcard-input-container">
                     {flipCard ? (
                         <>
-                            <Button variant="contained" sx={{ width: "100%", padding: "1rem" }} onClick={onNextClick}>
+                            <Button onClick={onNextClick} variant="contained" sx={{ width: "100%", padding: "1rem" }}>
                                 Next
                             </Button>
                         </>
                     ) : (
-                        <form onSubmit={onSubmitAnswer}>
+                        <form id="User-input" onSubmit={onSubmitAnswer}>
                             <input
                                 className="flashcard-input"
                                 value={userAnswer}

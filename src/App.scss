@@ -117,10 +117,15 @@
 }
 
 .incorrect {
-    color: red;
+    color: red !important;
     background-color: pink;
 }
 .correct {
     background-color: lightgreen;
-    color: green;
+    color: green !important;
+}
+
+.warning {
+    color: #ffc107 !important;
+    background-color: rgb(255, 255, 150);
 }

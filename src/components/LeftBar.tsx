@@ -16,7 +16,6 @@ const LeftBar = ({ leftBarOpen }: LeftBarProps) => {
                             <ListItemIcon>
                                 <HomeOutlined fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText>Home</ListItemText>
                         </ListItem>
                     </Link>
                     <Link to="/collections">
@@ -24,7 +23,6 @@ const LeftBar = ({ leftBarOpen }: LeftBarProps) => {
                             <ListItemIcon>
                                 <CollectionsBookmarkOutlined fontSize="small" />
                             </ListItemIcon>
-                            <ListItemText>Collections</ListItemText>
                         </ListItem>
                     </Link>
                     {/* <Link to="/leaderboard">

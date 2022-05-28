@@ -2,9 +2,6 @@
     .collection-metadata {
         flex-direction: column;
 
-        .MuiDivider-root {
-            margin-bottom: 1rem;
-        }
         .social-media-component {
             button {
                 transition: 0.5s;
@@ -57,9 +54,9 @@
         .flashcard-image-container {
             position: relative;
             .flashcard-image {
-                width: calc(100% - 4rem);
+                width: 100%;
                 padding: 2rem;
-
+                box-sizing: border-box;
                 -webkit-transition: all 0.5s;
                 transition: all 0.5s;
                 -webkit-transform: rotateY(0);

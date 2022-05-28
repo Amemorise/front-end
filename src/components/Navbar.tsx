@@ -1,7 +1,8 @@
-import { AppBar, Box, IconButton, Toolbar, Typography, InputBase, Menu, MenuItem, Avatar, Divider } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, Typography, InputBase, Menu, MenuItem, Avatar, Divider, Button } from "@mui/material";
 import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Search as SearchIcon, Menu as MenuIcon } from "@mui/icons-material";
+import Logo from "../images/logo/white.png";
 import { User } from "../helpers/baseTypes";
 import { signOut } from "../helpers/firebase";
 import { Link, useNavigate } from "react-router-dom";
@@ -83,25 +84,72 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+            {/* <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
             <MenuItem onClick={() => navigate("/settings")}>Settings</MenuItem>
-            <Divider />
+            <Divider /> */}
             <MenuItem onClick={() => signOut(navigate)}>Log Out</MenuItem>
         </Menu>
     );
 
+    // const [dropDownAnchor, setDropDownAnchor] = React.useState<null | HTMLElement>(null);
+
+    // const isDropDownOpen = Boolean(dropDownAnchor);
+
+    // const dropdownId = "dropdown-menu";
+
+    // const handleDropDownToggled=(event: React.MouseEvent<HTMLElement>) => {
+    //     setDropDownAnchor(event.currentTarget);
+    // };
+    // const handleDropdownClose = ()=>{
+    //     setDropDownAnchor(null);
+
+    // }
+    // const renderCollectionsMenu = (
+    //     <Menu
+    //         anchorEl={dropDownAnchor}
+    //         anchorOrigin={{
+    //             vertical: "top",
+    //             horizontal: "right",
+    //         }}
+    //         id={dropdownId}
+    //         keepMounted
+    //         transformOrigin={{
+    //             vertical: "top",
+    //             horizontal: "right",
+    //         }}
+    //         open={isDropDownOpen}
+    //         onClose={handleDropdownClose}
+    //     >
+    //         <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+    //         <MenuItem onClick={() => navigate("/settings")}>Settings</MenuItem>
+    //         <Divider />
+    //         <MenuItem onClick={() => signOut(navigate)}>Log Out</MenuItem>
+    //     </Menu>
+    // );
+
     return (
         <Box sx={{ flexGrow: 1, position: "sticky", top: 0, zIndex: 1000 }}>
             <AppBar position="static" sx={{ backgroundColor: "#1b3b6f", alignItems: "center" }}>
-                <Toolbar sx={{ maxWidth: "2000px", width: "100%", boxSizing: "border-box" }}>
-                    <IconButton onClick={() => toggleLeftBarOpen(!leftBarOpen)} size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2 }}>
+                <Toolbar sx={{ maxWidth: "2000px", width: "100%", boxSizing: "border-box", minHeight: "unset!important", height: "48px!important" }}>
+                    <IconButton onClick={() => toggleLeftBarOpen(!leftBarOpen)} size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2, display: { xs: "block", sm: "none" } }}>
                         <MenuIcon />
                     </IconButton>
-                    <Link to="/">
-                        <Typography variant="h6" noWrap component="div" sx={{ color: "white", textDecoration: "none", fontFamily: "Pacifico", display: { xs: "none", sm: "block" } }}>
-                            Amemorise
-                        </Typography>
-                    </Link>
+                    <Box sx={{ height: "100%", flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                        <Link style={{ height: "100%" }} to="/">
+                            <img style={{ boxSizing: "border-box", maxHeight: "100%", width: "auto", padding: "0.75rem" }} src={Logo} alt="Amemorise Logo" />
+                        </Link>
+                        <Button>
+                            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+                                Home
+                            </Link>
+                        </Button>
+                        <Button>
+                            {/* aria-controls={dropdownId} aria-haspopup="true" onClick={handleDropDownToggled}> */}
+                            <Link to="/collections" style={{ color: "white", textDecoration: "none" }}>
+                                Collections
+                            </Link>
+                        </Button>
+                    </Box>
                     <Box sx={{ flexGrow: 1 }} />
                     <Search>
                         <SearchIconWrapper>
@@ -118,6 +166,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                 </Toolbar>
             </AppBar>
             {renderMenu}
+            {/* {renderCollectionsMenu} */}
         </Box>
     );
 };
