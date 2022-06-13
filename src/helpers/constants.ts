@@ -1,6 +1,6 @@
 import { PublishedCollection, User } from "./baseTypes";
 
-export const MOBILE_BREAKPOINT = 720;
+export const MOBILE_BREAKPOINT = 600;
 export const DEFAULT_NEW_CARDS = 3;
 export const DUMMY_USER: User = { displayName: "Kofi Twum-Ampofo", email: "peterperfect96@gmail.com", emailVerified: true, photoURL: "https://lh3.googleusercontent.com/a-/AOh14GhVrrHKLdSo9ieDv4xhjPyvoKXYnTMguODKYuE0og=s96-c" };
 export const DUMMY_COLLECTION: PublishedCollection = {

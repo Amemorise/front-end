@@ -1,5 +1,5 @@
 import { CollectionsBookmarkOutlined, HomeOutlined } from "@mui/icons-material";
-import { List, ListItem, ListItemIcon, ListItemText, Slide } from "@mui/material";
+import { List, ListItem, ListItemIcon, Slide } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./styles/bars.scss";
 

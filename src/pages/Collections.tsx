@@ -1,12 +1,15 @@
 import React from "react";
-import CollectionsDisplay from "../components/CollectionsDisplay";
+import RecentCollections from "../components/RecentCollections";
 import { setPageTitle } from "../helpers/helpers";
+import "./styles/review-collection.scss";
 
 const Collections = () => {
     React.useEffect(() => setPageTitle("Collections"), []);
     return (
-        <div>
-            <CollectionsDisplay />
+        <div className="display-padding">
+            <RecentCollections />
+            <RecentCollections />
+            <RecentCollections />
         </div>
     );
 };

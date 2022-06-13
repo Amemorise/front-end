@@ -1,4 +1,3 @@
-import "./styles/review-collection.scss";
 import CollectionHeader from "../components/CollectionHeader";
 import { useLocation } from "react-router-dom";
 import { Card, PublishedCollectionMetaData } from "../helpers/baseTypes";
@@ -8,6 +7,7 @@ import { renderProgress } from "../components/GridProgressBar";
 import { Divider } from "@mui/material";
 import StartQuizButton from "../components/StartQuizButton";
 import CollectionSummary from "../components/CollectionSummary";
+import "./styles/review-collection.scss";
 
 export interface ReviewState {
     review: { card: Card; isCorrect: boolean; userResponse: string }[];

@@ -11,7 +11,7 @@ interface FABButtonProps {
 const FABButton = ({ url, title, icon, className, onClick }: FABButtonProps) => {
     const button = (
         <Tooltip title={title}>
-            <Fab color={"primary"} aria-label={title} onClick={onClick}>
+            <Fab sx={{ zIndex: 999 }} color={"primary"} aria-label={title} onClick={onClick}>
                 {icon}
             </Fab>
         </Tooltip>

@@ -1,11 +1,42 @@
-import { CircularProgress } from "@mui/material";
-import React from "react";
+import { Avatar, Paper } from "@mui/material";
 
 const SummaryBanner = () => {
+    const summary = [
+        {
+            title: "Collections Created",
+            count: 3,
+        },
+        {
+            title: "Learning Collections",
+            count: 2,
+        },
+        {
+            title: "Total Completion Rate",
+            count: "0%",
+        },
+    ];
     return (
-        <div className="summary-banner">
-            <h4>Summary</h4>
-            <CircularProgress value={75} />
+        <Paper className="summary-banner" variant="outlined" sx={{ borderRadius: "1rem" }}>
+            <div className="display-padding banner-container">
+                <Avatar sx={{ height: 100, width: 100 }} />
+                <div className="summaries-wrapper">
+                    <h5>Summary</h5>
+                    <div className="summaries">
+                        {summary.map((card) => {
+                            return <SummaryCards {...card} />;
+                        })}
+                    </div>
+                </div>
+            </div>
+        </Paper>
+    );
+};
+
+const SummaryCards = (props: { title: string; count: number | string }) => {
+    return (
+        <div key={props.title} className="summary-tile">
+            <h2>{props.count}</h2>
+            <h6>{props.title}</h6>
         </div>
     );
 };

@@ -50,6 +50,7 @@ export const trimFirebaseErrors = (str: string) => {
 };
 
 export const completeSignIn = (userCredential: UserCredential | undefined, setUser: React.Dispatch<User | undefined>, navigate: NavigateFunction) => {
+    console.log(userCredential);
     if (userCredential) {
         const { displayName, email, photoURL, emailVerified } = userCredential.user;
 

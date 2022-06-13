@@ -1,9 +1,8 @@
 import { User } from "../helpers/baseTypes";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import LeftBar from "./LeftBar";
 import Navbar from "./Navbar";
-import { RightBar } from "./RightBar";
 import FABButton from "./FABButton";
 import { Add } from "@mui/icons-material";
 import "./styles/bars.scss";
@@ -37,7 +36,6 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
                     <Outlet />
                     {!createScreen ? <FABButton className={"add-button"} icon={<Add />} url="/collections/create" title="Create Collection" /> : null}
                 </div>
-                <RightBar />
             </div>
         </div>
     );

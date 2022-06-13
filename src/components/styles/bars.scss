@@ -50,20 +50,8 @@
         }
     }
 }
-.rightBar {
-    border-left: 1px solid #d2d7d8;
-    width: 30%;
-    padding: 1rem;
-    max-width: 360px;
-    box-sizing: border-box;
-    .friends {
-        a {
-            text-decoration: none;
-        }
-    }
-}
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 600px) {
     .leftBar {
         background: #1b3b6f;
         color: white;

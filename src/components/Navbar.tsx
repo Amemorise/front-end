@@ -1,4 +1,4 @@
-import { AppBar, Box, IconButton, Toolbar, Typography, InputBase, Menu, MenuItem, Avatar, Divider, Button } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, InputBase, Menu, MenuItem, Avatar, Button } from "@mui/material";
 import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Search as SearchIcon, Menu as MenuIcon } from "@mui/icons-material";
@@ -131,7 +131,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
         <Box sx={{ flexGrow: 1, position: "sticky", top: 0, zIndex: 1000 }}>
             <AppBar position="static" sx={{ backgroundColor: "#1b3b6f", alignItems: "center" }}>
                 <Toolbar sx={{ maxWidth: "2000px", width: "100%", boxSizing: "border-box", minHeight: "unset!important", height: "48px!important" }}>
-                    <IconButton onClick={() => toggleLeftBarOpen(!leftBarOpen)} size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2, display: { xs: "block", sm: "none" } }}>
+                    <IconButton onClick={() => toggleLeftBarOpen(!leftBarOpen)} size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2, display: { sm: "block", md: "none" } }}>
                         <MenuIcon />
                     </IconButton>
                     <Box sx={{ height: "100%", flexGrow: 1, display: { xs: "none", md: "flex" } }}>
@@ -160,7 +160,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: "flex" }}>
                         <IconButton size="small" edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} color="inherit">
-                            <Avatar alt={user.displayName} src={user.photoURL} />
+                            <Avatar alt={user.displayName} src={user.photoURL} sx={{ height: "35px", width: "35px" }} />
                         </IconButton>
                     </Box>
                 </Toolbar>
