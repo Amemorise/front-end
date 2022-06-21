@@ -1,6 +1,7 @@
 import { ChevronRight } from "@mui/icons-material";
 import { Skeleton } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { Categories } from "../helpers/Categories";
 import FABButton from "./FABButton";
 
 interface FeaturedCategoriesType {
@@ -30,6 +31,7 @@ const FeaturedCategories = () => {
             image: "https://weliveentertainment.com/wp-content/uploads/2020/03/theaters.jpg",
         },
     ];
+    const categories = Categories.slice(0, 3);
     return (
         <div>
             <h4>Featured Categories</h4>
@@ -37,14 +39,14 @@ const FeaturedCategories = () => {
                 <div className="featured-category">
                     {featured.length ? (
                         <>
-                            {featured.map((feat) => {
-                                const { image, title, count } = feat;
+                            {categories.map((feat) => {
+                                const { image, name } = feat;
                                 return (
-                                    <div className="featured-item" key={title}>
-                                        <img src={image} alt={title} className="featured-image" />
+                                    <div className="featured-item" key={name}>
+                                        <img src={image} alt={name} className="featured-image" />
                                         <div className="featured-label">
-                                            <h2>{title}</h2>
-                                            <h3>{count} Collections</h3>
+                                            <h2>{name}</h2>
+                                            <h3> Collections</h3>
                                         </div>
                                     </div>
                                 );

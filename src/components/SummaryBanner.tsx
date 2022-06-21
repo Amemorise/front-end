@@ -1,6 +1,7 @@
 import { Avatar, Paper } from "@mui/material";
+import { User } from "../helpers/baseTypes";
 
-const SummaryBanner = () => {
+const SummaryBanner = ({ user }: { user: User }) => {
     const summary = [
         {
             title: "Collections Created",
@@ -18,12 +19,12 @@ const SummaryBanner = () => {
     return (
         <Paper className="summary-banner" variant="outlined" sx={{ borderRadius: "1rem" }}>
             <div className="display-padding banner-container">
-                <Avatar sx={{ height: 100, width: 100 }} />
+                <Avatar sx={{ height: 100, width: 100 }} alt={user.displayName} src={user.photoURL} />
                 <div className="summaries-wrapper">
                     <h5>Summary</h5>
                     <div className="summaries">
-                        {summary.map((card) => {
-                            return <SummaryCards {...card} />;
+                        {summary.map((card, index) => {
+                            return <SummaryCards {...card} key={card.title + index} />;
                         })}
                     </div>
                 </div>
@@ -34,7 +35,7 @@ const SummaryBanner = () => {
 
 const SummaryCards = (props: { title: string; count: number | string }) => {
     return (
-        <div key={props.title} className="summary-tile">
+        <div className="summary-tile">
             <h2>{props.count}</h2>
             <h6>{props.title}</h6>
         </div>

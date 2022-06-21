@@ -6,14 +6,18 @@ import { useNavigate } from "react-router-dom";
 import CreateCard from "../components/CreateCard";
 import Dropdown from "../components/Dropdown";
 import FABButton from "../components/FABButton";
+import useFetch from "../helpers/apiHelpers";
 import { Card, CollectionMetaData, PublishedCollection, User } from "../helpers/baseTypes";
 import { DEFAULT_NEW_CARDS } from "../helpers/constants";
 import { setPageTitle } from "../helpers/helpers";
 import { errorSchema, validateCollection } from "../helpers/validateCollection";
 
-const CreateCollection = ({ user }: { user: User }) => {
+const CreateCollection = ({ user }: { user: User | undefined }) => {
     useEffect(() => setPageTitle("Create Collection"), []);
     const navigate = useNavigate();
+
+    const { data, loading, error } = useFetch("/collections/");
+    console.log({ data, loading, error });
 
     const newCard: Card = {
         label: "",
@@ -73,7 +77,7 @@ const CreateCollection = ({ user }: { user: User }) => {
     const createCollection = () => {
         let tempErrors = validateCollection({ collectionMetaData, cards });
         setErrors({ ...tempErrors.errors });
-        if (!tempErrors.errorFound) {
+        if (!tempErrors.errorFound && user) {
             const tempPublishedCollection: PublishedCollection = {
                 collectionMetaData: {
                     ...collectionMetaData,

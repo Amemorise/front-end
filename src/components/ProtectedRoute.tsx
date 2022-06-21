@@ -17,11 +17,14 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
     const [leftBarOpen, toggleLeftBarOpen] = useState(false);
     const location = useLocation();
     const createScreen = location.pathname.includes("/collections/");
+    console.log("here");
+    console.log(document.cookie);
 
     if (!user) {
         if (location.pathname === "/") {
             return <Navigate to={"/landingPage"} replace />;
         }
+
         return <Navigate to={redirectPath} replace />;
     }
 

@@ -16,12 +16,12 @@ import {
 } from "react-share";
 
 const SocialMediaShare = ({ url }: { url: string }) => {
-    console.log(url);
     const commonIconConfig = {
         size: 32,
         round: true,
     };
     return (
+        <>
         <span className="social-media-component" style={{ display: "flex" }}>
             <RedditShareButton url={url}>
                 <RedditIcon {...commonIconConfig} />
@@ -45,6 +45,7 @@ const SocialMediaShare = ({ url }: { url: string }) => {
                 <TumblrIcon {...commonIconConfig} />
             </TumblrShareButton>
         </span>
+        </>
     );
 };
 

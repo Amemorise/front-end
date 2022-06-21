@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app";
 import { FacebookAuthProvider, getAuth, GoogleAuthProvider, signInWithPopup, UserCredential } from "firebase/auth";
 import { User } from "./baseTypes";
 import { NavigateFunction } from "react-router-dom";
+import axios from "axios";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -49,20 +50,20 @@ export const trimFirebaseErrors = (str: string) => {
     return str.replace("Firebase: Error (auth/", "").replaceAll("-", " ").replace(")", "");
 };
 
-export const completeSignIn = (userCredential: UserCredential | undefined, setUser: React.Dispatch<User | undefined>, navigate: NavigateFunction) => {
-    console.log(userCredential);
+export const completeSignIn = async (userCredential: UserCredential | undefined, setUser: React.Dispatch<User | undefined>, navigate: NavigateFunction) => {
     if (userCredential) {
         const { displayName, email, photoURL, emailVerified } = userCredential.user;
 
-        setUser({
-            displayName: displayName || "",
-            email: email || "",
-            photoURL: photoURL || "",
-            emailVerified: emailVerified,
-        });
-    }
+        try {
+            const res = await axios.post("/users/signIn", { displayName, email, photoURL, emailVerified });
 
-    navigate("/");
+            console.log(res.data);
+            setUser({ ...res.data });
+            navigate("/");
+        } catch (err) {
+            throw err;
+        }
+    }
 };
 
 export const signOut = (navigate: NavigateFunction) => {

@@ -1,6 +1,4 @@
 import { Lock, Verified } from "@mui/icons-material";
-import Image from "../images/world-flag.jpg";
-import ProgressBar from "./ProgressBar";
 import { User } from "../helpers/baseTypes";
 import { Avatar, Rating, Paper } from "@mui/material";
 import "./styles/card.scss";

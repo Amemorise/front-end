@@ -157,7 +157,6 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                         </SearchIconWrapper>
                         <StyledInputBase placeholder="Search…" size="small" inputProps={{ "aria-label": "search" }} />
                     </Search>
-                    <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: "flex" }}>
                         <IconButton size="small" edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} color="inherit">
                             <Avatar alt={user.displayName} src={user.photoURL} sx={{ height: "35px", width: "35px" }} />
