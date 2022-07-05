@@ -8,14 +8,11 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { completeSignIn, firebaseAuth, signInWithProvider } from "../helpers/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
-import { User } from "../helpers/baseTypes";
 import { setPageTitle } from "../helpers/helpers";
 import WebTitle from "../components/WebTitle";
+import { useDispatch } from "react-redux";
 
-interface LoginProps {
-    setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
-}
-const Login = ({ setUser }: LoginProps) => {
+const Login = () => {
     React.useEffect(() => setPageTitle("Login"), []);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -42,6 +39,8 @@ const Login = ({ setUser }: LoginProps) => {
         return isValid;
     };
 
+    const dispatch = useDispatch();
+
     const handleLogin = (e: any) => {
         e.preventDefault();
 
@@ -50,7 +49,7 @@ const Login = ({ setUser }: LoginProps) => {
         if (validate) {
             signInWithEmailAndPassword(firebaseAuth, email, password)
                 .then((userCredential) => {
-                    completeSignIn(userCredential, setUser, navigate);
+                    completeSignIn(userCredential, dispatch, navigate);
                 })
                 .catch(() => {
                     setSignInError("Incorrect email/password combination");
@@ -65,7 +64,7 @@ const Login = ({ setUser }: LoginProps) => {
             return;
         }
 
-        completeSignIn(user, setUser, navigate);
+        completeSignIn(user, dispatch, navigate);
     };
 
     const toggleClickShowPassword = () => {

@@ -1,6 +1,5 @@
 import { ChevronRight } from "@mui/icons-material";
 import { Skeleton } from "@mui/material";
-import React, { useEffect } from "react";
 import { Categories } from "../helpers/Categories";
 import FABButton from "./FABButton";
 

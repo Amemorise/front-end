@@ -9,15 +9,12 @@ import "./styles/login.scss";
 import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
 import { debounce } from "lodash";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { User } from "../helpers/baseTypes";
 import { useNavigate } from "react-router-dom";
 import { setPageTitle } from "../helpers/helpers";
 import WebTitle from "../components/WebTitle";
+import { useDispatch } from "react-redux";
 
-interface SignUpProps {
-    setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
-}
-const SignUp = ({ setUser }: SignUpProps) => {
+const SignUp = () => {
     React.useEffect(() => setPageTitle("Sign Up"), []);
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
@@ -68,6 +65,7 @@ const SignUp = ({ setUser }: SignUpProps) => {
         return isValid;
     };
 
+    const dispatch = useDispatch();
     const handleSignUp = (e: any) => {
         e.preventDefault();
 
@@ -81,7 +79,7 @@ const SignUp = ({ setUser }: SignUpProps) => {
                         displayName,
                     });
                     sendEmailVerification(user);
-                    completeSignIn(userCredential, setUser, navigate);
+                    completeSignIn(userCredential, dispatch, navigate);
                 })
                 .catch((error) => {
                     setSignInError(trimFirebaseErrors(error.message));
@@ -107,7 +105,7 @@ const SignUp = ({ setUser }: SignUpProps) => {
             return;
         }
 
-        completeSignIn(user, setUser, navigate);
+        completeSignIn(user, dispatch, navigate);
     };
 
     return (

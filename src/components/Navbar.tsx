@@ -6,6 +6,8 @@ import Logo from "../images/logo/white.png";
 import { User } from "../helpers/baseTypes";
 import { signOut } from "../helpers/firebase";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/user";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -54,6 +56,7 @@ interface NavbarProps {
 }
 const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -87,7 +90,14 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
             {/* <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
             <MenuItem onClick={() => navigate("/settings")}>Settings</MenuItem>
             <Divider /> */}
-            <MenuItem onClick={() => signOut(navigate)}>Log Out</MenuItem>
+            <MenuItem
+                onClick={() => {
+                    signOut(navigate);
+                    dispatch(logout());
+                }}
+            >
+                Log Out
+            </MenuItem>
         </Menu>
     );
 

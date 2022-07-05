@@ -1,15 +1,24 @@
-import { PublishedCollection, User } from "./baseTypes";
+import { Card, PublishedCollection, User } from "./baseTypes";
 
 export const MOBILE_BREAKPOINT = 600;
 export const DEFAULT_NEW_CARDS = 3;
-export const DUMMY_USER: User = { displayName: "Kofi Twum-Ampofo", email: "peterperfect96@gmail.com", emailVerified: true, photoURL: "https://lh3.googleusercontent.com/a-/AOh14GhVrrHKLdSo9ieDv4xhjPyvoKXYnTMguODKYuE0og=s96-c" };
+export const newCard: Card = {
+    label: "",
+    hint: "",
+    photoURL: "",
+    id: 0,
+};
+export const DUMMY_USER: User = { userId: 3, displayName: "Kofi Twum-Ampofo", email: "peterperfect96@gmail.com", emailVerified: true, photoURL: "https://lh3.googleusercontent.com/a-/AOh14GhVrrHKLdSo9ieDv4xhjPyvoKXYnTMguODKYuE0og=s96-c" };
 export const DUMMY_COLLECTION: PublishedCollection = {
+    collectionId: 4,
     collectionMetaData: {
         title: "Very Cool Collection",
         description: "I couldn't think of a cool description",
         tags: ["Geography", "Culture"],
         private: false,
         id: 76383,
+
+        category: "test",
         prompt: "What country's flag is this",
         verified: true,
         createdBy: DUMMY_USER,

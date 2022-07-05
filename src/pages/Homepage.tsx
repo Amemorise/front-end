@@ -4,11 +4,13 @@ import { setPageTitle } from "../helpers/helpers";
 import "./styles/homepage.scss";
 import FeaturedCategories from "../components/FeaturedCategories";
 import RecentCollections from "../components/RecentCollections";
-import { User } from "../helpers/baseTypes";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
-const Homepage = ({ user }: { user: User | undefined }) => {
+const Homepage = () => {
     useEffect(() => setPageTitle("Home"), []);
 
+    const user = useSelector((state: RootState) => state.user.value);
     return (
         <div className="homepage display-padding">
             {user ? (

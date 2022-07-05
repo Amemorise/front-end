@@ -1,25 +1,22 @@
-import { User } from "../helpers/baseTypes";
 import { useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import LeftBar from "./LeftBar";
 import Navbar from "./Navbar";
-import FABButton from "./FABButton";
-import { Add } from "@mui/icons-material";
 import "./styles/bars.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import ErrorBoundary from "./ErrorBoundary";
+import LoadingOverlay from "./LoadingOverlay";
 
 interface ProtectedRouteProps {
-    user?: User;
     redirectPath: string;
     children?: Element;
 }
 const ProtectedRoute = (props: ProtectedRouteProps) => {
-    const { user, redirectPath, children } = props;
+    const { redirectPath, children } = props;
     const [leftBarOpen, toggleLeftBarOpen] = useState(false);
     const location = useLocation();
-    const createScreen = location.pathname.includes("/collections/");
-    console.log("here");
-    console.log(document.cookie);
-
+    const user = useSelector((state: RootState) => state.user.value);
     if (!user) {
         if (location.pathname === "/") {
             return <Navigate to={"/landingPage"} replace />;
@@ -32,14 +29,17 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
         <>{children}</>
     ) : (
         <div className="app">
-            <Navbar user={user} leftBarOpen={leftBarOpen} toggleLeftBarOpen={toggleLeftBarOpen} />
-            <div className="app-body">
-                <LeftBar leftBarOpen={leftBarOpen} />
-                <div className="mainDisplay">
-                    <Outlet />
-                    {!createScreen ? <FABButton className={"add-button"} icon={<Add />} url="/collections/create" title="Create Collection" /> : null}
-                </div>
-            </div>
+            <LoadingOverlay>
+                <Navbar user={user} leftBarOpen={leftBarOpen} toggleLeftBarOpen={toggleLeftBarOpen} />
+                <ErrorBoundary>
+                    <div className="app-body">
+                        <LeftBar leftBarOpen={leftBarOpen} />
+                        <div className="mainDisplay">
+                            <Outlet />
+                        </div>
+                    </div>
+                </ErrorBoundary>
+            </LoadingOverlay>
         </div>
     );
 };

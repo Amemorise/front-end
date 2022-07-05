@@ -5,7 +5,7 @@ import { PublishedCollection } from "../helpers/baseTypes";
 const StartQuizButton = ({ titleText, collection }: { titleText: string; collection: PublishedCollection }) => {
     const navigate = useNavigate();
     const onStartClick = () => {
-        navigate("/collections/444/start", { state: { collection } });
+        navigate(`/collections/${collection.collectionId}/start`, { state: { collection } });
     };
     return (
         <div style={{ margin: "1rem auto " }}>

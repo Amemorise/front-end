@@ -3,6 +3,7 @@ export interface User {
     photoURL: string;
     email: string;
     emailVerified: boolean;
+    userId: number;
 }
 
 export interface ProfileInterface {
@@ -26,11 +27,12 @@ export interface CollectionMetaData {
     tags: string[];
     private: boolean;
     prompt: string;
+    category: string;
+    createdBy: User;
 }
 
 export interface PublishedCollectionMetaData extends CollectionMetaData {
     verified: boolean;
-    createdBy: User;
     id: number;
     creationDate: number;
     rating: {
@@ -46,6 +48,8 @@ export interface Collection {
 export interface PublishedCollection {
     collectionMetaData: PublishedCollectionMetaData;
     cards: Card[];
+
+    collectionId: number;
 }
 export interface LocationState {
     collection: PublishedCollection;

@@ -11,7 +11,7 @@ interface CardLearnState {
 const CardLearnSession = () => {
     const collection = (useLocation().state as CardLearnState)?.collection || DUMMY_COLLECTION;
 
-    return <CardViews cards={_.shuffle(collection.cards)} collectionMetaData={collection.collectionMetaData} />;
+    return <CardViews cards={_.shuffle(collection.cards)} collectionMetaData={collection.collectionMetaData} collectionId={2} />;
 };
 
 export default CardLearnSession;

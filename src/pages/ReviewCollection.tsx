@@ -59,12 +59,13 @@ const ReviewCollection = () => {
 
     return (
         <div className="review-page display-padding">
-            <CollectionHeader collectionMetaData={collectionMetaData} />
+            <CollectionHeader collectionId={1} collectionMetaData={collectionMetaData} />
             <Divider />
             <CollectionSummary cards={DUMMY_COLLECTION.cards} />
             <StartQuizButton
                 titleText="Restart"
                 collection={{
+                    collectionId: 5,
                     collectionMetaData,
                     cards: (reviews || []).map((review) => {
                         return { ...review.card };

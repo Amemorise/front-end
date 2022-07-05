@@ -1,8 +1,8 @@
 import firebase from "firebase/compat/app";
 import { FacebookAuthProvider, getAuth, GoogleAuthProvider, signInWithPopup, UserCredential } from "firebase/auth";
-import { User } from "./baseTypes";
 import { NavigateFunction } from "react-router-dom";
 import axios from "axios";
+import { login } from "../redux/user";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -50,15 +50,14 @@ export const trimFirebaseErrors = (str: string) => {
     return str.replace("Firebase: Error (auth/", "").replaceAll("-", " ").replace(")", "");
 };
 
-export const completeSignIn = async (userCredential: UserCredential | undefined, setUser: React.Dispatch<User | undefined>, navigate: NavigateFunction) => {
+export const completeSignIn = async (userCredential: UserCredential | undefined, dispatch: React.Dispatch<any>, navigate: NavigateFunction) => {
     if (userCredential) {
         const { displayName, email, photoURL, emailVerified } = userCredential.user;
 
         try {
             const res = await axios.post("/users/signIn", { displayName, email, photoURL, emailVerified });
 
-            console.log(res.data);
-            setUser({ ...res.data });
+            dispatch(login({ ...res.data }));
             navigate("/");
         } catch (err) {
             throw err;
@@ -69,7 +68,6 @@ export const completeSignIn = async (userCredential: UserCredential | undefined,
 export const signOut = (navigate: NavigateFunction) => {
     firebaseAuth.signOut().then(
         function () {
-            console.log("Signed Out");
             navigate("/login");
         },
         function (error) {

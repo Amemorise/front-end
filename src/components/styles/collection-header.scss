@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     h2 {
         margin-bottom: 0.5rem;
         text-transform: capitalize;
@@ -12,6 +12,7 @@
     }
     .created-by-span {
         align-items: center;
+        margin-bottom: 0.25rem;
         > * {
             margin: 0 0.5rem 0 0;
         }
