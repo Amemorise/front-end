@@ -9,12 +9,12 @@ import { Collection, Card, CollectionMetaData } from "../helpers/baseTypes";
 import { Categories } from "../helpers/Categories";
 import { validateCollection, errorSchema } from "../helpers/validateCollection";
 import CreateCard from "./CreateCard";
-import Dropdown from "./Dropdown";
 import FABButton from "./FABButton";
 import { newCard } from "../helpers/constants";
 import { setError } from "../redux/error";
 import { setIsLoading } from "../redux/loading";
 import axios from "axios";
+import FreeTextDropDown from "./FreeTextDropDown";
 
 interface CollectionManagementProps extends Collection {
     existingCollection: boolean;
@@ -143,13 +143,13 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                                 helperText={errors.collectionMetaData.prompt ? "A prompt is required" : ""}
                                 onChange={(event) => onChange(event.target as HTMLInputElement)}
                                 required
-                                sx={{ flex: 1 }}
+                                sx={{ flex: 1, marginRight: 1 }}
                                 value={collectionMetaData.prompt}
                                 size={"small"}
                                 id="prompt"
                                 label="Collection Prompt"
                             />
-                            <Dropdown values={values} selectedValues={collectionMetaData.tags || []} setSelectedValues={setTags} />
+                            <FreeTextDropDown values={values} selectedValues={collectionMetaData.tags || []} setSelectedValues={setTags} />
                         </span>
 
                         <FormControlLabel control={<Switch checked={collectionMetaData.private} id={"private"} onChange={(event) => onChange(event.target as HTMLInputElement)} />} label="Private" />

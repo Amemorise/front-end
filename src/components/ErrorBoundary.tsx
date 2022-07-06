@@ -1,4 +1,4 @@
-import { Alert, AlertTitle } from "@mui/material";
+import { Alert, AlertTitle, Snackbar, Slide } from "@mui/material";
 import React, { ErrorInfo } from "react";
 import { connect } from "react-redux";
 import { clearError, setError } from "../redux/error";
@@ -26,18 +26,32 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
         const error = this.props.error.error;
         return (
             <>
-                {error ? (
-                    <Alert
-                        onClose={() => {
-                            this.props.clearError();
-                        }}
-                        severity="error"
-                        variant="filled"
-                    >
-                        <AlertTitle>Error - {error.name}</AlertTitle>
-                        {error.message}
-                    </Alert>
-                ) : null}
+                <Snackbar
+                    open={!!error}
+                    autoHideDuration={6000}
+                    onClose={() => {
+                        this.props.clearError();
+                    }}
+                    anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "center",
+                    }}
+                    TransitionComponent={(props) => <Slide {...props} direction="down" />}
+                >
+                    {error ? (
+                        <Alert
+                            onClose={() => {
+                                this.props.clearError();
+                            }}
+                            severity="error"
+                        >
+                            <AlertTitle>Error - {error.name}</AlertTitle>
+                            {error.message}
+                        </Alert>
+                    ) : (
+                        <div></div>
+                    )}
+                </Snackbar>
                 {this.props.children}
             </>
         );
