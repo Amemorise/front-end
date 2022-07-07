@@ -2,12 +2,12 @@ import { FormGroup, IconButton, TextField } from "@mui/material";
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { AddPhotoAlternate, Delete, DragHandle } from "@mui/icons-material";
-import { Card } from "../helpers/baseTypes";
+import { EditingCard } from "../helpers/baseTypes";
 import "./styles/card.scss";
 
 interface CreateCardProps {
-    card: Card;
-    updateCard: (newCard: Card, index: number) => void;
+    card: EditingCard;
+    updateCard: (newCard: EditingCard, index: number) => void;
     deleteCard: (index: number) => void;
     error: { photoURL: boolean; label: boolean };
     index: number;
@@ -15,7 +15,7 @@ interface CreateCardProps {
 const CreateCard = (props: CreateCardProps) => {
     const { card, error, index, updateCard, deleteCard } = props;
     const { label, hint, photoURL } = card;
-    const defaultImage = photoURL ? [{ dataURL: photoURL }] : [];
+    const defaultImage = photoURL ? [{ dataURL: typeof photoURL === "string" ? photoURL : photoURL.dataURL }] : [];
     const [image, setImage] = React.useState<ImageListType>(defaultImage);
 
     const onChange = (newImage: ImageListType) => {
@@ -25,7 +25,7 @@ const CreateCard = (props: CreateCardProps) => {
             updateCard(
                 {
                     ...card,
-                    photoURL: newImage[0].dataURL || "",
+                    photoURL: newImage[0] || "",
                 },
                 index
             );
@@ -44,7 +44,7 @@ const CreateCard = (props: CreateCardProps) => {
     return (
         <div className="create-card-container">
             <FormGroup className="form-fields" sx={{ flex: 1 }}>
-                <ImageUploading value={image} onChange={onChange} dataURLKey="dataURL">
+                <ImageUploading multiple={false} value={image} onChange={onChange} dataURLKey="dataURL">
                     {({ imageList, onImageUpload, onImageRemove, dragProps }) => (
                         <div style={error.photoURL ? { borderColor: "red" } : undefined} className={`upload__image-wrapper ${!imageList.length ? " image-border" : ""}`}>
                             {imageList.length ? (

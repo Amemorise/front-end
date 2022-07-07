@@ -1,3 +1,5 @@
+import { ImageType } from "react-images-uploading";
+
 export interface User {
     displayName: string;
     photoURL: string;
@@ -20,6 +22,9 @@ export interface Card {
     };
     id: number;
 }
+export interface EditingCard extends Omit<Card, "photoURL"> {
+    photoURL: string | ImageType;
+}
 
 export interface CollectionMetaData {
     title: string;
@@ -33,7 +38,6 @@ export interface CollectionMetaData {
 
 export interface PublishedCollectionMetaData extends CollectionMetaData {
     verified: boolean;
-    id: number;
     creationDate: number;
     rating: {
         value: number;
@@ -43,6 +47,11 @@ export interface PublishedCollectionMetaData extends CollectionMetaData {
 export interface Collection {
     collectionMetaData: CollectionMetaData;
     cards: Card[];
+}
+
+export interface EditingCollection {
+    collectionMetaData: CollectionMetaData;
+    cards: EditingCard[];
 }
 
 export interface PublishedCollection {

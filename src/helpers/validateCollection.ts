@@ -1,9 +1,9 @@
 import { cloneDeep } from "lodash";
-import { Collection } from "./baseTypes";
+import { EditingCollection } from "./baseTypes";
 
 export const errorSchema = { collectionMetaData: { category: false, title: false, description: false, prompt: false }, cards: [{ photoURL: false, label: false }] };
 
-export const validateCollection = (collection: Collection) => {
+export const validateCollection = (collection: EditingCollection) => {
     const errors = cloneDeep(errorSchema);
     errors.collectionMetaData.title = !collection.collectionMetaData.title;
     errors.collectionMetaData.category = !collection.collectionMetaData.category;

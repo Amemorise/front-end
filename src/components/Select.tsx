@@ -8,12 +8,13 @@ interface SelectProps {
     error?: boolean;
     helperText?: string;
     onChange: (event: any) => void;
+    name?: string;
 }
-const Select = ({ values, label, onChange, selected, required, error, helperText }: SelectProps) => {
+const Select = ({ name, values, label, onChange, selected, required, error, helperText }: SelectProps) => {
     return (
         <FormControl sx={{ flex: 1 }} size={"small"} required={required} error={error}>
             <InputLabel id={`select-${label}`}>{label}</InputLabel>
-            <Selectable labelId={`select-${label}`} id={label} value={selected} label={label} onChange={onChange}>
+            <Selectable name={name} labelId={`select-${label}`} id={label} value={selected} label={label} onChange={onChange}>
                 {values.map((value, index) => {
                     return (
                         <MenuItem key={value + index} value={value}>

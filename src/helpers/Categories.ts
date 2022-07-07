@@ -2,6 +2,9 @@ import Books from "../images/categories/books.jpg";
 import Film from "../images/categories/film.jpg";
 
 import Music from "../images/categories/music.jpg";
+import Comics from "../images/categories/comics.jpg";
+import Geography from "../images/categories/geography.jpg";
+import Astrology from "../images/categories/astrology.jpg";
 
 import Television from "../images/categories/television.jpg";
 
@@ -88,7 +91,17 @@ export const Categories = [
         },
     },
     {
-        name: "Science & Nature",
+        name: "Science: Astrology",
+        image: Astrology,
+        attr: {
+            userProfile: "https://unsplash.com/@aldebarans",
+            user: "Aldebaran S",
+            unsplashLink: "https://unsplash.com/s/photos/astronomy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+        },
+    },
+
+    {
+        name: "Science: Biology",
         attr: {
             userProfile: "",
             user: "",
@@ -129,10 +142,11 @@ export const Categories = [
     },
     {
         name: "Geography",
+        image: Geography,
         attr: {
-            userProfile: "",
-            user: "",
-            unsplashLink: "",
+            userProfile: "https://unsplash.com/@kylejglenn",
+            user: "Kyle Glenn",
+            unsplashLink: "https://unsplash.com/s/photos/geography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
     {
@@ -185,10 +199,11 @@ export const Categories = [
     },
     {
         name: "Entertainment: Comics",
+        image: Comics,
         attr: {
-            userProfile: "",
-            user: "",
-            unsplashLink: "",
+            userProfile: "https://unsplash.com/s/photos/geography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            user: "Erik Mclean",
+            unsplashLink: "https://unsplash.com/@introspectivedsgn?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
     {

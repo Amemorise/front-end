@@ -6,7 +6,7 @@ import { Card, PublishedCollection } from "../helpers/baseTypes";
 import { DUMMY_COLLECTION } from "../helpers/constants";
 import { ReviewState } from "../pages/ReviewCollection";
 
-const CardViews = ({ cards, collectionMetaData }: PublishedCollection) => {
+const CardViews = ({ cards, collectionMetaData, collectionId }: PublishedCollection) => {
     const navigate = useNavigate();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const cardList = cards.length ? cards : DUMMY_COLLECTION.cards;
@@ -33,7 +33,7 @@ const CardViews = ({ cards, collectionMetaData }: PublishedCollection) => {
 
     const onNextClick = () => {
         if (currentQuestion >= cardList.length - 1) {
-            navigate(`/collections/${collectionMetaData.id}/review`, {
+            navigate(`/collections/${collectionId}/review`, {
                 state: {
                     collectionMetaData,
                     review: results,

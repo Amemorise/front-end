@@ -16,8 +16,6 @@ export const DUMMY_COLLECTION: PublishedCollection = {
         description: "I couldn't think of a cool description",
         tags: ["Geography", "Culture"],
         private: false,
-        id: 76383,
-
         category: "test",
         prompt: "What country's flag is this",
         verified: true,

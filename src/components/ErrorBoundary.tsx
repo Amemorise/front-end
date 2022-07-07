@@ -1,7 +1,7 @@
 import { Alert, AlertTitle, Snackbar, Slide } from "@mui/material";
 import React, { ErrorInfo } from "react";
 import { connect } from "react-redux";
-import { clearError, setError } from "../redux/error";
+import { clearError, ErrorType, setError } from "../redux/error";
 import { RootState } from "../redux/store";
 
 const mapStateToProps = function (state: RootState) {
@@ -17,13 +17,26 @@ type DispatchProps = typeof mapDispatchToProps;
 
 type ErrorBoundaryProps = StateProps & DispatchProps;
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
-    componentDidCatch(error: Error, _errorInfo: ErrorInfo) {
-        this.props.setError(error);
+interface ErrorBoundaryState {
+    error: ErrorType | undefined;
+}
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+    constructor(props: ErrorBoundaryProps) {
+        super(props);
+        this.state = { error: undefined };
+    }
+    componentDidCatch(error: any, _errorInfo: ErrorInfo) {
+        this.props.setError({ name: "Error", message: JSON.stringify(error) });
+    }
+    static getDerivedStateFromError(error: any) {
+        return { error: { name: "Error", message: JSON.stringify(error) } };
     }
 
+    componentDidMount() {
+        this.setState({ error: this.props.error.error });
+    }
     render() {
-        const error = this.props.error.error;
+        const error = this.state.error;
         return (
             <>
                 <Snackbar
