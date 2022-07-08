@@ -48,8 +48,8 @@ const CreateCard = (props: CreateCardProps) => {
                     {({ imageList, onImageUpload, onImageRemove, dragProps }) => (
                         <div style={error.photoURL ? { borderColor: "red" } : undefined} className={`upload__image-wrapper ${!imageList.length ? " image-border" : ""}`}>
                             {imageList.length ? (
-                                imageList.map((image, index) => (
-                                    <div key={index} className="image-item">
+                                imageList.map((image, newIndex) => (
+                                    <div key={newIndex} className="image-item">
                                         <img src={image["dataURL"]} alt="" width="100" />
                                         <div className="image-item__btn-wrapper">
                                             <IconButton
@@ -57,7 +57,7 @@ const CreateCard = (props: CreateCardProps) => {
                                                 sx={{ backgroundColor: "#f0f0f0" }}
                                                 aria-label="delete"
                                                 onClick={() => {
-                                                    onImageRemove(index);
+                                                    onImageRemove(newIndex);
                                                     updateCard(
                                                         {
                                                             ...card,

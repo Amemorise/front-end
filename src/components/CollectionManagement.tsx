@@ -81,7 +81,7 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                         let photoURL = card.photoURL;
                         if (typeof photoURL !== "string" && photoURL!.file) {
                             const bodyFormData = new FormData();
-                            bodyFormData.append("collectionId", encodeURIComponent(collectionId || collectionMetaData.title.replace(/[^A-Z0-9]/gi, "_")));
+                            bodyFormData.append("collectionId", encodeURIComponent(collectionId || collectionMetaData.title.replace(/[^A-Z0-9\.]/gi, "_")));
                             bodyFormData.append("photoURL", photoURL.file as Blob);
                             const res = await axios.post("/collections/uploadImage", bodyFormData);
                             photoURL = res.data.photoUrl;

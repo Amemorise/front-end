@@ -156,9 +156,13 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                         <Button>
                             {/* aria-controls={dropdownId} aria-haspopup="true" onClick={handleDropDownToggled}> */}
                             <Link to="/collections" style={{ color: "white", textDecoration: "none" }}>
-                                Collections
+                                My Collections
                             </Link>
                         </Button>
+                        {/* aria-controls={dropdownId} aria-haspopup="true" onClick={handleDropDownToggled}> */}
+                        <Link to="/collections/create" style={{ color: "white", textDecoration: "none" }}>
+                            Create Collection
+                        </Link>
                     </Box>
                     <Box sx={{ flexGrow: 1 }} />
                     <Search>

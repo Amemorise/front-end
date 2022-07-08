@@ -24,6 +24,7 @@ const ReviewCollection = () => {
             test: Math.random(),
         };
     });
+    console.log(reviews);
     const columns: GridColDef[] = [
         {
             field: "photoURL",

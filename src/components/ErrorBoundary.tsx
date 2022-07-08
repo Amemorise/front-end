@@ -4,47 +4,49 @@ import { connect } from "react-redux";
 import { clearError, ErrorType, setError } from "../redux/error";
 import { RootState } from "../redux/store";
 
-const mapStateToProps = function (state: RootState) {
-    return {
-        error: state.error,
-    };
-};
+// const mapStateToProps = function (state: RootState) {
+//     return {
+//         error: state.error,
+//     };
+// };
 
-const mapDispatchToProps = { setError, clearError };
+// const mapDispatchToProps = { setError, clearError };
 
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
+// type StateProps = ReturnType<typeof mapStateToProps>;
+// type DispatchProps = typeof mapDispatchToProps;
 
-type ErrorBoundaryProps = StateProps & DispatchProps;
+// type ErrorBoundaryProps = StateProps & DispatchProps;
 
 interface ErrorBoundaryState {
-    error: ErrorType | undefined;
+    error: ErrorType;
+    hasError: boolean;
 }
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-    constructor(props: ErrorBoundaryProps) {
+class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
+    constructor(props: any) {
         super(props);
-        this.state = { error: undefined };
-    }
-    componentDidCatch(error: any, _errorInfo: ErrorInfo) {
-        this.props.setError({ name: "Error", message: JSON.stringify(error) });
-    }
-    static getDerivedStateFromError(error: any) {
-        return { error: { name: "Error", message: JSON.stringify(error) } };
+        this.state = { hasError: false, error: null };
     }
 
-    componentDidMount() {
-        this.setState({ error: this.props.error.error });
+    static getDerivedStateFromError(_error: any) {
+        // Update state so the next render will show the fallback UI.
+        return { hasError: true };
     }
+
+    componentDidCatch(error: any, errorInfo: any) {
+        // You can also log the error to an error reporting service
+        // logErrorToMyService(error, errorInfo);
+    }
+
     render() {
-        const error = this.state.error;
+        const { error, hasError } = this.state;
         return (
             <>
                 <Snackbar
-                    open={!!error}
+                    open={hasError}
                     autoHideDuration={6000}
-                    onClose={() => {
-                        this.props.clearError();
-                    }}
+                    // onClose={() => {
+                    //     this.props.clearError();
+                    // }}
                     anchorOrigin={{
                         vertical: "top",
                         horizontal: "center",
@@ -53,16 +55,16 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                 >
                     {error ? (
                         <Alert
-                            onClose={() => {
-                                this.props.clearError();
-                            }}
+                            // onClose={() => {
+                            //     this.props.clearError();
+                            // }}
                             severity="error"
                         >
                             <AlertTitle>Error - {error.name}</AlertTitle>
                             {error.message}
                         </Alert>
                     ) : (
-                        <div></div>
+                        <div>here</div>
                     )}
                 </Snackbar>
                 {this.props.children}
@@ -71,4 +73,4 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ErrorBoundary);
+export default ErrorBoundary; //connect(mapStateToProps, mapDispatchToProps)(ErrorBoundary     );

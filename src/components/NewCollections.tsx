@@ -5,6 +5,7 @@ import useFetchCallBack from "../helpers/apiHelpers";
 import { PublishedCollection } from "../helpers/baseTypes";
 import CollectionCard from "./CollectionCard";
 import FABButton from "./FABButton";
+import "./styles/card.scss";
 
 const NewCollections = () => {
     const fetchData = useFetchCallBack();
@@ -17,9 +18,8 @@ const NewCollections = () => {
             <div className={"cards-list"}>
                 {data && data.length ? (
                     (data as PublishedCollection[]).map((collection, index) => {
-                        console.log(collection);
                         return (
-                            <Link key={index} to={`/collections/${collection.collectionId}`}>
+                            <Link key={index} to={`/collections/${collection.collectionId}`} className="card-link">
                                 <CollectionCard {...collection} />
                             </Link>
                         );
