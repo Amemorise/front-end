@@ -1,6 +1,8 @@
 {
     "name": "amemorise",
     "version": "0.1.0",
+    "homepage": "https://amemorise.com",
+    "description": "Coming Soon",
     "private": true,
     "dependencies": {
         "@emotion/react": "^11.9.0",
