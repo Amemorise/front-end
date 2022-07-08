@@ -1,20 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+// import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import ComingSoon from "./pages/ComingSoon";
 
 const rootNode = document.getElementById("root");
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate persistor={persistStore(store)}>
-                <App />
+                {/* <App /> */}
+                <ComingSoon />
             </PersistGate>
         </Provider>
     </React.StrictMode>,
