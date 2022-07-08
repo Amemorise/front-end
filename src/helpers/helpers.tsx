@@ -11,3 +11,11 @@ export const setPageTitle = (title: string) => {
 export const convertToDateString = (epochNumber: number) => {
     return <ReactTimeAgo date={new Date(epochNumber)} locale="en-US" />;
 };
+
+export const isFirstTimeGuest = () => {
+    return !localStorage.getItem("amemorise-user");
+};
+
+export const setReturningUser = () => {
+    localStorage.setItem("amemorise-user", "true");
+};

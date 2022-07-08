@@ -3,6 +3,7 @@ import { FacebookAuthProvider, getAuth, GoogleAuthProvider, signInWithPopup, Use
 import { NavigateFunction } from "react-router-dom";
 import axios from "axios";
 import { login } from "../redux/user";
+import { isFirstTimeGuest, setReturningUser } from "./helpers";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -58,7 +59,11 @@ export const completeSignIn = async (userCredential: UserCredential | undefined,
             const res = await axios.post("/users/signIn", { displayName, email, photoURL, emailVerified });
 
             dispatch(login({ ...res.data }));
-            navigate("/");
+            if (isFirstTimeGuest()) {
+                setReturningUser();
+            }
+
+            navigate("/home");
         } catch (err) {
             throw err;
         }

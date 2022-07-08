@@ -21,8 +21,8 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<ProtectedRoute redirectPath={"login"} />}>
-                    <Route index element={<Homepage />} />
+                <Route path="/" element={<ProtectedRoute />}>
+                    <Route path="home" element={<Homepage />} />
                     <Route path="Settings" element={<Settings />} />
                     <Route path="collections">
                         <Route index element={<Collections />} />
@@ -39,7 +39,7 @@ function App() {
                     <Route path="users" element={<Users />} />{" "}
                 </Route>
                 <Route path="login" element={<Login />} />
-                <Route path="/landingPage" element={<LandingPage />} />
+                <Route path="landingPage" element={<LandingPage />} />
                 <Route path="register" element={<SignUp />} />
                 <Route path="reset-password" element={<ForgotPassword />} />
             </Routes>

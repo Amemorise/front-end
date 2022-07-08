@@ -7,22 +7,26 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import ErrorBoundary from "./ErrorBoundary";
 import LoadingOverlay from "./LoadingOverlay";
+import { isFirstTimeGuest } from "../helpers/helpers";
 
 interface ProtectedRouteProps {
-    redirectPath: string;
     children?: Element;
 }
 const ProtectedRoute = (props: ProtectedRouteProps) => {
-    const { redirectPath, children } = props;
-    const [leftBarOpen, toggleLeftBarOpen] = useState(false);
+    const { children } = props;
     const location = useLocation();
+    const [leftBarOpen, toggleLeftBarOpen] = useState(false);
     const user = useSelector((state: RootState) => state.user.value);
     if (!user) {
-        if (location.pathname === "/") {
+        if (isFirstTimeGuest()) {
             return <Navigate to={"/landingPage"} replace />;
         }
 
-        return <Navigate to={redirectPath} replace />;
+        return <Navigate to={"/login"} replace />;
+    }
+
+    if (location.pathname === "/") {
+        return <Navigate to={"/home"} replace />;
     }
 
     return children ? (
