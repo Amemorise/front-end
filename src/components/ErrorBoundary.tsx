@@ -1,8 +1,6 @@
 import { Alert, AlertTitle, Snackbar, Slide } from "@mui/material";
-import React, { ErrorInfo } from "react";
-import { connect } from "react-redux";
-import { clearError, ErrorType, setError } from "../redux/error";
-import { RootState } from "../redux/store";
+import React from "react";
+import { ErrorType } from "../redux/error";
 
 // const mapStateToProps = function (state: RootState) {
 //     return {

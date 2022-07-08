@@ -1,5 +1,4 @@
 import { ChevronRight } from "@mui/icons-material";
-import CollectionCard from "./CollectionCard";
 import FABButton from "./FABButton";
 
 const RecentCollections = () => {

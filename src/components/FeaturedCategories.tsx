@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import useFetchCallBack from "../helpers/apiHelpers";
 import { Categories } from "../helpers/Categories";
 import { setError, clearError } from "../redux/error";
-import { setIsLoading } from "../redux/loading";
 import FABButton from "./FABButton";
 
 const FeaturedCategories = () => {
