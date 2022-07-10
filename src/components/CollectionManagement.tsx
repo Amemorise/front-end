@@ -5,7 +5,14 @@ import { useState } from "react";
 import Select from "../components/Select";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Collection, EditingCard, CollectionMetaData, PublishedCollection, PublishedCollectionMetaData, Card } from "../helpers/baseTypes";
+import {
+    Collection,
+    EditingCard,
+    CollectionMetaData,
+    PublishedCollection,
+    PublishedCollectionMetaData,
+    Card,
+} from "../helpers/baseTypes";
 import { Categories } from "../helpers/Categories";
 import { validateCollection, errorSchema } from "../helpers/validateCollection";
 import CreateCard from "./CreateCard";
@@ -13,8 +20,8 @@ import FABButton from "./FABButton";
 import { newCard } from "../helpers/constants";
 import { setError } from "../redux/error";
 import { setIsLoading } from "../redux/loading";
-import axios from "axios";
 import FreeTextDropDown from "./FreeTextDropDown";
+import { api } from "../helpers/apiHelpers";
 
 interface CollectionManagementProps extends Collection {
     existingCollection: boolean;
@@ -32,7 +39,9 @@ const CollectionManagement = (props: CollectionManagementProps) => {
     };
     const [errors, setErrors] = useState(tempErrors);
     const [cards, setCards] = useState([...(props.cards as EditingCard[])]);
-    const [collectionMetaData, setCollectionMetaData] = useState<CollectionMetaData | PublishedCollectionMetaData>(props.collectionMetaData);
+    const [collectionMetaData, setCollectionMetaData] = useState<CollectionMetaData | PublishedCollectionMetaData>(
+        props.collectionMetaData
+    );
 
     const updateCard = (newCard: EditingCard, index: number) => {
         const newCards = [...cards];
@@ -65,7 +74,18 @@ const CollectionManagement = (props: CollectionManagementProps) => {
             tags,
         });
     };
-    const values = ["Oliver Hansen", "Van Henry", "April Tucker", "Ralph Hubbard", "Omar Alexander", "Carlos Abbott", "Miriam Wagner", "Bradley Wilkerson", "Virginia Andrews", "Kelly Snyder"];
+    const values = [
+        "Oliver Hansen",
+        "Van Henry",
+        "April Tucker",
+        "Ralph Hubbard",
+        "Omar Alexander",
+        "Carlos Abbott",
+        "Miriam Wagner",
+        "Bradley Wilkerson",
+        "Virginia Andrews",
+        "Kelly Snyder",
+    ];
 
     const saveCollection = async () => {
         let tempErrors = validateCollection({ collectionMetaData, cards });
@@ -81,9 +101,14 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                         let photoURL = card.photoURL;
                         if (typeof photoURL !== "string" && photoURL!.file) {
                             const bodyFormData = new FormData();
-                            bodyFormData.append("collectionId", encodeURIComponent(collectionId || collectionMetaData.title.replace(/[^A-Z0-9.]/gi, "_")));
+                            bodyFormData.append(
+                                "collectionId",
+                                encodeURIComponent(
+                                    collectionId || collectionMetaData.title.replace(/[^A-Z0-9.]/gi, "_")
+                                )
+                            );
                             bodyFormData.append("photoURL", photoURL.file as Blob);
-                            const res = await axios.post("/collections/uploadImage", bodyFormData);
+                            const res = await api.post("/collections/uploadImage", bodyFormData);
                             photoURL = res.data.photoUrl;
                         }
                         return {
@@ -93,9 +118,13 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                     })
                 );
                 if (existingCollection) {
-                    response = await axios.put(`/collections/${collectionId}`, { collectionMetaData, cards: dbCard, collectionId } as PublishedCollection);
+                    response = await api.put(`/collections/${collectionId}`, {
+                        collectionMetaData,
+                        cards: dbCard,
+                        collectionId,
+                    } as PublishedCollection);
                 } else {
-                    response = await axios.post(`/collections/`, { collectionMetaData, cards: dbCard } as Collection);
+                    response = await api.post(`/collections/`, { collectionMetaData, cards: dbCard } as Collection);
                 }
 
                 if (response && response.status === 200) {
@@ -168,15 +197,37 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                             id="prompt"
                             label="Collection Prompt"
                         />
-                        <FreeTextDropDown values={values} selectedValues={collectionMetaData.tags || []} setSelectedValues={setTags} />
+                        <FreeTextDropDown
+                            values={values}
+                            selectedValues={collectionMetaData.tags || []}
+                            setSelectedValues={setTags}
+                        />
                     </span>
 
-                    <FormControlLabel control={<Switch checked={collectionMetaData.private} id={"private"} onChange={(event) => onChange(event.target as HTMLInputElement)} />} label="Private" />
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={collectionMetaData.private}
+                                id={"private"}
+                                onChange={(event) => onChange(event.target as HTMLInputElement)}
+                            />
+                        }
+                        label="Private"
+                    />
                 </div>
             </div>
             <div className="collection-cards">
                 {cards.map((card, index) => {
-                    return <CreateCard index={index} key={`${index} ${card.id} ${JSON.stringify(errors.cards)}`} updateCard={updateCard} deleteCard={deleteCard} card={card} error={errors.cards[index]} />;
+                    return (
+                        <CreateCard
+                            index={index}
+                            key={`${index} ${card.id} ${JSON.stringify(errors.cards)}`}
+                            updateCard={updateCard}
+                            deleteCard={deleteCard}
+                            card={card}
+                            error={errors.cards[index]}
+                        />
+                    );
                 })}
                 <FABButton
                     title="Add Card"

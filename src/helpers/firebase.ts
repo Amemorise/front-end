@@ -1,9 +1,9 @@
 import firebase from "firebase/compat/app";
 import { FacebookAuthProvider, getAuth, GoogleAuthProvider, signInWithPopup, UserCredential } from "firebase/auth";
 import { NavigateFunction } from "react-router-dom";
-import axios from "axios";
 import { login } from "../redux/user";
 import { isFirstTimeGuest, setReturningUser } from "./helpers";
+import { api } from "./apiHelpers";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -51,12 +51,16 @@ export const trimFirebaseErrors = (str: string) => {
     return str.replace("Firebase: Error (auth/", "").replaceAll("-", " ").replace(")", "");
 };
 
-export const completeSignIn = async (userCredential: UserCredential | undefined, dispatch: React.Dispatch<any>, navigate: NavigateFunction) => {
+export const completeSignIn = async (
+    userCredential: UserCredential | undefined,
+    dispatch: React.Dispatch<any>,
+    navigate: NavigateFunction
+) => {
     if (userCredential) {
         const { displayName, email, photoURL, emailVerified } = userCredential.user;
 
         try {
-            const res = await axios.post("/users/signIn", { displayName, email, photoURL, emailVerified });
+            const res = await api.post("/users/signIn", { displayName, email, photoURL, emailVerified });
 
             dispatch(login({ ...res.data }));
             if (isFirstTimeGuest()) {

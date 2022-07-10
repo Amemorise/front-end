@@ -1,5 +1,15 @@
 import { Verified, Lock } from "@mui/icons-material";
-import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Rating } from "@mui/material";
+import {
+    Avatar,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    IconButton,
+    Rating,
+} from "@mui/material";
 import { PublishedCollectionMetaData } from "../helpers/baseTypes";
 import { convertToDateString } from "../helpers/helpers";
 import { Edit, Delete } from "@mui/icons-material";
@@ -8,9 +18,9 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styles/collection-header.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { setError } from "../redux/error";
 import { setIsLoading } from "../redux/loading";
+import { api } from "../helpers/apiHelpers";
 
 interface CollectionHeaderProps {
     collectionMetaData: PublishedCollectionMetaData;
@@ -37,7 +47,7 @@ const CollectionHeader = (props: CollectionHeaderProps) => {
     const deleteCollection = async () => {
         dispatch(setIsLoading(true));
         try {
-            const response = await axios.delete(`/collections/${collectionId}`);
+            const response = await api.delete(`/collections/${collectionId}`);
             if (response.status === 200) {
                 navigate("/collections");
             }
@@ -57,7 +67,12 @@ const CollectionHeader = (props: CollectionHeaderProps) => {
             </h2>
 
             <span className="created-by-span d-flex text-muted">
-                <Avatar alt={createdBy.displayName} sx={{ width: "24px", height: "24px" }} sizes={"small"} src={createdBy.photoURL} />
+                <Avatar
+                    alt={createdBy.displayName}
+                    sx={{ width: "24px", height: "24px" }}
+                    sizes={"small"}
+                    src={createdBy.photoURL}
+                />
                 <small> by {createdBy.displayName}</small>
                 <small> {convertToDateString(creationDate)}</small>
             </span>
@@ -79,10 +94,17 @@ const CollectionHeader = (props: CollectionHeaderProps) => {
                 </span>
             ) : null}
 
-            <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
                 <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete this collection"}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">Collection deletion is permanent and cannot be undone. Do you want to proceed?</DialogContentText>
+                    <DialogContentText id="alert-dialog-description">
+                        Collection deletion is permanent and cannot be undone. Do you want to proceed?
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} autoFocus>

@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+export const api = axios.create({
+    baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
+});
+
 const useFetchCallBack = () => {
     const useFetch = (url: string) => {
         const [data, setData] = useState<any>(undefined);
@@ -11,7 +15,7 @@ const useFetchCallBack = () => {
             const fetchData = async () => {
                 setLoading(true);
                 try {
-                    const res = await axios.get(url);
+                    const res = await api.get(url);
                     setData(res.data);
                 } catch (err: any) {
                     setError(err);
