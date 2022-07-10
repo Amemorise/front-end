@@ -26,13 +26,11 @@ class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
     }
 
     static getDerivedStateFromError(_error: any) {
-        // Update state so the next render will show the fallback UI.
         return { hasError: true };
     }
 
     componentDidCatch(error: any, errorInfo: any) {
-        // You can also log the error to an error reporting service
-        // logErrorToMyService(error, errorInfo);
+        this.setState({ hasError: true, error: { name: error.name, message: errorInfo.componentStack } });
     }
 
     render() {
@@ -42,30 +40,30 @@ class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
                 <Snackbar
                     open={hasError}
                     autoHideDuration={6000}
-                    // onClose={() => {
-                    //     this.props.clearError();
-                    // }}
+                    onClose={() => {
+                        this.setState({ hasError: false, error: null });
+                    }}
                     anchorOrigin={{
                         vertical: "top",
                         horizontal: "center",
                     }}
                     TransitionComponent={(props) => <Slide {...props} direction="down" />}
                 >
-                    {error ? (
+                    {hasError ? (
                         <Alert
-                            // onClose={() => {
-                            //     this.props.clearError();
-                            // }}
+                            onClose={() => {
+                                this.setState({ hasError: false, error: null });
+                            }}
                             severity="error"
                         >
-                            <AlertTitle>Error - {error.name}</AlertTitle>
-                            {error.message}
+                            <AlertTitle>Error - {error?.name || "Error"}</AlertTitle>
+                            {error?.message || "Something went wrong"}
                         </Alert>
                     ) : (
                         <div>here</div>
                     )}
                 </Snackbar>
-                {this.props.children}
+                {!hasError ? this.props.children : null}
             </>
         );
     }

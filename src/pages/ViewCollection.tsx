@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { PublishedCollection } from "../helpers/baseTypes";
 import StartQuizButton from "../components/StartQuizButton";
 import CollectionSummary from "../components/CollectionSummary";
-import useFetchCallBack from "../helpers/apiHelpers";
+import { useFetch } from "../helpers/apiHelpers";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../redux/loading";
 import { useEffect } from "react";
@@ -18,10 +18,9 @@ const ViewCollection = () => {
         url: window.location.href,
     };
     const params = useParams();
-    const fetchData = useFetchCallBack();
     const dispatch = useDispatch();
 
-    const { data, loading, error } = fetchData(`/collections/${params.id}`);
+    const { data, loading, error } = useFetch(`/collections/${params.id}`);
 
     useEffect(() => {
         dispatch(setIsLoading(loading));
@@ -38,7 +37,10 @@ const ViewCollection = () => {
             {collection ? (
                 <>
                     <div className="collection-metadata d-flex">
-                        <CollectionHeader collectionId={collection.collectionId} collectionMetaData={collection.collectionMetaData} />
+                        <CollectionHeader
+                            collectionId={collection.collectionId}
+                            collectionMetaData={collection.collectionMetaData}
+                        />
 
                         <Divider>
                             <SocialMediaShare {...commonSharedConfig} />

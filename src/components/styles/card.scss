@@ -8,7 +8,7 @@
     .card-link {
         flex: 1;
         text-decoration: none;
-        width: 100%;
+        width: 0%;
         max-width: 21.5rem;
     }
     .card {
@@ -16,7 +16,7 @@
         overflow: hidden;
         .card-image {
             position: relative;
-            height: 15rem;
+            height: 9rem;
             .underlay-image {
                 height: 100%;
                 object-fit: cover;
@@ -33,6 +33,11 @@
             }
         }
         .card-details {
+            & * {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            white-space: nowrap;
             padding: 1rem;
             span {
                 align-items: center;
@@ -146,6 +151,9 @@
 @media only screen and (max-width: 600px) {
     .cards-list {
         flex-direction: column;
+        .card-link {
+            width: 100%;
+        }
     }
     .create-collection {
         .collection-cards {

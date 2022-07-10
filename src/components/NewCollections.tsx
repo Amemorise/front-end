@@ -1,16 +1,12 @@
-import { ChevronRight } from "@mui/icons-material";
 import { Skeleton } from "@mui/material";
 import { Link } from "react-router-dom";
-import useFetchCallBack from "../helpers/apiHelpers";
+import { useFetch } from "../helpers/apiHelpers";
 import { PublishedCollection } from "../helpers/baseTypes";
 import CollectionCard from "./CollectionCard";
-import FABButton from "./FABButton";
 import "./styles/card.scss";
 
 const NewCollections = () => {
-    const fetchData = useFetchCallBack();
-
-    const { data } = fetchData(`/home/latestCollections`);
+    const { data } = useFetch(`/home/latestCollections`);
 
     return (
         <div>
@@ -27,11 +23,17 @@ const NewCollections = () => {
                 ) : (
                     <>
                         {Array.from(Array(4)).map((_t, id) => (
-                            <Skeleton animation="wave" key={id} variant="rectangular" width={40} height={240} sx={{ flex: 1, borderRadius: "1rem" }} />
+                            <Skeleton
+                                animation="wave"
+                                key={id}
+                                variant="rectangular"
+                                width={40}
+                                height={240}
+                                sx={{ flex: 1, borderRadius: "1rem" }}
+                            />
                         ))}
                     </>
                 )}
-                <FABButton title="View More" url={"/collections"} icon={<ChevronRight />} />
             </div>
         </div>
     );

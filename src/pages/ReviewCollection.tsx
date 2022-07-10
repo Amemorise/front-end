@@ -15,7 +15,8 @@ export interface ReviewState {
 }
 const ReviewCollection = () => {
     const reviews = (useLocation().state as ReviewState)?.review;
-    const collectionMetaData = (useLocation().state as ReviewState)?.collectionMetaData || DUMMY_COLLECTION.collectionMetaData;
+    const collectionMetaData =
+        (useLocation().state as ReviewState)?.collectionMetaData || DUMMY_COLLECTION.collectionMetaData;
     const rowData = (reviews || []).map((review) => {
         return {
             ...review.card,
@@ -24,7 +25,6 @@ const ReviewCollection = () => {
             test: Math.random(),
         };
     });
-    console.log(reviews);
     const columns: GridColDef[] = [
         {
             field: "photoURL",
@@ -79,14 +79,28 @@ const ReviewCollection = () => {
                     <h3>Results</h3>
                     <div style={{ display: "flex", height: "100%" }}>
                         <div style={{ flexGrow: 1 }}>
-                            <DataGrid autoHeight rows={[...rowData] || []} rowHeight={100} columns={columns} hideFooter />
+                            <DataGrid
+                                autoHeight
+                                rows={[...rowData] || []}
+                                rowHeight={100}
+                                columns={columns}
+                                hideFooter
+                            />
                         </div>
                     </div>
                 </div>
             ) : null}
             <h3>History</h3>
             <div style={{ height: 500, width: "100%" }}>
-                <DataGrid rows={[...rowData] || []} autoHeight columns={columns} pageSize={100} rowHeight={100} rowsPerPageOptions={[]} disableSelectionOnClick />
+                <DataGrid
+                    rows={[...rowData] || []}
+                    autoHeight
+                    columns={columns}
+                    pageSize={100}
+                    rowHeight={100}
+                    rowsPerPageOptions={[]}
+                    disableSelectionOnClick
+                />
             </div>
         </div>
     );

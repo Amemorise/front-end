@@ -9,14 +9,18 @@ import { store } from "./redux/store";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
+import ErrorBoundary from "./components/ErrorBoundary";
+
 const rootNode = document.getElementById("root");
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <PersistGate persistor={persistStore(store)}>
-                <App />
-            </PersistGate>
-        </Provider>
+        <ErrorBoundary>
+            <Provider store={store}>
+                <PersistGate persistor={persistStore(store)}>
+                    <App />
+                </PersistGate>
+            </Provider>
+        </ErrorBoundary>
     </React.StrictMode>,
     rootNode
 );

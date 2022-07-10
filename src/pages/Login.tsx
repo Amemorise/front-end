@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import "./styles/login.scss";
-import { Button, TextField, OutlinedInput, IconButton, InputAdornment, InputLabel, FormControl, Alert } from "@mui/material";
+import {
+    Button,
+    TextField,
+    OutlinedInput,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    FormControl,
+    Alert,
+} from "@mui/material";
 import { ReactComponent as GoogleLogo } from "../images/google.svg";
 import { ReactComponent as FacebookLogo } from "../images/facebook.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -74,12 +83,22 @@ const Login = () => {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
+
     return (
         <div className="login">
             <form className="content" onSubmit={handleLogin}>
                 <WebTitle />
-                <TextField error={validate && !!validate.email} id="email" label="Email" type={"email"} className="inputField" onChange={(e) => setEmail(e.target.value)} />
-                {validate && validate.email ? <div className={`invalid-feedback`}> {validate.email[0] || ""}</div> : null}
+                <TextField
+                    error={validate && !!validate.email}
+                    id="email"
+                    label="Email"
+                    type={"email"}
+                    className="inputField"
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {validate && validate.email ? (
+                    <div className={`invalid-feedback`}> {validate.email[0] || ""}</div>
+                ) : null}
                 <FormControl sx={{ margin: "1rem 0" }} variant="outlined">
                     <InputLabel htmlFor="password">Password</InputLabel>
                     <OutlinedInput
@@ -90,7 +109,12 @@ const Login = () => {
                         value={password}
                         endAdornment={
                             <InputAdornment position="end">
-                                <IconButton aria-label="toggle password visibility" edge="end" onClick={toggleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    edge="end"
+                                    onClick={toggleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                >
                                     {!showPassword ? <Visibility /> : <VisibilityOff />}
                                 </IconButton>
                             </InputAdornment>
@@ -102,7 +126,12 @@ const Login = () => {
                         {signInError}
                     </Alert>
                 ) : null}
-                <Button variant="contained" type="submit" className="submit-button" style={{ background: "#009ffd", margin: "1rem 0" }}>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    className="submit-button"
+                    style={{ background: "#009ffd", margin: "1rem 0" }}
+                >
                     Log In
                 </Button>
                 <Link to="/reset-password">Forgot Password?</Link>

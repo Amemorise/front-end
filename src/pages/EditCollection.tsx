@@ -4,7 +4,7 @@ import { PublishedCollection } from "../helpers/baseTypes";
 import { setPageTitle } from "../helpers/helpers";
 import CollectionManagement from "../components/CollectionManagement";
 import { useParams } from "react-router-dom";
-import useFetchCallBack from "../helpers/apiHelpers";
+import { useFetch } from "../helpers/apiHelpers";
 import { setError, clearError } from "../redux/error";
 import { setIsLoading } from "../redux/loading";
 
@@ -12,10 +12,9 @@ const EditCollection = () => {
     useEffect(() => setPageTitle("Edit Collection"), []);
 
     const params = useParams();
-    const fetchData = useFetchCallBack();
     const dispatch = useDispatch();
 
-    const { data, loading, error } = fetchData(`/collections/${params.id}`);
+    const { data, loading, error } = useFetch(`/collections/${params.id}`);
 
     useEffect(() => {
         dispatch(setIsLoading(loading));
@@ -26,7 +25,18 @@ const EditCollection = () => {
     }, [error, dispatch]);
     const collection = data as PublishedCollection;
 
-    return <>{collection ? <CollectionManagement collectionMetaData={collection.collectionMetaData} cards={collection.cards} existingCollection={true} collectionId={collection.collectionId} /> : null}</>;
+    return (
+        <>
+            {collection ? (
+                <CollectionManagement
+                    collectionMetaData={collection.collectionMetaData}
+                    cards={collection.cards}
+                    existingCollection={true}
+                    collectionId={collection.collectionId}
+                />
+            ) : null}
+        </>
+    );
 };
 
 export default EditCollection;

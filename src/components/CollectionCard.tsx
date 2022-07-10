@@ -4,7 +4,6 @@ import { Avatar, Paper } from "@mui/material";
 import { convertToDateString } from "../helpers/helpers";
 
 const CollectionCard = (collection: PublishedCollection) => {
-    console.log(collection);
     const { title, verified, createdBy, creationDate, description } = collection.collectionMetaData;
     const isPrivate = collection.collectionMetaData.private;
     const dateCreated = creationDate ? convertToDateString(creationDate) : undefined;
@@ -26,7 +25,11 @@ const CollectionCard = (collection: PublishedCollection) => {
                 <div className={"card-summary"}>
                     {createdBy ? (
                         <div className={"d-flex"}>
-                            <Avatar alt={createdBy.displayName} src={createdBy.photoURL} sx={{ width: 40, height: 40 }} />
+                            <Avatar
+                                alt={createdBy.displayName}
+                                src={createdBy.photoURL}
+                                sx={{ width: 40, height: 40 }}
+                            />
                             <span>
                                 <h5 className="text-muted m0"> {createdBy.displayName}</h5>
                                 {dateCreated ? (
