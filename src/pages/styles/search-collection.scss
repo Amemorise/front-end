@@ -1,0 +1,11 @@
+.search-container {
+    display: flex;
+    .search-filters {
+        width: 25%;
+    }
+
+    .search-body-container {
+        flex: 1;
+        margin-left: 1rem;
+    }
+}

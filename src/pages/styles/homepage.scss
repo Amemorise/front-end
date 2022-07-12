@@ -61,11 +61,17 @@
                 filter: brightness(0.7);
             }
             .featured-label {
+                bottom: 0;
+                left: 0;
                 position: absolute;
-                bottom: 1.2rem;
-                left: 1.2rem;
+                width: calc(100% - 2rem);
+                margin: 1rem;
+                box-sizing: content-box;
                 & > * {
                     margin: 0.35rem;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
                 }
             }
         }
@@ -79,8 +85,8 @@
                 align-items: center;
                 .summaries-wrapper {
                     margin: 1rem 0;
+                    width: 100%;
                     .summaries {
-                        flex-direction: column;
                         .summary-tile {
                             margin: 0.5rem 0;
                         }

@@ -1,8 +1,10 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-import { Dispatch } from "react";
-import { Chip } from "@mui/material";
+import { Dispatch, useState } from "react";
+import { Chip, CircularProgress } from "@mui/material";
+import { api } from "../helpers/apiHelpers";
+import * as _ from "lodash";
 
 const filter = createFilterOptions<FreeSoloType>();
 
@@ -12,20 +14,73 @@ interface FreeSoloType {
 }
 
 interface FreeTextDropDownProps {
-    values: string[];
     selectedValues: string[];
     setSelectedValues: Dispatch<string[]>;
+    freeSolo?: boolean;
+}
+function sleep(delay = 0) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, delay);
+    });
 }
 
 const FreeTextDropDown = (props: FreeTextDropDownProps) => {
-    const { values, selectedValues, setSelectedValues } = props;
+    const { selectedValues, setSelectedValues, freeSolo = true } = props;
+
+    const [open, setOpen] = useState(false);
+    const [search, setSearch] = useState("");
+    const [options, setOptions] = React.useState<string[]>([]);
+    const loading = open && options.length === 0;
+
+    React.useEffect(() => {
+        let active = true;
+
+        const fetchTags = _.debounce(async () => {
+            try {
+                const res = await api.get(`/search/getTags?tag=${search}`);
+                if (res.status === 200) {
+                    const tags = res.data;
+                    setOptions([...tags]);
+                }
+            } catch (err: any) {
+                throw new Error(err);
+            }
+        }, 2000);
+
+        if (active) {
+            fetchTags();
+        }
+        return () => {
+            active = false;
+        };
+    }, [loading, search]);
+
+    const handleChange = (e: any) => {
+        setSearch(e.target.value);
+    };
+
+    React.useEffect(() => {
+        if (!open) {
+            setOptions([]);
+            setSearch("");
+        }
+    }, [open]);
 
     return (
         <React.Fragment>
             <Autocomplete
                 sx={{ flex: 1 }}
+                id="here"
                 size="small"
                 multiple
+                open={open}
+                onOpen={() => {
+                    setOpen(true);
+                }}
+                isOptionEqualToValue={(option, value) => option.value === value.value}
+                onClose={() => {
+                    setOpen(false);
+                }}
                 value={
                     selectedValues.map((option) => {
                         return {
@@ -34,8 +89,9 @@ const FreeTextDropDown = (props: FreeTextDropDownProps) => {
                         };
                     }) as FreeSoloType[]
                 }
+                loading={loading}
                 options={
-                    values
+                    options
                         .filter((option) => {
                             return !selectedValues.includes(option);
                         })
@@ -58,7 +114,11 @@ const FreeTextDropDown = (props: FreeTextDropDownProps) => {
                 }}
                 filterOptions={(options, params) => {
                     const filtered = filter(options, params);
-                    if (params.inputValue !== "") {
+                    if (
+                        freeSolo &&
+                        params.inputValue !== "" &&
+                        !options.some((option) => option.value === params.inputValue)
+                    ) {
                         filtered.push({
                             value: params.inputValue,
                             title: `${"Add"} "${params.inputValue}"`,
@@ -66,7 +126,6 @@ const FreeTextDropDown = (props: FreeTextDropDownProps) => {
                     }
                     return filtered;
                 }}
-                id="free-solo-dialog-demo"
                 getOptionLabel={(option) => {
                     if (typeof option === "string") {
                         return option;
@@ -74,12 +133,36 @@ const FreeTextDropDown = (props: FreeTextDropDownProps) => {
                     return option.value;
                 }}
                 selectOnFocus
-                clearOnBlur
-                renderTags={(value: readonly FreeSoloType[], getTagProps) => value.map((option, index) => <Chip variant="outlined" size="small" label={option.value} {...getTagProps({ index })} />)}
+                // clearOnBlur
+                renderTags={(value: readonly FreeSoloType[], getTagProps) =>
+                    value.map((option, index) => (
+                        <Chip variant="outlined" size="small" label={option.value} {...getTagProps({ index })} />
+                    ))
+                }
                 handleHomeEndKeys
-                renderOption={(props, option) => <li {...props}>{option.title}</li>}
-                freeSolo
-                renderInput={(params) => <TextField {...params} label="Tags" />}
+                renderOption={(props, option) => {
+                    return <li {...props}>{option.title}</li>;
+                }}
+                freeSolo={freeSolo}
+                renderInput={(params) => {
+                    return (
+                        <TextField
+                            {...params}
+                            label="Tags"
+                            value={search}
+                            onChange={handleChange}
+                            InputProps={{
+                                ...params.InputProps,
+                                endAdornment: (
+                                    <React.Fragment>
+                                        {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                        {params.InputProps.endAdornment}
+                                    </React.Fragment>
+                                ),
+                            }}
+                        />
+                    );
+                }}
             />
         </React.Fragment>
     );

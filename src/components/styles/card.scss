@@ -17,6 +17,7 @@
         .card-image {
             position: relative;
             height: 9rem;
+
             .underlay-image {
                 height: 100%;
                 object-fit: cover;
@@ -37,6 +38,7 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
+
             white-space: nowrap;
             padding: 1rem;
             span {
@@ -153,6 +155,7 @@
         flex-direction: column;
         .card-link {
             width: 100%;
+            max-width: unset;
         }
     }
     .create-collection {

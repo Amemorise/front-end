@@ -12,6 +12,16 @@ export const convertToDateString = (epochNumber: number) => {
     return <ReactTimeAgo date={new Date(epochNumber)} locale="en-US" />;
 };
 
+export const isNewCollection = (creationDate: number) => {
+    const created = new Date(creationDate),
+        now = new Date();
+    const msBetweenDates = Math.abs(created.getTime() - now.getTime());
+
+    // 👇️ convert ms to days                 hour   min  sec   ms
+    const daysBetweenDates = msBetweenDates / (24 * 60 * 60 * 1000);
+    return daysBetweenDates < 7;
+};
+
 export const isFirstTimeGuest = () => {
     return !localStorage.getItem("amemorise-user");
 };

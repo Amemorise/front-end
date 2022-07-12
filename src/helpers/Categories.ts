@@ -4,7 +4,7 @@ import Film from "../images/categories/film.jpg";
 import Music from "../images/categories/music.jpg";
 import Comics from "../images/categories/comics.jpg";
 import Geography from "../images/categories/geography.jpg";
-import Astrology from "../images/categories/astrology.jpg";
+import Astronomy from "../images/categories/astronomy.jpg";
 
 import Television from "../images/categories/television.jpg";
 
@@ -25,36 +25,44 @@ export const Categories = [
         name: "Entertainment: Books",
         image: Books,
         attr: {
-            userProfile: "https://unsplash.com/@eddrobertson?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText",
+            userProfile:
+                "https://unsplash.com/@eddrobertson?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText",
             user: "Ed Robertson",
-            unsplashLink: "https://unsplash.com/s/photos/books?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText",
+            unsplashLink:
+                "https://unsplash.com/s/photos/books?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText",
         },
     },
     {
         name: "Entertainment: Film",
         image: Film,
         attr: {
-            userProfile: "https://unsplash.com/@chuklanov?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText",
+            userProfile:
+                "https://unsplash.com/@chuklanov?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText",
             user: "Avel Chuklanov",
-            unsplashLink: "https://unsplash.com/s/photos/film?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText",
+            unsplashLink:
+                "https://unsplash.com/s/photos/film?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText",
         },
     },
     {
         name: "Entertainment: Music",
         image: Music,
         attr: {
-            userProfile: "https://unsplash.com/@marius?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            userProfile:
+                "https://unsplash.com/@marius?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
             user: "Marius Masalar",
-            unsplashLink: "https://unsplash.com/s/photos/music?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            unsplashLink:
+                "https://unsplash.com/s/photos/music?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
     {
         name: "Entertainment: Musicals & Theatres",
         image: Theatre,
         attr: {
-            userProfile: "https://unsplash.com/es/@libraryofcongress?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            userProfile:
+                "https://unsplash.com/es/@libraryofcongress?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
             user: "Library of Congress",
-            unsplashLink: "https://unsplash.com/s/photos/musicals-%26-theatres?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            unsplashLink:
+                "https://unsplash.com/s/photos/musicals-%26-theatres?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
     {
@@ -91,12 +99,13 @@ export const Categories = [
         },
     },
     {
-        name: "Science: Astrology",
-        image: Astrology,
+        name: "Science: Astronomy",
+        image: Astronomy,
         attr: {
             userProfile: "https://unsplash.com/@aldebarans",
             user: "Aldebaran S",
-            unsplashLink: "https://unsplash.com/s/photos/astronomy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            unsplashLink:
+                "https://unsplash.com/s/photos/astronomy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
 
@@ -146,7 +155,8 @@ export const Categories = [
         attr: {
             userProfile: "https://unsplash.com/@kylejglenn",
             user: "Kyle Glenn",
-            unsplashLink: "https://unsplash.com/s/photos/geography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            unsplashLink:
+                "https://unsplash.com/s/photos/geography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
     {
@@ -201,9 +211,11 @@ export const Categories = [
         name: "Entertainment: Comics",
         image: Comics,
         attr: {
-            userProfile: "https://unsplash.com/s/photos/geography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            userProfile:
+                "https://unsplash.com/s/photos/geography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
             user: "Erik Mclean",
-            unsplashLink: "https://unsplash.com/@introspectivedsgn?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+            unsplashLink:
+                "https://unsplash.com/@introspectivedsgn?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
     {

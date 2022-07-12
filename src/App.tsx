@@ -16,6 +16,7 @@ import ReviewCollection from "./pages/ReviewCollection";
 import CardLearnSession from "./pages/CardLearnSession";
 import "./App.scss";
 import EditCollection from "./pages/EditCollection";
+import SearchCollection from "./pages/SearchCollection";
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                         </Route>
                     </Route>
                     <Route path="profile" element={<MyProfile />} />
+                    <Route path="search" element={<SearchCollection />} />
                     <Route path="leaderboard" element={<LeaderBoards />} />
                     <Route path="users" element={<Users />} />{" "}
                 </Route>

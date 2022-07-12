@@ -1,12 +1,13 @@
 import { Lock, Verified } from "@mui/icons-material";
 import { PublishedCollection } from "../helpers/baseTypes";
 import { Avatar, Paper } from "@mui/material";
-import { convertToDateString } from "../helpers/helpers";
+import { convertToDateString, isNewCollection } from "../helpers/helpers";
 
 const CollectionCard = (collection: PublishedCollection) => {
     const { title, verified, createdBy, creationDate, description } = collection.collectionMetaData;
     const isPrivate = collection.collectionMetaData.private;
-    const dateCreated = creationDate ? convertToDateString(creationDate) : undefined;
+    const dateCreated = convertToDateString(creationDate);
+    const newCollection = isNewCollection(creationDate);
     return (
         <Paper className="card" variant="outlined" sx={{ borderRadius: "1rem" }}>
             <div className="card-image">
@@ -18,6 +19,7 @@ const CollectionCard = (collection: PublishedCollection) => {
                     <h4 className="card-title m0">{title}</h4>
                     {isPrivate ? <Lock sx={{ fontSize: "14px" }} /> : null}
                     {verified ? <Verified color="primary" sx={{ fontSize: "14px" }} /> : null}
+                    {newCollection ? <span className="live-button blink">NEW</span> : null}
                 </span>
                 <div className="card-body">
                     <p className="card-text m0">{description}</p>

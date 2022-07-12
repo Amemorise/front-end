@@ -74,19 +74,6 @@ const CollectionManagement = (props: CollectionManagementProps) => {
             tags,
         });
     };
-    const values = [
-        "Oliver Hansen",
-        "Van Henry",
-        "April Tucker",
-        "Ralph Hubbard",
-        "Omar Alexander",
-        "Carlos Abbott",
-        "Miriam Wagner",
-        "Bradley Wilkerson",
-        "Virginia Andrews",
-        "Kelly Snyder",
-    ];
-
     const saveCollection = async () => {
         let tempErrors = validateCollection({ collectionMetaData, cards });
         setErrors({ ...tempErrors.errors });
@@ -197,11 +184,7 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                             id="prompt"
                             label="Collection Prompt"
                         />
-                        <FreeTextDropDown
-                            values={values}
-                            selectedValues={collectionMetaData.tags || []}
-                            setSelectedValues={setTags}
-                        />
+                        <FreeTextDropDown selectedValues={collectionMetaData.tags || []} setSelectedValues={setTags} />
                     </span>
 
                     <FormControlLabel

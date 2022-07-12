@@ -19,7 +19,16 @@
     background-color: #ffc107 !important;
 }
 .progress-bar-striped {
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
     background-size: 1rem 1rem;
 }
 .progress {
@@ -85,4 +94,31 @@
 .warning {
     color: #ffc107 !important;
     background-color: rgb(255, 255, 150);
+}
+
+.live-button {
+    background-color: red;
+    padding: 2px 3px;
+    text-overflow: unset !important;
+    overflow: unset !important;
+    border-radius: 2px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    vertical-align: 10%;
+    margin-left: auto;
+}
+
+.blink {
+    animation: blinker 1s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+}
+@keyframes blinker {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0.4;
+        transform: scale(0.5);
+    }
 }

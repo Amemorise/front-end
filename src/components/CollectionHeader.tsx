@@ -11,7 +11,6 @@ import {
     Rating,
 } from "@mui/material";
 import { PublishedCollectionMetaData } from "../helpers/baseTypes";
-import { convertToDateString } from "../helpers/helpers";
 import { Edit, Delete } from "@mui/icons-material";
 import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +20,7 @@ import { useState } from "react";
 import { setError } from "../redux/error";
 import { setIsLoading } from "../redux/loading";
 import { api } from "../helpers/apiHelpers";
+import { convertToDateString, isNewCollection } from "../helpers/helpers";
 
 interface CollectionHeaderProps {
     collectionMetaData: PublishedCollectionMetaData;
@@ -58,13 +58,18 @@ const CollectionHeader = (props: CollectionHeaderProps) => {
         handleClose();
     };
 
+    const newCollection = isNewCollection(creationDate);
+
     return (
         <div className="header">
-            <h2>
-                {title}
-                {collectionMetaData.private ? <Lock fontSize={"small"} /> : null}
-                {verified ? <Verified color={"primary"} fontSize={"small"} /> : null}
-            </h2>
+            <span className="header-title">
+                <h2>{title}</h2>
+                <span>
+                    {collectionMetaData.private || true ? <Lock fontSize={"small"} /> : null}
+                    {verified || true ? <Verified color={"primary"} fontSize={"small"} /> : null}
+                    {newCollection ? <span className="live-button blink">NEW</span> : null}
+                </span>
+            </span>
 
             <span className="created-by-span d-flex text-muted">
                 <Avatar

@@ -1,4 +1,4 @@
-import { AppBar, Box, IconButton, Toolbar, InputBase, Menu, MenuItem, Avatar, Button } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, InputBase, Menu, MenuItem, Avatar, Button, Slide } from "@mui/material";
 import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Search as SearchIcon, Menu as MenuIcon } from "@mui/icons-material";
@@ -59,6 +59,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
     const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [searchExpanded, setSearchExpanded] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
 
@@ -70,7 +71,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
         setAnchorEl(null);
     };
 
-    const menuId = "primary-search-account-menu";
+    const menuId = "navbar-menu";
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
@@ -137,16 +138,41 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
     //     </Menu>
     // );
 
+    const containerRef = React.useRef(null);
     return (
         <Box sx={{ flexGrow: 1, position: "sticky", top: 0, zIndex: 1000 }}>
             <AppBar position="static" sx={{ backgroundColor: "#1b3b6f", alignItems: "center" }}>
-                <Toolbar sx={{ maxWidth: "2000px", width: "100%", boxSizing: "border-box", minHeight: "unset!important", height: "48px!important" }}>
-                    <IconButton onClick={() => toggleLeftBarOpen(!leftBarOpen)} size="small" edge="start" color="inherit" aria-label="open drawer" sx={{ mr: 2, display: { sm: "block", md: "none" } }}>
+                <Toolbar
+                    sx={{
+                        maxWidth: "2000px",
+                        width: "100%",
+                        boxSizing: "border-box",
+                        minHeight: "unset!important",
+                        height: "48px!important",
+                    }}
+                >
+                    <IconButton
+                        onClick={() => toggleLeftBarOpen(!leftBarOpen)}
+                        size="small"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2, display: { sm: "block", md: "none" } }}
+                    >
                         <MenuIcon />
                     </IconButton>
                     <Box sx={{ height: "100%", flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         <Link style={{ height: "100%" }} to="/">
-                            <img style={{ boxSizing: "border-box", maxHeight: "100%", width: "auto", padding: "0.75rem" }} src={Logo} alt="Amemorise Logo" />
+                            <img
+                                style={{
+                                    boxSizing: "border-box",
+                                    maxHeight: "100%",
+                                    width: "auto",
+                                    padding: "0.75rem",
+                                }}
+                                src={Logo}
+                                alt="Amemorise Logo"
+                            />
                         </Link>
                         <Button>
                             <Link to="/" style={{ color: "white", textDecoration: "none" }}>
@@ -165,14 +191,41 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                         </Link>
                     </Box>
                     <Box sx={{ flexGrow: 1 }} />
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase placeholder="Search…" size="small" inputProps={{ "aria-label": "search" }} />
-                    </Search>
+                    <Slide in={searchExpanded} direction="up" ref={containerRef} container={containerRef.current}>
+                        <Search>
+                            <SearchIconWrapper>
+                                <SearchIcon />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder="Search…"
+                                size="small"
+                                autoFocus={true}
+                                onBlur={() => setSearchExpanded(false)}
+                                inputProps={{ "aria-label": "search", autoFocus: true }}
+                            />
+                        </Search>
+                    </Slide>
+
                     <Box sx={{ display: "flex" }}>
-                        <IconButton size="small" edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} color="inherit">
+                        {searchExpanded ? null : (
+                            <IconButton
+                                size="small"
+                                aria-label="search"
+                                color="inherit"
+                                onClick={() => setSearchExpanded(true)}
+                            >
+                                <SearchIcon />
+                            </IconButton>
+                        )}
+                        <IconButton
+                            size="small"
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
                             <Avatar alt={user.displayName} src={user.photoURL} sx={{ height: "35px", width: "35px" }} />
                         </IconButton>
                     </Box>
