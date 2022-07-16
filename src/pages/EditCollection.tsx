@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { PublishedCollection } from "../helpers/baseTypes";
-import { setPageTitle } from "../helpers/helpers";
+import { usePageTitle } from "../helpers/helpers";
 import CollectionManagement from "../components/CollectionManagement";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../helpers/apiHelpers";
@@ -9,7 +9,7 @@ import { setError, clearError } from "../redux/error";
 import { setIsLoading } from "../redux/loading";
 
 const EditCollection = () => {
-    useEffect(() => setPageTitle("Edit Collection"), []);
+    usePageTitle("Edit Collection");
 
     const params = useParams();
     const dispatch = useDispatch();

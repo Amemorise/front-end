@@ -1,5 +1,5 @@
 import { AppBar, Box, IconButton, Toolbar, InputBase, Menu, MenuItem, Avatar, Button, Slide } from "@mui/material";
-import React from "react";
+import React, { useState, MouseEvent } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { Search as SearchIcon, Menu as MenuIcon } from "@mui/icons-material";
 import Logo from "../images/logo/white.png";
@@ -58,12 +58,13 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [searchExpanded, setSearchExpanded] = React.useState(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [searchExpanded, setSearchExpanded] = useState(false);
+    const [searchText, setSearchText] = useState("");
 
     const isMenuOpen = Boolean(anchorEl);
 
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    const handleProfileMenuOpen = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -199,6 +200,13 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                             <StyledInputBase
                                 placeholder="Search…"
                                 size="small"
+                                value={searchText}
+                                onChange={(e) => setSearchText(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.code === "Enter") {
+                                        navigate(`/search?searchQuery=${searchText}`);
+                                    }
+                                }}
                                 autoFocus={true}
                                 onBlur={() => setSearchExpanded(false)}
                                 inputProps={{ "aria-label": "search", autoFocus: true }}

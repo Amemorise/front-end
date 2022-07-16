@@ -1,8 +1,7 @@
-import { useEffect } from "react";
-import { setPageTitle } from "../helpers/helpers";
+import { usePageTitle } from "../helpers/helpers";
 
 const MyProfile = () => {
-    useEffect(() => setPageTitle("Profile"), []);
+    usePageTitle("Profile");
     return <div>MyProfile</div>;
 };
 

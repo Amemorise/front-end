@@ -17,12 +17,12 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { completeSignIn, firebaseAuth, signInWithProvider } from "../helpers/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
-import { setPageTitle } from "../helpers/helpers";
+import { usePageTitle } from "../helpers/helpers";
 import WebTitle from "../components/WebTitle";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-    React.useEffect(() => setPageTitle("Login"), []);
+    usePageTitle("Login");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [validate, setValidate] = useState<ErrorMessages>({});

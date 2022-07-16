@@ -18,11 +18,6 @@ interface FreeTextDropDownProps {
     setSelectedValues: Dispatch<string[]>;
     freeSolo?: boolean;
 }
-function sleep(delay = 0) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, delay);
-    });
-}
 
 const FreeTextDropDown = (props: FreeTextDropDownProps) => {
     const { selectedValues, setSelectedValues, freeSolo = true } = props;
@@ -77,7 +72,9 @@ const FreeTextDropDown = (props: FreeTextDropDownProps) => {
                 onOpen={() => {
                     setOpen(true);
                 }}
-                isOptionEqualToValue={(option, value) => option.value === value.value}
+                isOptionEqualToValue={(option, value) => {
+                    return option.value.toLowerCase() === value.value.toLowerCase();
+                }}
                 onClose={() => {
                     setOpen(false);
                 }}
@@ -91,16 +88,12 @@ const FreeTextDropDown = (props: FreeTextDropDownProps) => {
                 }
                 loading={loading}
                 options={
-                    options
-                        .filter((option) => {
-                            return !selectedValues.includes(option);
-                        })
-                        .map((option) => {
-                            return {
-                                value: option,
-                                title: option,
-                            };
-                        }) as FreeSoloType[]
+                    options.map((option) => {
+                        return {
+                            value: option,
+                            title: option,
+                        };
+                    }) as FreeSoloType[]
                 }
                 onChange={(event, selected) => {
                     setSelectedValues(
@@ -133,7 +126,6 @@ const FreeTextDropDown = (props: FreeTextDropDownProps) => {
                     return option.value;
                 }}
                 selectOnFocus
-                // clearOnBlur
                 renderTags={(value: readonly FreeSoloType[], getTagProps) =>
                     value.map((option, index) => (
                         <Chip variant="outlined" size="small" label={option.value} {...getTagProps({ index })} />

@@ -1,7 +1,8 @@
 import { Lock, Verified } from "@mui/icons-material";
 import { PublishedCollection } from "../helpers/baseTypes";
-import { Avatar, Paper } from "@mui/material";
+import { Avatar, Paper, Typography } from "@mui/material";
 import { convertToDateString, isNewCollection } from "../helpers/helpers";
+import "./styles/card.scss";
 
 const CollectionCard = (collection: PublishedCollection) => {
     const { title, verified, createdBy, creationDate, description } = collection.collectionMetaData;
@@ -16,13 +17,17 @@ const CollectionCard = (collection: PublishedCollection) => {
             </div>
             <div className="card-details">
                 <span className="d-flex">
-                    <h4 className="card-title m0">{title}</h4>
+                    <Typography variant={"h6"} className="card-title m0">
+                        {title}
+                    </Typography>
                     {isPrivate ? <Lock sx={{ fontSize: "14px" }} /> : null}
                     {verified ? <Verified color="primary" sx={{ fontSize: "14px" }} /> : null}
                     {newCollection ? <span className="live-button blink">NEW</span> : null}
                 </span>
                 <div className="card-body">
-                    <p className="card-text m0">{description}</p>
+                    <Typography variant={"body1"} className="card-text m0">
+                        {description}
+                    </Typography>
                 </div>
                 <div className={"card-summary"}>
                     {createdBy ? (

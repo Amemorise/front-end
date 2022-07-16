@@ -25,5 +25,16 @@ export const useFetch = (url: string) => {
         fetchData();
     }, [url]);
 
-    return { data, loading, error };
+    const reFetch = async (urlString: string) => {
+        setLoading(true);
+        try {
+            const res = await api.get(urlString);
+            setData(res.data);
+        } catch (err: any) {
+            setError(err);
+        }
+        setLoading(false);
+    };
+
+    return { data, loading, error, reFetch };
 };

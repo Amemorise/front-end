@@ -1,4 +1,13 @@
-import { TextField, Button, IconButton, FormControl, InputAdornment, InputLabel, OutlinedInput, Alert } from "@mui/material";
+import {
+    TextField,
+    Button,
+    IconButton,
+    FormControl,
+    InputAdornment,
+    InputLabel,
+    OutlinedInput,
+    Alert,
+} from "@mui/material";
 import React, { useState, useCallback } from "react";
 import { ReactComponent as GoogleLogo } from "../images/google.svg";
 import { ReactComponent as FacebookLogo } from "../images/facebook.svg";
@@ -10,12 +19,12 @@ import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
 import { debounce } from "lodash";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { setPageTitle } from "../helpers/helpers";
+import { usePageTitle } from "../helpers/helpers";
 import WebTitle from "../components/WebTitle";
 import { useDispatch } from "react-redux";
 
 const SignUp = () => {
-    React.useEffect(() => setPageTitle("Sign Up"), []);
+    usePageTitle("Sign Up");
     const [email, setEmail] = useState("");
     const [displayName, setDisplayName] = useState("");
     const [password, setPassword] = useState("");
@@ -112,10 +121,28 @@ const SignUp = () => {
         <div className="login" onSubmit={handleSignUp}>
             <form className="content">
                 <WebTitle />
-                <TextField error={validate && !!validate.name} id="display-name" value={displayName} label="Display Name" type="text" className="inputField" onChange={(e) => setDisplayName(e.target.value)} />
+                <TextField
+                    error={validate && !!validate.name}
+                    id="display-name"
+                    value={displayName}
+                    label="Display Name"
+                    type="text"
+                    className="inputField"
+                    onChange={(e) => setDisplayName(e.target.value)}
+                />
                 {validate && validate.name ? <div className={`invalid-feedback`}> {validate.name[0] || ""}</div> : null}
-                <TextField error={validate && !!validate.email} id="email" value={email} label="Email" type={"email"} className="inputField" onChange={(e) => setEmail(e.target.value)} />
-                {validate && validate.email ? <div className={`invalid-feedback`}> {validate.email[0] || ""}</div> : null}
+                <TextField
+                    error={validate && !!validate.email}
+                    id="email"
+                    value={email}
+                    label="Email"
+                    type={"email"}
+                    className="inputField"
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {validate && validate.email ? (
+                    <div className={`invalid-feedback`}> {validate.email[0] || ""}</div>
+                ) : null}
                 <FormControl sx={{ margin: "1rem 0" }} variant="outlined" error={validate && !!validate.password}>
                     <InputLabel htmlFor="password">Password</InputLabel>
                     <OutlinedInput
@@ -126,14 +153,21 @@ const SignUp = () => {
                         value={password}
                         endAdornment={
                             <InputAdornment position="end">
-                                <IconButton aria-label="toggle password visibility" edge="end" onClick={toggleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    edge="end"
+                                    onClick={toggleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                >
                                     {!showPassword ? <Visibility /> : <VisibilityOff />}
                                 </IconButton>
                             </InputAdornment>
                         }
                     />
                 </FormControl>{" "}
-                {validate && validate.password ? <div className={`invalid-feedback`}> {validate.password[0] || ""}</div> : null}
+                {validate && validate.password ? (
+                    <div className={`invalid-feedback`}> {validate.password[0] || ""}</div>
+                ) : null}
                 <FormControl sx={{ margin: "1rem 0" }} variant="outlined" error={passwordMismatch}>
                     <InputLabel htmlFor="confirm-password">Confirm password</InputLabel>
 
@@ -147,7 +181,12 @@ const SignUp = () => {
                         }}
                         endAdornment={
                             <InputAdornment position="end">
-                                <IconButton aria-label="toggle password visibility" edge="end" onClick={toggleClickShowConfirmedPassword} onMouseDown={handleMouseDownPassword}>
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    edge="end"
+                                    onClick={toggleClickShowConfirmedPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                >
                                     {!showConfirmedPassword ? <Visibility /> : <VisibilityOff />}
                                 </IconButton>
                             </InputAdornment>
@@ -160,7 +199,13 @@ const SignUp = () => {
                         {signInError}
                     </Alert>
                 ) : null}
-                <Button disabled={passwordMismatch} variant="contained" type="submit" className="submit-button" style={{ margin: "1rem 0" }}>
+                <Button
+                    disabled={passwordMismatch}
+                    variant="contained"
+                    type="submit"
+                    className="submit-button"
+                    style={{ margin: "1rem 0" }}
+                >
                     Sign Up
                 </Button>
                 <div className="social-logins">

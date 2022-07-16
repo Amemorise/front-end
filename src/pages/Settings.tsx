@@ -1,8 +1,7 @@
-import { useEffect } from "react";
-import { setPageTitle } from "../helpers/helpers";
+import { usePageTitle } from "../helpers/helpers";
 
 const Settings = () => {
-    useEffect(() => setPageTitle("Settings"), []);
+    usePageTitle("Settings");
     return <div>Settings</div>;
 };
 

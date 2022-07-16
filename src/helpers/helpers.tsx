@@ -1,11 +1,14 @@
 import TimeAgo from "javascript-time-ago";
 import ReactTimeAgo from "react-time-ago";
 import en from "javascript-time-ago/locale/en.json";
+import { useEffect } from "react";
 
 TimeAgo.addDefaultLocale(en);
 
-export const setPageTitle = (title: string) => {
-    document.title = `${title} || Amemorise`;
+export const usePageTitle = (title: string) => {
+    useEffect(() => {
+        document.title = `${title} || Amemorise`;
+    }, [title]);
 };
 
 export const convertToDateString = (epochNumber: number) => {

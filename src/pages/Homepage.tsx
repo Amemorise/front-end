@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import SummaryBanner from "../components/SummaryBanner";
-import { setPageTitle } from "../helpers/helpers";
+import { usePageTitle } from "../helpers/helpers";
 import "./styles/homepage.scss";
 import FeaturedCategories from "../components/FeaturedCategories";
 import RecentCollections from "../components/RecentCollections";
@@ -9,7 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 const Homepage = () => {
-    useEffect(() => setPageTitle("Home"), []);
+    usePageTitle("Home");
 
     const user = useSelector((state: RootState) => state.user.value);
     return (

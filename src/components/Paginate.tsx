@@ -1,15 +1,29 @@
-import React from "react";
+import { Dispatch } from "react";
 import { Pagination, PaginationItem } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import { ArrowBack, ArrowForward } from "@mui/icons-material";
 
-const Paginate = () => {
+interface PaginationProps {
+    page: number;
+    count: number;
+    setPage: Dispatch<any>;
+}
+const Paginate = ({ page, count, setPage }: PaginationProps) => {
+    let [searchParams, setSearchParams] = useSearchParams();
+    console.log(count);
     return (
         <Pagination
-            count={5}
-            page={1}
+            count={count}
+            page={page || 1}
             variant={"outlined"}
+            sx={{ ul: { justifyContent: "center" } }}
+            onChange={(e, page) => {
+                const queries = Object.fromEntries([...searchParams]);
+                setSearchParams({ ...queries, page: String(page) });
+                setPage(page);
+            }}
             color="primary"
-            renderItem={(item) => <PaginationItem {...item} component={Link} to={"collections"} />}
+            renderItem={(item) => <PaginationItem components={{ previous: ArrowBack, next: ArrowForward }} {...item} />}
         />
     );
 };
