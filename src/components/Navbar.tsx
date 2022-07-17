@@ -1,7 +1,7 @@
 import { AppBar, Box, IconButton, Toolbar, InputBase, Menu, MenuItem, Avatar, Button, Slide } from "@mui/material";
 import React, { useState, MouseEvent } from "react";
 import { styled, alpha } from "@mui/material/styles";
-import { Search as SearchIcon, Menu as MenuIcon } from "@mui/icons-material";
+import { Search as SearchIcon, Menu as MenuIcon, Add } from "@mui/icons-material";
 import Logo from "../images/logo/white.png";
 import { User } from "../helpers/baseTypes";
 import { signOut } from "../helpers/firebase";
@@ -38,6 +38,9 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     "& .MuiInputBase-input": {
+        InputProps: { autoFocus: true },
+        inputProps: { autoFocus: true },
+        autoFocus: true,
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -163,7 +166,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                         <MenuIcon />
                     </IconButton>
                     <Box sx={{ height: "100%", flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                        <Link style={{ height: "100%" }} to="/">
+                        <Link style={{ height: "100%" }} to="/home">
                             <img
                                 style={{
                                     boxSizing: "border-box",
@@ -176,20 +179,30 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                             />
                         </Link>
                         <Button>
-                            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+                            <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
                                 Home
                             </Link>
                         </Button>
                         <Button>
-                            {/* aria-controls={dropdownId} aria-haspopup="true" onClick={handleDropDownToggled}> */}
                             <Link to="/collections" style={{ color: "white", textDecoration: "none" }}>
                                 My Collections
                             </Link>
                         </Button>
-                        {/* aria-controls={dropdownId} aria-haspopup="true" onClick={handleDropDownToggled}> */}
-                        <Link to="/collections/create" style={{ color: "white", textDecoration: "none" }}>
-                            Create Collection
-                        </Link>
+                        <Button>
+                            <Link
+                                to="/collections/create"
+                                style={{
+                                    background: "white",
+                                    borderRadius: "1rem",
+                                    color: "#1b3b6f",
+                                    display: "flex",
+                                    padding: "0.25rem 1rem",
+                                    textDecoration: "none",
+                                }}
+                            >
+                                Create <Add fontSize="small" />
+                            </Link>
+                        </Button>
                     </Box>
                     <Box sx={{ flexGrow: 1 }} />
                     <Slide in={searchExpanded} direction="up" ref={containerRef} container={containerRef.current}>
@@ -199,7 +212,9 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                             </SearchIconWrapper>
                             <StyledInputBase
                                 placeholder="Search…"
+                                inputRef={(input) => input && input.focus()}
                                 size="small"
+                                fullWidth
                                 value={searchText}
                                 onChange={(e) => setSearchText(e.target.value)}
                                 onKeyDown={(e) => {
@@ -209,7 +224,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                                 }}
                                 autoFocus={true}
                                 onBlur={() => setSearchExpanded(false)}
-                                inputProps={{ "aria-label": "search", autoFocus: true }}
+                                inputProps={{ "aria-label": "search" }}
                             />
                         </Search>
                     </Slide>

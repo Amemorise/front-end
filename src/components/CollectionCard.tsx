@@ -4,16 +4,16 @@ import { Avatar, Paper, Typography } from "@mui/material";
 import { convertToDateString, isNewCollection } from "../helpers/helpers";
 import "./styles/card.scss";
 
-const CollectionCard = (collection: PublishedCollection) => {
-    const { title, verified, createdBy, creationDate, description } = collection.collectionMetaData;
-    const isPrivate = collection.collectionMetaData.private;
+const CollectionCard = (props: PublishedCollection & { showTags?: boolean }) => {
+    const { title, verified, createdBy, creationDate, description, tags } = props.collectionMetaData;
+    const isPrivate = props.collectionMetaData.private;
     const dateCreated = convertToDateString(creationDate);
     const newCollection = isNewCollection(creationDate);
     return (
         <Paper className="card" variant="outlined" sx={{ borderRadius: "1rem" }}>
             <div className="card-image">
-                <img src={collection.cards[0].photoURL} className="img-fluid rounded-start underlay-image" alt="..." />
-                <img src={collection.cards[1].photoURL} className="img-fluid rounded-start overlay-image" alt="..." />
+                <img src={props.cards[0].photoURL} className="img-fluid rounded-start underlay-image" alt="..." />
+                <img src={props.cards[1].photoURL} className="img-fluid rounded-start overlay-image" alt="..." />
             </div>
             <div className="card-details">
                 <span className="d-flex">
@@ -28,6 +28,14 @@ const CollectionCard = (collection: PublishedCollection) => {
                     <Typography variant={"body1"} className="card-text m0">
                         {description}
                     </Typography>
+
+                    {props.showTags && tags && tags.length ? (
+                        <span className="collection-tags">
+                            {tags.map((tag) => {
+                                return <strong key={tag}>#{tag} </strong>;
+                            })}
+                        </span>
+                    ) : null}
                 </div>
                 <div className={"card-summary"}>
                     {createdBy ? (

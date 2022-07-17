@@ -1,4 +1,5 @@
 import { Skeleton } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useFetch } from "../helpers/apiHelpers";
 import { Categories } from "../helpers/Categories";
 
@@ -37,13 +38,13 @@ const FeaturedCategories = () => {
                         {categories.map((feat: any, index) => {
                             const { image, name, count } = feat;
                             return (
-                                <div className="featured-item" key={index + name.toString()}>
+                                <Link to={`/search?category=${name.toString()}`} key={index + name.toString()}>
                                     <img src={image} alt={name} className="featured-image" />
                                     <div className="featured-label">
                                         <h2>{name.split(": ").pop()}</h2>
                                         <h3>{count} Collections</h3>
                                     </div>
-                                </div>
+                                </Link>
                             );
                         })}
                     </>
