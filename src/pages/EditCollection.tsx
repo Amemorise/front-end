@@ -1,28 +1,18 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { PublishedCollection } from "../helpers/baseTypes";
 import { usePageTitle } from "../helpers/helpers";
 import CollectionManagement from "../components/CollectionManagement";
 import { useParams } from "react-router-dom";
-import { useFetch } from "../helpers/apiHelpers";
-import { setError, clearError } from "../redux/error";
-import { setIsLoading } from "../redux/loading";
+import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
 
 const EditCollection = () => {
     usePageTitle("Edit Collection");
 
     const params = useParams();
-    const dispatch = useDispatch();
 
-    const { data, loading, error } = useFetch(`/collections/${params.id}`);
+    const { data, loading } = useFetch(`/collections/${params.id}`);
 
-    useEffect(() => {
-        dispatch(setIsLoading(loading));
-    }, [loading, dispatch]);
+    useCallLoadingOverlay(loading);
 
-    useEffect(() => {
-        dispatch(error ? setError({ name: "Collection Not Found", message: "Please Refresh" }) : clearError());
-    }, [error, dispatch]);
     const collection = data as PublishedCollection;
 
     return (

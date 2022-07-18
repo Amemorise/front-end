@@ -6,9 +6,8 @@ import { useParams } from "react-router-dom";
 import { Lesson, PublishedCollection } from "../helpers/baseTypes";
 import StartQuizButton from "../components/StartQuizButton";
 import CollectionSummary from "../components/CollectionSummary";
-import { useFetch } from "../helpers/apiHelpers";
+import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
 import { useDispatch } from "react-redux";
-import { setIsLoading } from "../redux/loading";
 import { useEffect } from "react";
 import { clearError, setError } from "../redux/error";
 import "./styles/view-collection.scss";
@@ -25,9 +24,7 @@ const ViewCollection = () => {
     const lessonFetch = useFetch(`/learning/${params.id}`);
     usePageTitle(data?.collectionMetaData?.title || "");
 
-    useEffect(() => {
-        dispatch(setIsLoading(loading));
-    }, [loading, dispatch]);
+    useCallLoadingOverlay(loading);
 
     useEffect(() => {
         dispatch(error ? setError({ name: "Collection Not Found", message: "Please Refresh" }) : clearError());

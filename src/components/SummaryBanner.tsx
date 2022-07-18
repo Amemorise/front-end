@@ -1,21 +1,25 @@
-import { Avatar, Paper } from "@mui/material";
+import { Avatar, Paper, Skeleton } from "@mui/material";
+import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
 import { User } from "../helpers/baseTypes";
 
 const SummaryBanner = ({ user }: { user: User }) => {
-    const summary = [
-        {
-            title: "Collections Created",
-            count: 3,
-        },
-        {
-            title: "Learning Collections",
-            count: 2,
-        },
-        {
-            title: "Total Completion Rate",
-            count: "0%",
-        },
-    ];
+    const { data, loading } = useFetch("/home/summary");
+    const summary = data
+        ? [
+              {
+                  title: "Collections Created",
+                  count: data.createdCollections,
+              },
+              {
+                  title: "Learning Collections",
+                  count: data.learningCollections,
+              },
+              {
+                  title: "Total Completion Rate",
+                  count: data.totalLearnings + "%",
+              },
+          ]
+        : [];
     return (
         <Paper className="summary-banner" variant="outlined" sx={{ borderRadius: "1rem" }}>
             <div className="display-padding banner-container">
@@ -23,9 +27,26 @@ const SummaryBanner = ({ user }: { user: User }) => {
                 <div className="summaries-wrapper">
                     <h5>Summary</h5>
                     <div className="summaries">
-                        {summary.map((card, index) => {
-                            return <SummaryCards {...card} key={card.title + index} />;
-                        })}
+                        {loading ? (
+                            <>
+                                {Array.from(Array(3)).map((_t, id) => (
+                                    <Skeleton
+                                        animation="wave"
+                                        key={id}
+                                        className="summary-tile"
+                                        variant="rectangular"
+                                        height={50}
+                                        sx={{ flex: 1, borderRadius: "1rem", margin: "0 2rem" }}
+                                    />
+                                ))}
+                            </>
+                        ) : data ? (
+                            <>
+                                {summary.map((card, index) => {
+                                    return <SummaryCards {...card} key={card.title + index} />;
+                                })}
+                            </>
+                        ) : null}
                     </div>
                 </div>
             </div>

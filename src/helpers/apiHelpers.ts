@@ -1,11 +1,19 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "../redux/loading";
 
 export const api = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
     withCredentials: true,
 });
 
+export const useCallLoadingOverlay = (loading: boolean) => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setIsLoading(loading));
+    }, [loading, dispatch]);
+};
 export const useFetch = (url: string) => {
     const [data, setData] = useState<any>(undefined);
     const [loading, setLoading] = useState(false);

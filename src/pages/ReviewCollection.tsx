@@ -5,10 +5,7 @@ import { Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead,
 import StartQuizButton from "../components/StartQuizButton";
 import CollectionSummary from "../components/CollectionSummary";
 import { useParams } from "react-router-dom";
-import { useFetch } from "../helpers/apiHelpers";
-import { useEffect } from "react";
-import { setIsLoading } from "../redux/loading";
-import { useDispatch } from "react-redux";
+import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
 import { getLessonRowData, usePageTitle } from "../helpers/helpers";
 import "./styles/review-collection.scss";
 
@@ -17,12 +14,10 @@ export interface ReviewState {
 }
 const ReviewCollection = () => {
     const params = useParams();
-    const dispatch = useDispatch();
     const { data, loading, error } = useFetch(`/learning/${params.id}`);
     usePageTitle(data?.collection?.collectionMetaData?.title || "");
-    useEffect(() => {
-        dispatch(setIsLoading(loading));
-    }, [loading, dispatch]);
+
+    useCallLoadingOverlay(loading);
 
     const reviews = (useLocation().state as ReviewState)?.review;
 
