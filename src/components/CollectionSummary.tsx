@@ -23,11 +23,10 @@ const CollectionSummary = (props: CollectionSummaryProps) => {
     useEffect(() => {
         let poorCount = 0,
             okayCount = 0,
-            greatCount = 0,
-            unStarted = 0;
+            greatCount = 0;
         cards.forEach((card) => {
             const { average } = card;
-            average > 0.66 ? greatCount++ : average > 0.333 ? okayCount++ : average > 0 ? poorCount++ : unStarted++;
+            average > 0.66 ? greatCount++ : average > 0.333 ? okayCount++ : poorCount++;
         });
         setCount({
             poorCount,
@@ -43,7 +42,7 @@ const CollectionSummary = (props: CollectionSummaryProps) => {
                 <TableHead>
                     <TableRow sx={{ th: { padding: "0.5rem" } }}>
                         <TableCell align="center">Cards</TableCell>
-                        <TableCell align="center">WIP 😐</TableCell>
+                        <TableCell align="center">Needs work 😐</TableCell>
                         <TableCell align="center">Warming Up🙂</TableCell>
                         <TableCell align="center">Perfected 😄</TableCell>
                     </TableRow>

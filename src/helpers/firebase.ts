@@ -58,6 +58,7 @@ export const completeSignIn = async (
 ) => {
     if (userCredential) {
         const { displayName, email, photoURL, emailVerified } = userCredential.user;
+        console.log(userCredential);
 
         try {
             const res = await api.post("/users/signIn", { displayName, email, photoURL, emailVerified });
@@ -74,13 +75,12 @@ export const completeSignIn = async (
     }
 };
 
-export const signOut = (navigate: NavigateFunction) => {
-    firebaseAuth.signOut().then(
-        function () {
-            navigate("/login");
-        },
-        function (error) {
-            console.error("Sign Out Error", error);
-        }
-    );
+export const signOut = async (navigate: NavigateFunction) => {
+    try {
+        await firebaseAuth.signOut();
+        await api.get("/users/signOut");
+        navigate("/login");
+    } catch (err: any) {
+        console.error("Sign Out Error", err);
+    }
 };

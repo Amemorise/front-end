@@ -13,7 +13,7 @@ const CardLearnSession = () => {
         <CardViews
             cards={_.shuffle(collection.cards)}
             collectionMetaData={collection.collectionMetaData}
-            collectionId={2}
+            collectionId={collection.collectionId}
         />
     );
 };
