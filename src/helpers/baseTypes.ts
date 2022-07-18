@@ -63,3 +63,13 @@ export interface PublishedCollection {
 export interface LocationState {
     collection: PublishedCollection;
 }
+
+export interface Lesson {
+    cards: ICardLesson[];
+    collectionId: number;
+    userId: number;
+}
+export interface ICardLesson {
+    cardId: number;
+    attempts: number[];
+}

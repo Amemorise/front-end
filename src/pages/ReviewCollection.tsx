@@ -1,109 +1,118 @@
 import CollectionHeader from "../components/CollectionHeader";
 import { useLocation } from "react-router-dom";
-import { Card, PublishedCollectionMetaData } from "../helpers/baseTypes";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DUMMY_COLLECTION } from "../helpers/constants";
-import { renderProgress } from "../components/GridProgressBar";
-import { Divider } from "@mui/material";
+import { Card, PublishedCollection, Lesson } from "../helpers/baseTypes";
+import { PREVIOUS_ATTEMPTS_CONSIDERED } from "../helpers/constants";
+import { Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import StartQuizButton from "../components/StartQuizButton";
 import CollectionSummary from "../components/CollectionSummary";
+import { useParams } from "react-router-dom";
+import { useFetch } from "../helpers/apiHelpers";
+import { useEffect } from "react";
+import { setIsLoading } from "../redux/loading";
+import { useDispatch } from "react-redux";
+import { usePageTitle } from "../helpers/helpers";
 import "./styles/review-collection.scss";
 
 export interface ReviewState {
-    review: { card: Card; isCorrect: boolean; userResponse: string }[];
-    collectionMetaData: PublishedCollectionMetaData;
+    review?: { card: Card; isCorrect: boolean; userResponse: string }[];
 }
 const ReviewCollection = () => {
-    const reviews = (useLocation().state as ReviewState)?.review;
-    const collectionMetaData =
-        (useLocation().state as ReviewState)?.collectionMetaData || DUMMY_COLLECTION.collectionMetaData;
-    const rowData = (reviews || []).map((review) => {
-        return {
-            ...review.card,
-            isCorrect: review.isCorrect,
-            userResponse: review.userResponse,
-            test: Math.random(),
-        };
-    });
-    const columns: GridColDef[] = [
-        {
-            field: "photoURL",
-            headerName: "Images",
-            renderCell: (params) => {
-                return <img src={params.value} alt={params.value} style={{ width: "100%" }} />;
-            },
-        },
-        {
-            field: "label",
-            headerName: "Label",
-        },
-        {
-            field: "userResponse",
-            headerName: "User Response",
-        },
-        {
-            field: "isCorrect",
-            headerName: "Result",
-            cellClassName: (params) => {
-                return params.value ? "correct" : "incorrect";
-            },
-            valueFormatter: (params) => {
-                return params.value ? "Correct" : "Incorrect";
-            },
-        },
-        {
-            field: "test",
-            renderCell: renderProgress,
-            headerName: "test",
-        },
-    ];
+    const params = useParams();
+    const dispatch = useDispatch();
+    const { data, loading, error } = useFetch(`/learning/${params.id}`);
+    usePageTitle(data?.collection?.collectionMetaData?.title || "");
+    useEffect(() => {
+        dispatch(setIsLoading(loading));
+    }, [loading, dispatch]);
 
-    return (
-        <div className="review-page display-padding">
-            <CollectionHeader collectionId={1} collectionMetaData={collectionMetaData} />
-            <Divider />
-            <CollectionSummary cards={DUMMY_COLLECTION.cards} />
-            <StartQuizButton
-                titleText="Restart"
-                collection={{
-                    collectionId: 5,
-                    collectionMetaData,
-                    cards: (reviews || []).map((review) => {
-                        return { ...review.card };
-                    }),
-                }}
-            />
-            <Divider />
-            {rowData.length ? (
-                <div>
-                    <h3>Results</h3>
-                    <div style={{ display: "flex", height: "100%" }}>
-                        <div style={{ flexGrow: 1 }}>
-                            <DataGrid
-                                autoHeight
-                                rows={[...rowData] || []}
-                                rowHeight={100}
-                                columns={columns}
-                                hideFooter
-                            />
-                        </div>
-                    </div>
-                </div>
-            ) : null}
-            <h3>History</h3>
-            <div style={{ height: 500, width: "100%" }}>
-                <DataGrid
-                    rows={[...rowData] || []}
-                    autoHeight
-                    columns={columns}
-                    pageSize={100}
-                    rowHeight={100}
-                    rowsPerPageOptions={[]}
-                    disableSelectionOnClick
+    const reviews = (useLocation().state as ReviewState)?.review;
+
+    if (loading) {
+        return <></>;
+    } else if (error) {
+        return <></>;
+    } else if (data) {
+        const { collection, lesson } = data as { collection: PublishedCollection; lesson: Lesson | null };
+        const { collectionMetaData, collectionId, cards } = collection;
+
+        const rowData = lesson?.cards.map((card) => {
+            const matchCard = cards.find((match) => match.id === card.cardId);
+
+            const average = card.attempts.slice(-10).reduce((a, b) => a + b, 0) / PREVIOUS_ATTEMPTS_CONSIDERED;
+
+            return {
+                ...matchCard,
+                ...card,
+                average,
+            };
+        });
+
+        return (
+            <div className="review-page display-padding">
+                <CollectionHeader collectionId={collectionId} collectionMetaData={collectionMetaData} />
+                <Divider />
+                <CollectionSummary cards={rowData || []} />
+                <StartQuizButton
+                    titleText="Restart"
+                    collection={{
+                        collectionId,
+                        collectionMetaData,
+                        cards: cards,
+                    }}
                 />
+                <Divider />
+
+                {rowData && rowData.length ? (
+                    <TableContainer component={Paper} sx={{ margin: "1rem auto 1rem" }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow sx={{ th: { padding: "0.5rem" } }}>
+                                    <TableCell align="center">Images</TableCell>
+                                    <TableCell align="center">Label</TableCell>
+                                    {reviews ? <TableCell align="center">Response</TableCell> : null}
+                                    <TableCell align="center">Completion</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rowData.map((card) => {
+                                    const { id, photoURL, label, average } = card;
+                                    const cardResponse = reviews?.find((review) => review.card.id === id);
+
+                                    return (
+                                        <TableRow
+                                            key={id}
+                                            sx={{
+                                                td: { padding: "0.5rem" },
+                                                "&:last-child td, &:last-child th": { border: 0 },
+                                            }}
+                                        >
+                                            <TableCell align="center">
+                                                <img src={photoURL} alt={label} className={"review-table-image"} />
+                                            </TableCell>
+                                            <TableCell align="center">{label}</TableCell>
+                                            {cardResponse ? (
+                                                <TableCell
+                                                    align="center"
+                                                    className={cardResponse.isCorrect ? "correct" : "incorrect"}
+                                                >
+                                                    {cardResponse.userResponse}
+                                                </TableCell>
+                                            ) : null}
+                                            <TableCell align="center">{(average * 100).toFixed(1) + "%"}</TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                ) : (
+                    <h6>You haven't attempted this collection yet. Give it a try!</h6>
+                )}
             </div>
-        </div>
-    );
+        );
+    } else {
+        return <></>;
+    }
 };
 
 export default ReviewCollection;

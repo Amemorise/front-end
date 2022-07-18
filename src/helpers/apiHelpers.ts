@@ -9,7 +9,7 @@ export const api = axios.create({
 export const useFetch = (url: string) => {
     const [data, setData] = useState<any>(undefined);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<any>(undefined);
 
     useEffect(() => {
         const fetchData = async () => {

@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useFetch } from "../helpers/apiHelpers";
 import { PublishedCollection } from "../helpers/baseTypes";
@@ -10,7 +10,12 @@ const NewCollections = () => {
 
     return (
         <div>
-            <h4>New Collections</h4>
+            <Stack direction="row" justifyContent={"space-between"}>
+                <h4>New Collections</h4>
+                <Link to={"/search?sortBy=date&desc=true"} style={{ color: "inherit", textDecoration: "none" }}>
+                    <h5>SEE ALL</h5>
+                </Link>
+            </Stack>
             <div className={"cards-list"}>
                 {data && data.length ? (
                     (data as PublishedCollection[]).map((collection, index) => {

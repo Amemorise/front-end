@@ -9,13 +9,13 @@ import Paper from "@mui/material/Paper";
 import { Card } from "../helpers/baseTypes";
 
 export interface CollectionSummaryProps {
-    cards: Card[];
+    cards: Partial<Card>[];
 }
 const CollectionSummary = (props: CollectionSummaryProps) => {
     const { cards } = props;
     return (
         <TableContainer component={Paper} sx={{ margin: "1rem auto 1rem", maxWidth: "40rem" }}>
-            <Table aria-label="simple table">
+            <Table>
                 <TableHead>
                     <TableRow sx={{ th: { padding: "0.5rem" } }}>
                         <TableCell align="center">Not Started 😵</TableCell>

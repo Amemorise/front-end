@@ -1,5 +1,5 @@
 import { Search } from "@mui/icons-material";
-import { Container, InputAdornment, TextField, Button, Grid, Skeleton } from "@mui/material";
+import { Container, InputAdornment, TextField, Button, Grid, Skeleton, Box, DialogTitle, Dialog } from "@mui/material";
 import Paginate from "../components/Paginate";
 import { Link, useSearchParams } from "react-router-dom";
 import "./styles/search-collection.scss";
@@ -37,11 +37,25 @@ const SearchCollection = () => {
         }
     };
 
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return (
         <Container maxWidth={"xl"} sx={{ margin: "2rem auto" }}>
             <Grid container spacing={2}>
                 <Grid item md={3} sm={6} xs={12}>
-                    <SearchFilters searchParams={searchParams} setSearchParams={setSearchParams} />
+                    <Box sx={{ display: ["none", "block"] }}>
+                        <SearchFilters
+                            searchParams={searchParams}
+                            setSearchParams={setSearchParams}
+                            handleClose={handleClose}
+                            mobileView={open}
+                        />
+                    </Box>
+                    <Button onClick={handleOpen} fullWidth variant="contained" sx={{ display: ["block", "none"] }}>
+                        Filter and Sort
+                    </Button>
                 </Grid>
                 <Grid item md={9} sm={6} xs={12}>
                     {/* className="search-body-container"> */}
@@ -95,7 +109,7 @@ const SearchCollection = () => {
                                 return (
                                     <Grid item xs={12} sm={6} md={4} lg={3} key={collection.collectionId + " " + index}>
                                         <Link to={`/collections/${collection.collectionId}`} className="card-link">
-                                            <CollectionCard {...collection} showTags={true}/>
+                                            <CollectionCard {...collection} showTags={true} />
                                         </Link>
                                     </Grid>
                                 );
@@ -113,6 +127,16 @@ const SearchCollection = () => {
                     ) : null}
                 </Grid>
             </Grid>
+
+            <Dialog onClose={handleClose} open={open} maxWidth="sm">
+                <DialogTitle>Filters</DialogTitle>
+                <SearchFilters
+                    searchParams={searchParams}
+                    setSearchParams={setSearchParams}
+                    handleClose={handleClose}
+                    mobileView={open}
+                />
+            </Dialog>
         </Container>
     );
 };

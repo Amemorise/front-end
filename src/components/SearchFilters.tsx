@@ -17,8 +17,10 @@ import FreeTextDropDown from "./FreeTextDropDown";
 interface SearchFiltersProps {
     searchParams: URLSearchParams;
     setSearchParams: Dispatch<any>;
+    handleClose: Dispatch<any>;
+    mobileView: boolean;
 }
-const SearchFilters = ({ searchParams, setSearchParams }: SearchFiltersProps) => {
+const SearchFilters = ({ searchParams, setSearchParams, handleClose, mobileView }: SearchFiltersProps) => {
     // const searchLimit = searchParams.get("limit") || "15";
     const searchDescending = searchParams.get("descending") || true;
     const searchSortBy = searchParams.get("sortBy") || "date";
@@ -39,6 +41,7 @@ const SearchFilters = ({ searchParams, setSearchParams }: SearchFiltersProps) =>
     const handleChangeCategory = (_event: MouseEvent<HTMLElement>, nextCategory: string) => {
         const queries = Object.fromEntries([...searchParams]);
         setSearchParams({ ...queries, category: nextCategory || "" });
+        handleClose(false);
     };
     const getSortDirectionIcon = (name: string) => {
         return sortCriteria === name ? sortDescending ? <ArrowDropDown /> : <ArrowDropUp /> : null;
@@ -49,15 +52,19 @@ const SearchFilters = ({ searchParams, setSearchParams }: SearchFiltersProps) =>
     const applyFilters = () => {
         const queries = Object.fromEntries([...searchParams]);
         setSearchParams({ ...queries, sortBy: sortCriteria, tags, limit: "", descending: sortDescending });
+        handleClose(false);
     };
     const clearAllFilters = () => {
         setSearchParams({ searchQuery: searchParams.get("searchQuery") || "" });
+        handleClose(false);
     };
     return (
         <Paper elevation={2} sx={{ padding: "1rem" }}>
-            <Typography variant="subtitle1" display={"flex"} alignItems={"center"} justifyContent={"center"}>
-                <FilterList fontSize="small" /> Filter
-            </Typography>
+            {!mobileView ? (
+                <Typography variant="subtitle1" display={"flex"} alignItems={"center"} justifyContent={"center"}>
+                    <FilterList fontSize="small" /> Filter
+                </Typography>
+            ) : null}
             <Stack spacing={3}>
                 <span>
                     <Typography variant="body1" display={"flex"} justifyContent={"center"}>
@@ -79,7 +86,7 @@ const SearchFilters = ({ searchParams, setSearchParams }: SearchFiltersProps) =>
                         })}
                     </ToggleButtonGroup>
                 </span>
-                <Accordion>
+                <Accordion defaultExpanded={!mobileView}>
                     <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
                         <Typography>Categories</Typography>
                     </AccordionSummary>

@@ -12,6 +12,7 @@ import { setIsLoading } from "../redux/loading";
 import { useEffect } from "react";
 import { clearError, setError } from "../redux/error";
 import "./styles/view-collection.scss";
+import { usePageTitle } from "../helpers/helpers";
 
 const ViewCollection = () => {
     const commonSharedConfig = {
@@ -21,6 +22,7 @@ const ViewCollection = () => {
     const dispatch = useDispatch();
 
     const { data, loading, error } = useFetch(`/collections/${params.id}`);
+    usePageTitle(data?.collectionMetaData?.title || "");
 
     useEffect(() => {
         dispatch(setIsLoading(loading));
@@ -31,7 +33,6 @@ const ViewCollection = () => {
     }, [error, dispatch]);
 
     const collection = data as PublishedCollection;
-
     return (
         <div className="view-collection display-padding">
             {collection ? (

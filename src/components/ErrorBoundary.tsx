@@ -39,7 +39,6 @@ class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
             <>
                 <Snackbar
                     open={hasError}
-                    autoHideDuration={6000}
                     onClose={() => {
                         this.setState({ hasError: false, error: null });
                     }}
