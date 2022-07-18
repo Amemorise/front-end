@@ -3,7 +3,7 @@ import SocialMediaShare from "../components/SocialMediaShare";
 import CoverImages from "../components/CoverImages";
 import CollectionHeader from "../components/CollectionHeader";
 import { useParams } from "react-router-dom";
-import { PublishedCollection } from "../helpers/baseTypes";
+import { Lesson, PublishedCollection } from "../helpers/baseTypes";
 import StartQuizButton from "../components/StartQuizButton";
 import CollectionSummary from "../components/CollectionSummary";
 import { useFetch } from "../helpers/apiHelpers";
@@ -12,7 +12,7 @@ import { setIsLoading } from "../redux/loading";
 import { useEffect } from "react";
 import { clearError, setError } from "../redux/error";
 import "./styles/view-collection.scss";
-import { usePageTitle } from "../helpers/helpers";
+import { getLessonRowData, usePageTitle } from "../helpers/helpers";
 
 const ViewCollection = () => {
     const commonSharedConfig = {
@@ -22,6 +22,7 @@ const ViewCollection = () => {
     const dispatch = useDispatch();
 
     const { data, loading, error } = useFetch(`/collections/${params.id}`);
+    const lessonFetch = useFetch(`/learning/${params.id}`);
     usePageTitle(data?.collectionMetaData?.title || "");
 
     useEffect(() => {
@@ -33,35 +34,38 @@ const ViewCollection = () => {
     }, [error, dispatch]);
 
     const collection = data as PublishedCollection;
-    return (
-        <div className="view-collection display-padding">
-            {collection ? (
-                <>
-                    <div className="collection-metadata d-flex">
-                        <CollectionHeader
-                            collectionId={collection.collectionId}
-                            collectionMetaData={collection.collectionMetaData}
-                        />
+    if (loading) {
+        return <></>;
+    } else if (collection) {
+        const { cards, collectionMetaData, collectionId } = collection;
+        const lesson: Lesson = lessonFetch.data && lessonFetch.data.lesson;
 
-                        <Divider>
-                            <SocialMediaShare {...commonSharedConfig} />
-                        </Divider>
-                        <CollectionSummary cards={collection.cards} />
-                        <StartQuizButton titleText="Start" collection={collection} />
-                        <Divider />
-                        <CoverImages images={collection.cards.slice(0, 3).map((card) => card.photoURL)} />
-                        <p className="collection-description">{collection.collectionMetaData.description}</p>
+        const rowData = getLessonRowData(cards, lesson);
+        return (
+            <div className="view-collection display-padding">
+                <div className="collection-metadata d-flex">
+                    <CollectionHeader collectionId={collectionId} collectionMetaData={collectionMetaData} />
 
-                        <span className="collection-tags">
-                            {collection.collectionMetaData.tags.map((tag) => {
-                                return <Chip key={tag} label={tag} variant="outlined" />;
-                            })}
-                        </span>
-                    </div>
-                </>
-            ) : null}
-        </div>
-    );
+                    <Divider>
+                        <SocialMediaShare {...commonSharedConfig} />
+                    </Divider>
+                    <CollectionSummary cards={rowData || []} />
+                    <StartQuizButton titleText="Start" collection={collection} />
+                    <Divider />
+                    <CoverImages images={cards.slice(0, 3).map((card) => card.photoURL)} />
+                    <p className="collection-description">{collectionMetaData.description}</p>
+
+                    <span className="collection-tags">
+                        {collectionMetaData.tags.map((tag) => {
+                            return <Chip key={tag} label={tag} variant="outlined" />;
+                        })}
+                    </span>
+                </div>
+            </div>
+        );
+    } else {
+        return <></>;
+    }
 };
 
 export default ViewCollection;

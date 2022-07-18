@@ -1,6 +1,6 @@
 import { Lock, Verified } from "@mui/icons-material";
 import { PublishedCollection } from "../helpers/baseTypes";
-import { Avatar, Paper, Typography } from "@mui/material";
+import { Avatar, Paper } from "@mui/material";
 import { convertToDateString, isNewCollection } from "../helpers/helpers";
 import "./styles/card.scss";
 
@@ -17,22 +17,24 @@ const CollectionCard = (props: PublishedCollection & { showTags?: boolean }) => 
             </div>
             <div className="card-details">
                 <span className="d-flex">
-                    <Typography variant={"h6"} className="card-title m0">
-                        {title}
-                    </Typography>
+                    <h5 className="card-title m0">{title}</h5>
                     {isPrivate ? <Lock sx={{ fontSize: "14px" }} /> : null}
                     {verified ? <Verified color="primary" sx={{ fontSize: "14px" }} /> : null}
                     {newCollection ? <span className="live-button blink">NEW</span> : null}
                 </span>
                 <div className="card-body">
-                    <Typography variant={"body1"} className="card-text m0">
-                        {description}
-                    </Typography>
+                    <p className="card-text m0">
+                        <small>{description}</small>
+                    </p>
 
                     {props.showTags && tags && tags.length ? (
                         <span className="collection-tags">
                             {tags.map((tag) => {
-                                return <strong key={tag}>#{tag} </strong>;
+                                return (
+                                    <strong key={tag}>
+                                        <small>#{tag} </small>
+                                    </strong>
+                                );
                             })}
                         </span>
                     ) : null}

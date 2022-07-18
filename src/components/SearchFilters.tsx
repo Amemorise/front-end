@@ -79,7 +79,13 @@ const SearchFilters = ({ searchParams, setSearchParams, handleClose, mobileView 
                     >
                         {sortTypes.map((sortType) => {
                             return (
-                                <ToggleButton fullWidth value={sortType} aria-label={sortType} key={sortType}>
+                                <ToggleButton
+                                    size="small"
+                                    fullWidth
+                                    value={sortType}
+                                    aria-label={sortType}
+                                    key={sortType}
+                                >
                                     {sortType.toUpperCase()} {getSortDirectionIcon(sortType)}
                                 </ToggleButton>
                             );

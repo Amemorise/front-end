@@ -1,7 +1,6 @@
 import CollectionHeader from "../components/CollectionHeader";
 import { useLocation } from "react-router-dom";
 import { Card, PublishedCollection, Lesson } from "../helpers/baseTypes";
-import { PREVIOUS_ATTEMPTS_CONSIDERED } from "../helpers/constants";
 import { Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import StartQuizButton from "../components/StartQuizButton";
 import CollectionSummary from "../components/CollectionSummary";
@@ -10,7 +9,7 @@ import { useFetch } from "../helpers/apiHelpers";
 import { useEffect } from "react";
 import { setIsLoading } from "../redux/loading";
 import { useDispatch } from "react-redux";
-import { usePageTitle } from "../helpers/helpers";
+import { getLessonRowData, usePageTitle } from "../helpers/helpers";
 import "./styles/review-collection.scss";
 
 export interface ReviewState {
@@ -35,17 +34,7 @@ const ReviewCollection = () => {
         const { collection, lesson } = data as { collection: PublishedCollection; lesson: Lesson | null };
         const { collectionMetaData, collectionId, cards } = collection;
 
-        const rowData = lesson?.cards.map((card) => {
-            const matchCard = cards.find((match) => match.id === card.cardId);
-
-            const average = card.attempts.slice(-10).reduce((a, b) => a + b, 0) / PREVIOUS_ATTEMPTS_CONSIDERED;
-
-            return {
-                ...matchCard,
-                ...card,
-                average,
-            };
-        });
+        const rowData = getLessonRowData(cards, lesson);
 
         return (
             <div className="review-page display-padding">
@@ -57,7 +46,7 @@ const ReviewCollection = () => {
                     collection={{
                         collectionId,
                         collectionMetaData,
-                        cards: cards,
+                        cards,
                     }}
                 />
                 <Divider />

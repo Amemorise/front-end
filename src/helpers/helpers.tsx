@@ -2,6 +2,8 @@ import TimeAgo from "javascript-time-ago";
 import ReactTimeAgo from "react-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import { useEffect } from "react";
+import { Lesson, CardLessonRowData, Card } from "./baseTypes";
+import { PREVIOUS_ATTEMPTS_CONSIDERED } from "./constants";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -11,6 +13,19 @@ export const usePageTitle = (title: string) => {
     }, [title]);
 };
 
+export const getLessonRowData = (cards: Card[], lesson: Lesson | null): CardLessonRowData[] | undefined => {
+    return cards.map((card) => {
+        const matchCard = lesson?.cards.find((match) => match.cardId === card.id);
+
+        const average = (matchCard?.attempts.slice(-10).reduce((a, b) => a + b, 0) || 0) / PREVIOUS_ATTEMPTS_CONSIDERED;
+
+        return {
+            ...matchCard,
+            ...card,
+            average,
+        };
+    });
+};
 export const convertToDateString = (epochNumber: number) => {
     return <ReactTimeAgo date={new Date(epochNumber)} locale="en-US" />;
 };

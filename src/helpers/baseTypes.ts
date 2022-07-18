@@ -73,3 +73,7 @@ export interface ICardLesson {
     cardId: number;
     attempts: number[];
 }
+
+export interface CardLessonRowData extends Card, Partial<ICardLesson> {
+    average: number;
+}
