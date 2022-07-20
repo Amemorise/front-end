@@ -1,21 +1,24 @@
-import { TextField, Alert, Button, Snackbar } from "@mui/material";
+import { TextField, Alert, Button } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
-import React, { useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import WebTitle from "../components/WebTitle";
 import { firebaseAuth, trimFirebaseErrors } from "../helpers/firebase";
 import { usePageTitle } from "../helpers/helpers";
 import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
+import { setToast } from "../redux/toast";
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
     usePageTitle("Password Reset");
     const [email, setEmail] = useState("");
     const [validate, setValidate] = useState<ErrorMessages>({});
     const [emailError, setEmailError] = useState("");
-    const [openToast, setOpenToast] = useState(false);
+    const dispatch = useDispatch();
 
     const validateRegister = () => {
         let isValid = true;
-
+        console.log(email);
         let validator = FormValidator.validator({
             email: {
                 value: email,
@@ -30,9 +33,6 @@ const ForgotPassword = () => {
         }
         return isValid;
     };
-    const handleClose = () => {
-        setOpenToast(false);
-    };
     const handleSubmit = (e: any) => {
         e.preventDefault();
 
@@ -42,7 +42,7 @@ const ForgotPassword = () => {
             sendPasswordResetEmail(firebaseAuth, email)
                 .then(() => {
                     setEmailError("");
-                    setOpenToast(true);
+                    dispatch(setToast({ type: "success", message: "Password Reset Email sent" }));
                 })
                 .catch((error) => {
                     setEmailError(trimFirebaseErrors(error.message));
@@ -74,13 +74,8 @@ const ForgotPassword = () => {
                 >
                     Reset Password
                 </Button>
+                <Link to="/login">Return To Login</Link>
             </form>
-
-            <Snackbar open={openToast} onClose={handleClose} autoHideDuration={4000}>
-                <Alert variant={"filled"} onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-                    This is a success message!
-                </Alert>
-            </Snackbar>
         </div>
     );
 };

@@ -17,6 +17,7 @@ import CardLearnSession from "./pages/CardLearnSession";
 import "./App.scss";
 import EditCollection from "./pages/EditCollection";
 import SearchCollection from "./pages/SearchCollection";
+import AlertToast from "./components/AlertToast";
 
 function App() {
     return (
@@ -45,6 +46,8 @@ function App() {
                 <Route path="register" element={<SignUp />} />
                 <Route path="reset-password" element={<ForgotPassword />} />
             </Routes>
+
+            <AlertToast />
         </BrowserRouter>
     );
 }

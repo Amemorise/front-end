@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styles/collection-header.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { setError } from "../redux/error";
+import { setToast } from "../redux/toast";
 import { setIsLoading } from "../redux/loading";
 import { api } from "../helpers/apiHelpers";
 import { convertToDateString, isNewCollection } from "../helpers/helpers";
@@ -52,7 +52,12 @@ const CollectionHeader = (props: CollectionHeaderProps) => {
                 navigate("/collections");
             }
         } catch (err: any) {
-            dispatch(setError({ name: "Collection deletion failed", message: "Please Refresh" }));
+            dispatch(
+                setToast({
+                    type: "error",
+                    message: "Collection deletion failed. Please Refresh!",
+                })
+            );
         }
         dispatch(setIsLoading(false));
         handleClose();

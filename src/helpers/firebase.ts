@@ -4,6 +4,7 @@ import { NavigateFunction } from "react-router-dom";
 import { login } from "../redux/user";
 import { isFirstTimeGuest, setReturningUser } from "./helpers";
 import { api } from "./apiHelpers";
+import { setToast } from "../redux/toast";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -62,14 +63,18 @@ export const completeSignIn = async (
 
         try {
             const res = await api.post("/users/signIn", { displayName, email, photoURL, emailVerified });
+            if (res.status === 200) {
+                dispatch(login({ ...res.data }));
+                if (isFirstTimeGuest()) {
+                    setReturningUser();
+                }
 
-            dispatch(login({ ...res.data }));
-            if (isFirstTimeGuest()) {
-                setReturningUser();
+                navigate("/home");
+            } else {
+                dispatch(setToast({ type: "error", message: "Login Failed. Please try again" }));
             }
-
-            navigate("/home");
-        } catch (err) {
+        } catch (err: any) {
+            dispatch(setToast({ type: "error", message: err.message }));
             throw err;
         }
     }

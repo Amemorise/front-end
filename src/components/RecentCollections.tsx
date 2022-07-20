@@ -1,16 +1,37 @@
-import { ChevronRight } from "@mui/icons-material";
-import FABButton from "./FABButton";
+import { Skeleton } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useFetch } from "../helpers/apiHelpers";
+import { PublishedCollection } from "../helpers/baseTypes";
+import CollectionCard from "./CollectionCard";
 
 const RecentCollections = () => {
+    const { data } = useFetch(`/home/learnings`);
     return (
         <div>
             <h4>Jump back in!</h4>
             <div className={"cards-list"}>
-                {/* <CollectionCard title={"Recent Card"} isPrivate lastAccessedDate={1394104654} percentComplete={80} />
-                <CollectionCard title={"Recent Card"} lastAccessedDate={1394104654} percentComplete={80} />
-                <CollectionCard title={"Recent Card"} isPrivate lastAccessedDate={1394104654} percentComplete={80} />
-                <CollectionCard title={"Recent Card"} isPrivate lastAccessedDate={1394104654} percentComplete={80} /> */}
-                <FABButton title="View More" url={"/collections"} icon={<ChevronRight />} />
+                {data && data.length ? (
+                    (data as PublishedCollection[]).map((collection, index) => {
+                        return (
+                            <Link key={index} to={`/collections/${collection.collectionId}`} className="card-link">
+                                <CollectionCard {...collection} />
+                            </Link>
+                        );
+                    })
+                ) : (
+                    <>
+                        {Array.from(Array(4)).map((_t, id) => (
+                            <Skeleton
+                                animation="wave"
+                                key={id}
+                                variant="rectangular"
+                                width={40}
+                                height={240}
+                                sx={{ flex: 1, borderRadius: "1rem" }}
+                            />
+                        ))}
+                    </>
+                )}{" "}
             </div>
         </div>
     );

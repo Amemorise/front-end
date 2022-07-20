@@ -4,6 +4,7 @@ import { cloneDeep } from "lodash";
 import { useState } from "react";
 import Select from "../components/Select";
 import { useNavigate } from "react-router-dom";
+import imageCompression from "browser-image-compression";
 import { useDispatch } from "react-redux";
 import {
     Collection,
@@ -18,7 +19,7 @@ import { validateCollection, errorSchema } from "../helpers/validateCollection";
 import CreateCard from "./CreateCard";
 import FABButton from "./FABButton";
 import { newCard } from "../helpers/constants";
-import { setError } from "../redux/error";
+import { setToast } from "../redux/toast";
 import { setIsLoading } from "../redux/loading";
 import FreeTextDropDown from "./FreeTextDropDown";
 import { api } from "../helpers/apiHelpers";
@@ -86,7 +87,20 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                 const dbCard: Card[] = await Promise.all(
                     cards.map(async (card) => {
                         let photoURL = card.photoURL;
-                        if (typeof photoURL !== "string" && photoURL!.file) {
+                        if (typeof photoURL !== "string" && photoURL.file) {
+                            const imageFile = photoURL.file;
+                            console.log("originalFile instanceof Blob", imageFile instanceof Blob); // true
+                            console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+                            const options = {
+                                maxSizeMB: 1,
+                                maxWidthOrHeight: 1920,
+                                useWebWorker: true,
+                            };
+                            const compressedFile = await imageCompression(imageFile, options);
+                            console.log("compressedFile instanceof Blob", compressedFile instanceof Blob); // true
+                            console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
                             const bodyFormData = new FormData();
                             bodyFormData.append(
                                 "collectionId",
@@ -94,7 +108,7 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                                     collectionId || collectionMetaData.title.replace(/[^A-Z0-9.]/gi, "_")
                                 )
                             );
-                            bodyFormData.append("photoURL", photoURL.file as Blob);
+                            bodyFormData.append("photoURL", compressedFile as Blob);
                             const res = await api.post("/collections/uploadImage", bodyFormData);
                             photoURL = res.data.photoUrl;
                         }
@@ -121,7 +135,7 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                     }
                 }
             } catch (err: any) {
-                dispatch(setError({ name: "Error Saving Collection", message: "Please Refresh" }));
+                dispatch(setToast({ message: "Error Saving Collection. Please refresh!", type: "error" }));
             }
         }
 

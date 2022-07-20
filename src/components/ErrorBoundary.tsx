@@ -1,22 +1,8 @@
 import { Alert, AlertTitle, Snackbar, Slide } from "@mui/material";
 import React from "react";
-import { ErrorType } from "../redux/error";
-
-// const mapStateToProps = function (state: RootState) {
-//     return {
-//         error: state.error,
-//     };
-// };
-
-// const mapDispatchToProps = { setError, clearError };
-
-// type StateProps = ReturnType<typeof mapStateToProps>;
-// type DispatchProps = typeof mapDispatchToProps;
-
-// type ErrorBoundaryProps = StateProps & DispatchProps;
 
 interface ErrorBoundaryState {
-    error: ErrorType;
+    error: Error | null;
     hasError: boolean;
 }
 class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {

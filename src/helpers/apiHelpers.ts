@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../redux/loading";
+import { setToast } from "../redux/toast";
 
 export const api = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
@@ -18,7 +19,7 @@ export const useFetch = (url: string) => {
     const [data, setData] = useState<any>(undefined);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<any>(undefined);
-
+    const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -27,22 +28,18 @@ export const useFetch = (url: string) => {
                 setData(res.data);
             } catch (err: any) {
                 setError(err);
+
+                dispatch(
+                    setToast({
+                        type: "error",
+                        message: err.message,
+                    })
+                );
             }
             setLoading(false);
         };
         fetchData();
     }, [url]);
 
-    const reFetch = async (urlString: string) => {
-        setLoading(true);
-        try {
-            const res = await api.get(urlString);
-            setData(res.data);
-        } catch (err: any) {
-            setError(err);
-        }
-        setLoading(false);
-    };
-
-    return { data, loading, error, reFetch };
+    return { data, loading, error };
 };

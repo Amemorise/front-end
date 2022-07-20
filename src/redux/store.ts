@@ -3,7 +3,7 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } fro
 import storage from "redux-persist/lib/storage";
 import userReducer from "./user";
 import loadingReducer from "./loading";
-import errorReducer from "./error";
+import toastReducer from "./toast";
 
 const persistConfig = {
     key: "root",
@@ -14,7 +14,7 @@ const persistConfig = {
 const reducer = combineReducers({
     user: userReducer,
     loading: loadingReducer,
-    error: errorReducer,
+    toast: toastReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

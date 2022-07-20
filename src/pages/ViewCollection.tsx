@@ -7,9 +7,6 @@ import { Lesson, PublishedCollection } from "../helpers/baseTypes";
 import StartQuizButton from "../components/StartQuizButton";
 import CollectionSummary from "../components/CollectionSummary";
 import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { clearError, setError } from "../redux/error";
 import "./styles/view-collection.scss";
 import { getLessonRowData, usePageTitle } from "../helpers/helpers";
 
@@ -18,17 +15,12 @@ const ViewCollection = () => {
         url: window.location.href,
     };
     const params = useParams();
-    const dispatch = useDispatch();
 
-    const { data, loading, error } = useFetch(`/collections/${params.id}`);
+    const { data, loading } = useFetch(`/collections/${params.id}`);
     const lessonFetch = useFetch(`/learning/${params.id}`);
     usePageTitle(data?.collectionMetaData?.title || "");
 
     useCallLoadingOverlay(loading);
-
-    useEffect(() => {
-        dispatch(error ? setError({ name: "Collection Not Found", message: "Please Refresh" }) : clearError());
-    }, [error, dispatch]);
 
     const collection = data as PublishedCollection;
     if (loading) {
