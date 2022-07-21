@@ -1,7 +1,7 @@
 import { Skeleton, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useFetch } from "../helpers/apiHelpers";
-import { Categories } from "../helpers/Categories";
+import { useFetch } from "../../../helpers/apiHelpers";
+import { Categories } from "../../../helpers/Categories";
 
 interface ICategory {
     name: string;

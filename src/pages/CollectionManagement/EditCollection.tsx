@@ -1,8 +1,8 @@
-import { PublishedCollection } from "../helpers/baseTypes";
-import { usePageTitle } from "../helpers/helpers";
-import CollectionManagement from "../components/CollectionManagement";
+import { PublishedCollection } from "../../helpers/baseTypes";
+import { usePageTitle } from "../../helpers/helpers";
+import CollectionManagement from "./components/CollectionManagement";
 import { useParams } from "react-router-dom";
-import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
+import { useCallLoadingOverlay, useFetch } from "../../helpers/apiHelpers";
 
 const EditCollection = () => {
     usePageTitle("Edit Collection");

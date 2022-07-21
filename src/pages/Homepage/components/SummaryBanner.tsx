@@ -1,6 +1,6 @@
 import { Avatar, Paper, Skeleton } from "@mui/material";
-import { useFetch } from "../helpers/apiHelpers";
-import { User } from "../helpers/baseTypes";
+import { useFetch } from "../../../helpers/apiHelpers";
+import { User } from "../../../helpers/baseTypes";
 
 const SummaryBanner = ({ user }: { user: User }) => {
     const { data, loading } = useFetch("/home/summary");

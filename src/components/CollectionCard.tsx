@@ -2,7 +2,6 @@ import { Lock, Verified } from "@mui/icons-material";
 import { PublishedCollection } from "../helpers/baseTypes";
 import { Avatar, Paper } from "@mui/material";
 import { convertToDateString, isNewCollection } from "../helpers/helpers";
-import "./styles/card.scss";
 
 const CollectionCard = (props: PublishedCollection & { showTags?: boolean }) => {
     const { title, verified, createdBy, creationDate, description, tags } = props.collectionMetaData;

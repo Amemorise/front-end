@@ -2,7 +2,7 @@ import { Add, Save } from "@mui/icons-material";
 import { TextField, FormControlLabel, Switch, Tooltip, Button } from "@mui/material";
 import { cloneDeep } from "lodash";
 import { useState } from "react";
-import Select from "../components/Select";
+import Select from "../../../components/Select";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import { useDispatch } from "react-redux";
@@ -13,16 +13,17 @@ import {
     PublishedCollection,
     PublishedCollectionMetaData,
     Card,
-} from "../helpers/baseTypes";
-import { Categories } from "../helpers/Categories";
-import { validateCollection, errorSchema } from "../helpers/validateCollection";
+} from "../../../helpers/baseTypes";
+import { Categories } from "../../../helpers/Categories";
+import { validateCollection, errorSchema } from "../../../helpers/validateCollection";
 import CreateCard from "./CreateCard";
-import FABButton from "./FABButton";
-import { newCard } from "../helpers/constants";
-import { setToast } from "../redux/toast";
-import { setIsLoading } from "../redux/loading";
-import FreeTextDropDown from "./FreeTextDropDown";
-import { api } from "../helpers/apiHelpers";
+import FABButton from "../../../components/FABButton";
+import { newCard } from "../../../helpers/constants";
+import { setToast } from "../../../redux/toast";
+import { setIsLoading } from "../../../redux/loading";
+import FreeTextDropDown from "../../../components/FreeTextDropDown";
+import { api } from "../../../helpers/apiHelpers";
+import "../styles/card.scss";
 
 interface CollectionManagementProps extends Collection {
     existingCollection: boolean;

@@ -1,14 +1,14 @@
 import { Chip, Divider } from "@mui/material";
-import SocialMediaShare from "../components/SocialMediaShare";
-import CoverImages from "../components/CoverImages";
-import CollectionHeader from "../components/CollectionHeader";
+import SocialMediaShare from "./components/SocialMediaShare";
+import CoverImages from "./components/CoverImages";
+import CollectionHeader from "./components/CollectionHeader";
 import { useParams } from "react-router-dom";
-import { Lesson, PublishedCollection } from "../helpers/baseTypes";
-import StartQuizButton from "../components/StartQuizButton";
-import CollectionSummary from "../components/CollectionSummary";
-import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
+import { Lesson, PublishedCollection } from "../../helpers/baseTypes";
+import StartQuizButton from "./components/StartQuizButton";
+import CollectionSummary from "./components/CollectionSummary";
+import { useCallLoadingOverlay, useFetch } from "../../helpers/apiHelpers";
 import "./styles/view-collection.scss";
-import { getLessonRowData, usePageTitle } from "../helpers/helpers";
+import { getLessonRowData, usePageTitle } from "../../helpers/helpers";
 
 const ViewCollection = () => {
     const commonSharedConfig = {

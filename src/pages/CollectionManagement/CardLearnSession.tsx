@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useLocation } from "react-router-dom";
-import CardViews from "../components/CardViews";
-import { PublishedCollection } from "../helpers/baseTypes";
+import CardViews from "./components/CardViews";
+import { PublishedCollection } from "../../helpers/baseTypes";
 
 interface CardLearnState {
     collection: PublishedCollection;

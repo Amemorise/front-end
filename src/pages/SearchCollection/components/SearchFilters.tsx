@@ -11,8 +11,8 @@ import {
     Stack,
 } from "@mui/material";
 import { useState, MouseEvent, Dispatch } from "react";
-import { Categories } from "../helpers/Categories";
-import FreeTextDropDown from "./FreeTextDropDown";
+import { Categories } from "../../../helpers/Categories";
+import FreeTextDropDown from "../../../components/FreeTextDropDown";
 
 interface SearchFiltersProps {
     searchParams: URLSearchParams;

@@ -2,9 +2,9 @@ import { Send } from "@mui/icons-material";
 import { Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../helpers/apiHelpers";
-import { Card, PublishedCollection } from "../helpers/baseTypes";
-import { ReviewState } from "../pages/ReviewCollection";
+import { api } from "../../../helpers/apiHelpers";
+import { Card, PublishedCollection } from "../../../helpers/baseTypes";
+import { ReviewState } from "../ReviewCollection";
 
 const CardViews = ({ cards, collectionMetaData, collectionId }: PublishedCollection) => {
     const navigate = useNavigate();

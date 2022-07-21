@@ -1,14 +1,14 @@
 import { Search } from "@mui/icons-material";
 import { Container, InputAdornment, TextField, Button, Grid, Skeleton, Box, DialogTitle, Dialog } from "@mui/material";
-import Paginate from "../components/Paginate";
+import Paginate from "./components/Paginate";
 import { Link, useSearchParams } from "react-router-dom";
 import "./styles/search-collection.scss";
 import { useState, useEffect } from "react";
-import { useFetch } from "../helpers/apiHelpers";
-import CollectionCard from "../components/CollectionCard";
-import { PublishedCollection } from "../helpers/baseTypes";
-import { usePageTitle } from "../helpers/helpers";
-import SearchFilters from "../components/SearchFilters";
+import { useFetch } from "../../helpers/apiHelpers";
+import CollectionCard from "../../components/CollectionCard";
+import { PublishedCollection } from "../../helpers/baseTypes";
+import { usePageTitle } from "../../helpers/helpers";
+import SearchFilters from "./components/SearchFilters";
 
 const SearchCollection = () => {
     usePageTitle("Search");

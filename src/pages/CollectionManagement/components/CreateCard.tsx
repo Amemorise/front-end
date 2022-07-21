@@ -2,8 +2,7 @@ import { FormGroup, IconButton, TextField } from "@mui/material";
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { AddPhotoAlternate, Delete, DragHandle } from "@mui/icons-material";
-import { EditingCard } from "../helpers/baseTypes";
-import "./styles/card.scss";
+import { EditingCard } from "../../../helpers/baseTypes";
 
 interface CreateCardProps {
     card: EditingCard;
@@ -46,7 +45,10 @@ const CreateCard = (props: CreateCardProps) => {
             <FormGroup className="form-fields" sx={{ flex: 1 }}>
                 <ImageUploading multiple={false} value={image} onChange={onChange} dataURLKey="dataURL">
                     {({ imageList, onImageUpload, onImageRemove, dragProps }) => (
-                        <div style={error.photoURL ? { borderColor: "red" } : undefined} className={`upload__image-wrapper ${!imageList.length ? " image-border" : ""}`}>
+                        <div
+                            style={error.photoURL ? { borderColor: "red" } : undefined}
+                            className={`upload__image-wrapper ${!imageList.length ? " image-border" : ""}`}
+                        >
                             {imageList.length ? (
                                 imageList.map((image, newIndex) => (
                                     <div key={newIndex} className="image-item">
@@ -73,7 +75,12 @@ const CreateCard = (props: CreateCardProps) => {
                                     </div>
                                 ))
                             ) : (
-                                <IconButton color={error.photoURL ? "error" : undefined} onClick={onImageUpload} {...dragProps} sx={{ width: "100%", height: "100%", borderRadius: 0 }}>
+                                <IconButton
+                                    color={error.photoURL ? "error" : undefined}
+                                    onClick={onImageUpload}
+                                    {...dragProps}
+                                    sx={{ width: "100%", height: "100%", borderRadius: 0 }}
+                                >
                                     <AddPhotoAlternate />
                                 </IconButton>
                             )}
@@ -89,7 +96,13 @@ const CreateCard = (props: CreateCardProps) => {
                     defaultValue={label}
                     onChange={(event) => onChangeCard(event.target as HTMLInputElement)}
                 />
-                <TextField helperText={error.label || error.photoURL ? " " : ""} id="hint" label="Hint" defaultValue={hint} onChange={(event) => onChangeCard(event.target as HTMLInputElement)} />
+                <TextField
+                    helperText={error.label || error.photoURL ? " " : ""}
+                    id="hint"
+                    label="Hint"
+                    defaultValue={hint}
+                    onChange={(event) => onChangeCard(event.target as HTMLInputElement)}
+                />
             </FormGroup>
             <div className="card-ordering">
                 <span>

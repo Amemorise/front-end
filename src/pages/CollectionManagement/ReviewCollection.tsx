@@ -1,12 +1,12 @@
-import CollectionHeader from "../components/CollectionHeader";
+import CollectionHeader from "./components/CollectionHeader";
 import { useLocation } from "react-router-dom";
-import { Card, PublishedCollection, Lesson } from "../helpers/baseTypes";
+import { Card, PublishedCollection, Lesson } from "../../helpers/baseTypes";
 import { Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import StartQuizButton from "../components/StartQuizButton";
-import CollectionSummary from "../components/CollectionSummary";
+import StartQuizButton from "./components/StartQuizButton";
+import CollectionSummary from "./components/CollectionSummary";
 import { useParams } from "react-router-dom";
-import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
-import { getLessonRowData, usePageTitle } from "../helpers/helpers";
+import { useCallLoadingOverlay, useFetch } from "../../helpers/apiHelpers";
+import { getLessonRowData, usePageTitle } from "../../helpers/helpers";
 import "./styles/review-collection.scss";
 
 export interface ReviewState {

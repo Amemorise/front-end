@@ -9,18 +9,18 @@ import {
     Alert,
 } from "@mui/material";
 import React, { useState, useCallback } from "react";
-import { ReactComponent as GoogleLogo } from "../images/google.svg";
-import { ReactComponent as FacebookLogo } from "../images/facebook.svg";
+import { ReactComponent as GoogleLogo } from "../../images/google.svg";
+import { ReactComponent as FacebookLogo } from "../../images/facebook.svg";
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
-import { completeSignIn, firebaseAuth, signInWithProvider, trimFirebaseErrors } from "../helpers/firebase";
+import { completeSignIn, firebaseAuth, signInWithProvider, trimFirebaseErrors } from "../../helpers/firebase";
 import { Link } from "react-router-dom";
 import "./styles/login.scss";
-import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
+import FormValidator, { ErrorMessages } from "../../helpers/validateFrom";
 import { debounce } from "lodash";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { usePageTitle } from "../helpers/helpers";
-import WebTitle from "../components/WebTitle";
+import { usePageTitle } from "../../helpers/helpers";
+import WebTitle from "../../components/WebTitle";
 import { useDispatch } from "react-redux";
 
 const SignUp = () => {

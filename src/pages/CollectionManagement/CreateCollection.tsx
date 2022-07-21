@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { CollectionMetaData, User } from "../helpers/baseTypes";
-import { DEFAULT_NEW_CARDS, newCard } from "../helpers/constants";
-import { usePageTitle } from "../helpers/helpers";
-import { RootState } from "../redux/store";
-import CollectionManagement from "../components/CollectionManagement";
+import { CollectionMetaData, User } from "../../helpers/baseTypes";
+import { DEFAULT_NEW_CARDS, newCard } from "../../helpers/constants";
+import { usePageTitle } from "../../helpers/helpers";
+import { RootState } from "../../redux/store";
+import CollectionManagement from "./components/CollectionManagement";
 
 const CreateCollection = () => {
     usePageTitle("Create Collection");

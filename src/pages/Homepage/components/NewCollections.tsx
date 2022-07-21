@@ -1,9 +1,8 @@
-import { Skeleton, Stack } from "@mui/material";
+import { Grid, Skeleton, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useFetch } from "../helpers/apiHelpers";
-import { PublishedCollection } from "../helpers/baseTypes";
-import CollectionCard from "./CollectionCard";
-import "./styles/card.scss";
+import { useFetch } from "../../../helpers/apiHelpers";
+import { PublishedCollection } from "../../../helpers/baseTypes";
+import CollectionCard from "../../../components/CollectionCard";
 
 const NewCollections = () => {
     const { data } = useFetch(`/home/latestCollections`);
@@ -16,7 +15,7 @@ const NewCollections = () => {
                     <h5>SEE ALL</h5>
                 </Link>
             </Stack>
-            <div className={"cards-list"}>
+            <Grid container>
                 {data && data.length ? (
                     (data as PublishedCollection[]).map((collection, index) => {
                         return (
@@ -39,7 +38,7 @@ const NewCollections = () => {
                         ))}
                     </>
                 )}
-            </div>
+            </Grid>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 .cards-list {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: center;
     width: 100%;
     margin: 1rem 0;
@@ -9,7 +10,6 @@
 .card-link {
     flex: 1;
     text-decoration: none;
-    width: 0%;
     max-width: 21.5rem;
 }
 .card {
@@ -152,9 +152,6 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .cards-list {
-        flex-direction: column;
-    }
     .card-link {
         width: 100%;
         max-width: unset;

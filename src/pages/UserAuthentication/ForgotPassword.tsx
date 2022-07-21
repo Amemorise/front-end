@@ -2,11 +2,11 @@ import { TextField, Alert, Button } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import WebTitle from "../components/WebTitle";
-import { firebaseAuth, trimFirebaseErrors } from "../helpers/firebase";
-import { usePageTitle } from "../helpers/helpers";
-import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
-import { setToast } from "../redux/toast";
+import WebTitle from "../../components/WebTitle";
+import { firebaseAuth, trimFirebaseErrors } from "../../helpers/firebase";
+import { usePageTitle } from "../../helpers/helpers";
+import FormValidator, { ErrorMessages } from "../../helpers/validateFrom";
+import { setToast } from "../../redux/toast";
 import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {

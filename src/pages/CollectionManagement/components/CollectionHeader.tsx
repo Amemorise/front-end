@@ -10,17 +10,17 @@ import {
     IconButton,
     Rating,
 } from "@mui/material";
-import { PublishedCollectionMetaData } from "../helpers/baseTypes";
+import { PublishedCollectionMetaData } from "../../../helpers/baseTypes";
 import { Edit, Delete } from "@mui/icons-material";
-import { RootState } from "../redux/store";
+import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import "./styles/collection-header.scss";
+import "../styles/collection-header.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { setToast } from "../redux/toast";
-import { setIsLoading } from "../redux/loading";
-import { api } from "../helpers/apiHelpers";
-import { convertToDateString, isNewCollection } from "../helpers/helpers";
+import { setToast } from "../../../redux/toast";
+import { setIsLoading } from "../../../redux/loading";
+import { api } from "../../../helpers/apiHelpers";
+import { convertToDateString, isNewCollection } from "../../../helpers/helpers";
 
 interface CollectionHeaderProps {
     collectionMetaData: PublishedCollectionMetaData;

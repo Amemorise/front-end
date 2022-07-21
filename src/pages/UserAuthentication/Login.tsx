@@ -10,15 +10,15 @@ import {
     FormControl,
     Alert,
 } from "@mui/material";
-import { ReactComponent as GoogleLogo } from "../images/google.svg";
-import { ReactComponent as FacebookLogo } from "../images/facebook.svg";
+import { ReactComponent as GoogleLogo } from "../../images/google.svg";
+import { ReactComponent as FacebookLogo } from "../../images/facebook.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { completeSignIn, firebaseAuth, signInWithProvider } from "../helpers/firebase";
+import { completeSignIn, firebaseAuth, signInWithProvider } from "../../helpers/firebase";
 import { Link, useNavigate } from "react-router-dom";
-import FormValidator, { ErrorMessages } from "../helpers/validateFrom";
-import { usePageTitle } from "../helpers/helpers";
-import WebTitle from "../components/WebTitle";
+import FormValidator, { ErrorMessages } from "../../helpers/validateFrom";
+import { usePageTitle } from "../../helpers/helpers";
+import WebTitle from "../../components/WebTitle";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
