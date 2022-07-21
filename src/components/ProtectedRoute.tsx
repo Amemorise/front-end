@@ -4,8 +4,6 @@ import LeftBar from "./LeftBar";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import ErrorBoundary from "./ErrorBoundary";
-import LoadingOverlay from "./LoadingOverlay";
 import { isFirstTimeGuest } from "../helpers/helpers";
 import "./styles/bars.scss";
 
@@ -33,20 +31,16 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
     return children ? (
         <>{children}</>
     ) : (
-        <ErrorBoundary>
-            <div className="app">
-                <LoadingOverlay>
-                    <Navbar user={user} leftBarOpen={leftBarOpen} toggleLeftBarOpen={toggleLeftBarOpen} />
+        <div className="app">
+            <Navbar user={user} leftBarOpen={leftBarOpen} toggleLeftBarOpen={toggleLeftBarOpen} />
 
-                    <div className="app-body">
-                        <LeftBar leftBarOpen={leftBarOpen} />
-                        <div className="mainDisplay">
-                            <Outlet />
-                        </div>
-                    </div>
-                </LoadingOverlay>
+            <div className="app-body">
+                <LeftBar leftBarOpen={leftBarOpen} />
+                <div className="mainDisplay">
+                    <Outlet />
+                </div>
             </div>
-        </ErrorBoundary>
+        </div>
     );
 };
 export default ProtectedRoute;

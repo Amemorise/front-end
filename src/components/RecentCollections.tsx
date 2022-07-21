@@ -31,7 +31,7 @@ const RecentCollections = () => {
                             />
                         ))}
                     </>
-                )}{" "}
+                )}
             </div>
         </div>
     );

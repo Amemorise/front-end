@@ -18,36 +18,41 @@ import "./App.scss";
 import EditCollection from "./pages/EditCollection";
 import SearchCollection from "./pages/SearchCollection";
 import AlertToast from "./components/AlertToast";
+import ErrorBoundary from "./components/ErrorBoundary";
+import LoadingOverlay from "./components/LoadingOverlay";
 
 function App() {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<ProtectedRoute />}>
-                    <Route path="home" element={<Homepage />} />
-                    <Route path="Settings" element={<Settings />} />
-                    <Route path="collections">
-                        <Route index element={<Collections />} />
-                        <Route path="create" element={<CreateCollection />} />
-                        <Route path=":id">
-                            <Route index element={<ViewCollection />} />
-                            <Route path="review" element={<ReviewCollection />} />
-                            <Route path="start" element={<CardLearnSession />} />
-                            <Route path="edit" element={<EditCollection />} />
+            <ErrorBoundary>
+                <LoadingOverlay>
+                    <Routes>
+                        <Route path="/" element={<ProtectedRoute />}>
+                            <Route path="home" element={<Homepage />} />
+                            <Route path="Settings" element={<Settings />} />
+                            <Route path="collections">
+                                <Route index element={<Collections />} />
+                                <Route path="create" element={<CreateCollection />} />
+                                <Route path=":id">
+                                    <Route index element={<ViewCollection />} />
+                                    <Route path="review" element={<ReviewCollection />} />
+                                    <Route path="start" element={<CardLearnSession />} />
+                                    <Route path="edit" element={<EditCollection />} />
+                                </Route>
+                            </Route>
+                            <Route path="profile" element={<MyProfile />} />
+                            <Route path="search" element={<SearchCollection />} />
+                            <Route path="leaderboard" element={<LeaderBoards />} />
+                            <Route path="users" element={<Users />} />{" "}
                         </Route>
-                    </Route>
-                    <Route path="profile" element={<MyProfile />} />
-                    <Route path="search" element={<SearchCollection />} />
-                    <Route path="leaderboard" element={<LeaderBoards />} />
-                    <Route path="users" element={<Users />} />{" "}
-                </Route>
-                <Route path="login" element={<Login />} />
-                <Route path="landingPage" element={<LandingPage />} />
-                <Route path="register" element={<SignUp />} />
-                <Route path="reset-password" element={<ForgotPassword />} />
-            </Routes>
-
-            <AlertToast />
+                        <Route path="login" element={<Login />} />
+                        <Route path="landingPage" element={<LandingPage />} />
+                        <Route path="register" element={<SignUp />} />
+                        <Route path="reset-password" element={<ForgotPassword />} />
+                    </Routes>
+                    <AlertToast />
+                </LoadingOverlay>
+            </ErrorBoundary>
         </BrowserRouter>
     );
 }

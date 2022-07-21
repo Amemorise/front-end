@@ -5,6 +5,7 @@ import { login } from "../redux/user";
 import { isFirstTimeGuest, setReturningUser } from "./helpers";
 import { api } from "./apiHelpers";
 import { setToast } from "../redux/toast";
+import { setIsLoading } from "../redux/loading";
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -57,6 +58,7 @@ export const completeSignIn = async (
     dispatch: React.Dispatch<any>,
     navigate: NavigateFunction
 ) => {
+    dispatch(setIsLoading(true));
     if (userCredential) {
         const { displayName, email, photoURL, emailVerified } = userCredential.user;
         console.log(userCredential);
@@ -75,9 +77,11 @@ export const completeSignIn = async (
             }
         } catch (err: any) {
             dispatch(setToast({ type: "error", message: err.message }));
+            dispatch(setIsLoading(false));
             throw err;
         }
     }
+    dispatch(setIsLoading(false));
 };
 
 export const signOut = async (navigate: NavigateFunction) => {

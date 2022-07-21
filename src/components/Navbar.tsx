@@ -218,6 +218,8 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                                 value={searchText}
                                 onChange={(e) => setSearchText(e.target.value)}
                                 onKeyDown={(e) => {
+                                    alert(`${JSON.stringify(e)}`);
+                                    alert("here");
                                     if (e.code === "Enter") {
                                         navigate(`/search?searchQuery=${searchText}`);
                                     }
