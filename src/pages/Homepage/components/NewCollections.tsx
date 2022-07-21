@@ -1,11 +1,10 @@
-import { Grid, Skeleton, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useFetch } from "../../../helpers/apiHelpers";
-import { PublishedCollection } from "../../../helpers/baseTypes";
-import CollectionCard from "../../../components/CollectionCard";
+import CollectionGridList from "../../../components/CollectionGridList";
 
 const NewCollections = () => {
-    const { data } = useFetch(`/home/latestCollections`);
+    const { data, loading } = useFetch(`/home/latestCollections`);
 
     return (
         <div>
@@ -15,30 +14,7 @@ const NewCollections = () => {
                     <h5>SEE ALL</h5>
                 </Link>
             </Stack>
-            <Grid container>
-                {data && data.length ? (
-                    (data as PublishedCollection[]).map((collection, index) => {
-                        return (
-                            <Link key={index} to={`/collections/${collection.collectionId}`} className="card-link">
-                                <CollectionCard {...collection} />
-                            </Link>
-                        );
-                    })
-                ) : (
-                    <>
-                        {Array.from(Array(4)).map((_t, id) => (
-                            <Skeleton
-                                animation="wave"
-                                key={id}
-                                variant="rectangular"
-                                width={40}
-                                height={240}
-                                sx={{ flex: 1, borderRadius: "1rem" }}
-                            />
-                        ))}
-                    </>
-                )}
-            </Grid>
+            <CollectionGridList collections={data && data.length ? data : []} loading={loading} />
         </div>
     );
 };

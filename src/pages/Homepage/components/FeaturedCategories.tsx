@@ -1,5 +1,6 @@
-import { Skeleton, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
+import LoadingSkeleton from "../../../components/LoadingSkeleton";
 import { useFetch } from "../../../helpers/apiHelpers";
 import { Categories } from "../../../helpers/Categories";
 
@@ -54,18 +55,7 @@ const FeaturedCategories = () => {
                         })}
                     </>
                 ) : (
-                    <>
-                        {Array.from(Array(3)).map((_t, id) => (
-                            <Skeleton
-                                animation="wave"
-                                key={id}
-                                variant="rectangular"
-                                width={40}
-                                height={240}
-                                sx={{ flex: 1, borderRadius: "1rem" }}
-                            />
-                        ))}
-                    </>
+                    <LoadingSkeleton count={3} />
                 )}
             </div>
         </div>

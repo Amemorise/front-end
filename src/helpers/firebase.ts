@@ -61,7 +61,6 @@ export const completeSignIn = async (
     dispatch(setIsLoading(true));
     if (userCredential) {
         const { displayName, email, photoURL, emailVerified } = userCredential.user;
-        console.log(userCredential);
 
         try {
             const res = await api.post("/users/signIn", { displayName, email, photoURL, emailVerified });

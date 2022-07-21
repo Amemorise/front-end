@@ -18,7 +18,6 @@ const ForgotPassword = () => {
 
     const validateRegister = () => {
         let isValid = true;
-        console.log(email);
         let validator = FormValidator.validator({
             email: {
                 value: email,
