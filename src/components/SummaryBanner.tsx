@@ -1,5 +1,5 @@
 import { Avatar, Paper, Skeleton } from "@mui/material";
-import { useCallLoadingOverlay, useFetch } from "../helpers/apiHelpers";
+import { useFetch } from "../helpers/apiHelpers";
 import { User } from "../helpers/baseTypes";
 
 const SummaryBanner = ({ user }: { user: User }) => {
