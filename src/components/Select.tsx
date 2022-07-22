@@ -12,9 +12,16 @@ interface SelectProps {
 }
 const Select = ({ name, values, label, onChange, selected, required, error, helperText }: SelectProps) => {
     return (
-        <FormControl sx={{ flex: 1 }} size={"small"} required={required} error={error}>
+        <FormControl sx={{ flex: 1 }} size={"small"} required={required} fullWidth error={error}>
             <InputLabel id={`select-${label}`}>{label}</InputLabel>
-            <Selectable name={name} labelId={`select-${label}`} id={label} value={selected} label={label} onChange={onChange}>
+            <Selectable
+                name={name}
+                labelId={`select-${label}`}
+                id={label}
+                value={selected}
+                label={label}
+                onChange={onChange}
+            >
                 {values.map((value, index) => {
                     return (
                         <MenuItem key={value + index} value={value}>

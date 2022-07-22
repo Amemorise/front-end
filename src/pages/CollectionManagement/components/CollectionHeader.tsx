@@ -9,6 +9,7 @@ import {
     DialogTitle,
     IconButton,
     Rating,
+    Stack,
 } from "@mui/material";
 import { PublishedCollectionMetaData } from "../../../helpers/baseTypes";
 import { Edit, Delete } from "@mui/icons-material";
@@ -67,14 +68,14 @@ const CollectionHeader = (props: CollectionHeaderProps) => {
 
     return (
         <div className="header">
-            <span className="header-title">
+            <Stack spacing={1} direction={{ xs: "column", sm: "row" }} alignItems={"center"}>
                 <h2>{title}</h2>
-                <span>
-                    {collectionMetaData.private || true ? <Lock fontSize={"small"} /> : null}
-                    {verified || true ? <Verified color={"primary"} fontSize={"small"} /> : null}
+                <Stack spacing={1} direction="row">
+                    {collectionMetaData.private ? <Lock fontSize={"small"} /> : null}
+                    {verified ? <Verified color={"primary"} fontSize={"small"} /> : null}
                     {newCollection ? <span className="live-button blink">NEW</span> : null}
-                </span>
-            </span>
+                </Stack>{" "}
+            </Stack>
 
             <span className="created-by-span d-flex text-muted">
                 <Avatar

@@ -67,6 +67,7 @@ const FreeTextDropDown = (props: FreeTextDropDownProps) => {
                 sx={{ flex: 1 }}
                 id="here"
                 size="small"
+                fullWidth
                 multiple
                 open={open}
                 onOpen={() => {

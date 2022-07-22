@@ -113,11 +113,6 @@ const CreateCard = (props: CreateCardProps) => {
                         <Delete sx={{ width: "16px" }} />
                     </IconButton>
                 </span>
-                <span>
-                    <IconButton size={"small"}>
-                        <DragHandle sx={{ width: "16px" }} />
-                    </IconButton>
-                </span>
             </div>
         </div>
     );

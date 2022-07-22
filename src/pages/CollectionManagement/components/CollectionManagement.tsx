@@ -1,5 +1,5 @@
 import { Add, Save } from "@mui/icons-material";
-import { TextField, FormControlLabel, Switch, Tooltip, Button } from "@mui/material";
+import { TextField, FormControlLabel, Switch, Tooltip, Button, Grid } from "@mui/material";
 import { cloneDeep } from "lodash";
 import { useState } from "react";
 import Select from "../../../components/Select";
@@ -147,35 +147,38 @@ const CollectionManagement = (props: CollectionManagementProps) => {
         <div className="create-collection display-padding">
             <div>
                 <h4>{existingCollection ? "Edit" : "Create"} Collection</h4>
-                <div>
-                    <TextField
-                        error={errors.collectionMetaData.title}
-                        helperText={errors.collectionMetaData.title ? "A title is required" : ""}
-                        onChange={(event) => onChange(event.target as HTMLInputElement)}
-                        required
-                        sx={{ width: "100%" }}
-                        value={collectionMetaData.title}
-                        size={"small"}
-                        id="title"
-                        name="Collection Title"
-                        label="Collection Title"
-                    />
-
-                    <span className="d-flex" style={{ margin: "1rem 0" }}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <TextField
+                            error={errors.collectionMetaData.title}
+                            helperText={errors.collectionMetaData.title ? "A title is required" : ""}
+                            onChange={(event) => onChange(event.target as HTMLInputElement)}
+                            required
+                            fullWidth
+                            value={collectionMetaData.title}
+                            size={"small"}
+                            id="title"
+                            name="Collection Title"
+                            label="Collection Title"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
                         <TextField
                             onChange={(event) => onChange(event.target as HTMLInputElement)}
                             value={collectionMetaData.description}
                             required
+                            fullWidth
                             error={errors.collectionMetaData.description}
                             helperText={errors.collectionMetaData.description ? "A description is required" : ""}
                             multiline
                             maxRows={4}
-                            sx={{ flex: 1, marginRight: 1 }}
                             size={"small"}
                             id="description"
                             name="Description"
                             label="Description"
                         />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
                         <Select
                             required={true}
                             label={"Category"}
@@ -185,34 +188,36 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                             error={errors.collectionMetaData.category}
                             helperText={errors.collectionMetaData.description ? "A category is required" : ""}
                         />
-                    </span>
-
-                    <span className="d-flex" style={{ margin: "1rem 0" }}>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
                         <TextField
                             error={errors.collectionMetaData.prompt}
                             helperText={errors.collectionMetaData.prompt ? "A prompt is required" : ""}
                             onChange={(event) => onChange(event.target as HTMLInputElement)}
                             required
-                            sx={{ flex: 1, marginRight: 1 }}
+                            fullWidth
                             value={collectionMetaData.prompt}
                             size={"small"}
                             id="prompt"
                             label="Collection Prompt"
                         />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
                         <FreeTextDropDown selectedValues={collectionMetaData.tags || []} setSelectedValues={setTags} />
-                    </span>
-
-                    <FormControlLabel
-                        control={
-                            <Switch
-                                checked={collectionMetaData.private}
-                                id={"private"}
-                                onChange={(event) => onChange(event.target as HTMLInputElement)}
-                            />
-                        }
-                        label="Private"
-                    />
-                </div>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    checked={collectionMetaData.private}
+                                    id={"private"}
+                                    onChange={(event) => onChange(event.target as HTMLInputElement)}
+                                />
+                            }
+                            label="Private"
+                        />
+                    </Grid>
+                </Grid>
             </div>
             <div className="collection-cards">
                 {cards.map((card, index) => {

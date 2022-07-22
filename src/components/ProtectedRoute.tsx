@@ -20,7 +20,6 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
         if (isFirstTimeGuest()) {
             return <Navigate to={"/landingPage"} replace />;
         }
-
         return <Navigate to={"/login"} replace />;
     }
 
