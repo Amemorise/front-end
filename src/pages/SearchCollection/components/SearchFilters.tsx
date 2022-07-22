@@ -116,12 +116,12 @@ const SearchFilters = ({ searchParams, setSearchParams, handleClose, mobileView 
                     </AccordionDetails>
                 </Accordion>
                 <FreeTextDropDown freeSolo={false} selectedValues={[...tags]} setSelectedValues={setTags} />
-                <span>
+                <Stack flexDirection={"row"} justifyContent="space-between">
                     <Button onClick={clearAllFilters}>Clear All</Button>
                     <Button onClick={applyFilters} variant="contained">
                         Apply Filters
                     </Button>
-                </span>
+                </Stack>
             </Stack>
         </Paper>
     );

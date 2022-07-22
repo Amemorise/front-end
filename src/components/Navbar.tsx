@@ -185,7 +185,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                         </Button>
                         <Button>
                             <Link to="/collections" style={{ color: "white", textDecoration: "none" }}>
-                                My Collections
+                                Collections
                             </Link>
                         </Button>
                         <Button>
