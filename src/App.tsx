@@ -7,7 +7,7 @@ import ForgotPassword from "./pages/UserAuthentication/ForgotPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LeaderBoards from "./pages/LeaderBoards";
 import Settings from "./pages/Settings";
-import Collections from "./pages/Collections";
+import Collections from "./pages/MyCollections";
 import MyProfile from "./pages/MyProfile";
 import Users from "./pages/Users";
 import CreateCollection from "./pages/CollectionManagement/CreateCollection";
@@ -43,7 +43,7 @@ function App() {
                             <Route path="profile" element={<MyProfile />} />
                             <Route path="search" element={<SearchCollection />} />
                             <Route path="leaderboard" element={<LeaderBoards />} />
-                            <Route path="users" element={<Users />} />{" "}
+                            <Route path="users" element={<Users />} />
                         </Route>
                         <Route path="login" element={<Login />} />
                         <Route path="landingPage" element={<LandingPage />} />

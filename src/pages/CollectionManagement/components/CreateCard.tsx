@@ -1,8 +1,9 @@
 import { FormGroup, IconButton, TextField } from "@mui/material";
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
-import { AddPhotoAlternate, Delete, DragHandle } from "@mui/icons-material";
+import { AddPhotoAlternate, Delete } from "@mui/icons-material";
 import { EditingCard } from "../../../helpers/baseTypes";
+import _ from "lodash";
 
 interface CreateCardProps {
     card: EditingCard;
@@ -30,8 +31,11 @@ const CreateCard = (props: CreateCardProps) => {
             );
         }
     };
+    const delayedUpdate = _.debounce((target) => {
+        update(target);
+    }, 1500);
 
-    const onChangeCard = (target: HTMLInputElement) => {
+    const update = (target: HTMLInputElement) => {
         updateCard(
             {
                 ...card,
@@ -39,6 +43,13 @@ const CreateCard = (props: CreateCardProps) => {
             },
             index
         );
+    };
+    const onChangeCard = (target: HTMLInputElement) => {
+        if (target.id === "label" || target.id === "hint") {
+            delayedUpdate(target);
+        } else {
+            update(target);
+        }
     };
     return (
         <div className="create-card-container">

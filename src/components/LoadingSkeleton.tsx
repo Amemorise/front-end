@@ -8,13 +8,13 @@ const LoadingSkeleton = (props: LoadingSkeletonProps) => {
     return (
         <>
             {Array.from(Array(props.count || 0)).map((_t, id) => (
-                <Grid item key={id} xs={12} sm={4} md={3}>
+                <Grid item key={id} xs={12} sm={6} md={3}>
                     <Skeleton
                         animation="wave"
                         variant="rectangular"
                         width={"100%"}
                         height={240}
-                        sx={{ flex: 1, borderRadius: "1rem" }}
+                        sx={{ borderRadius: "1rem" }}
                     />
                 </Grid>
             ))}

@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useFetch } from "../../../helpers/apiHelpers";
 import CollectionGridList from "../../../components/CollectionGridList";
@@ -8,10 +8,10 @@ const NewCollections = () => {
 
     return (
         <div>
-            <Stack direction="row" justifyContent={"space-between"}>
-                <h4>New Collections</h4>
+            <Stack direction="row" justifyContent={"space-between"} alignItems="center">
+                <Typography variant={"h6"}>New Collections</Typography>
                 <Link to={"/search?sortBy=date&desc=true"} style={{ color: "inherit", textDecoration: "none" }}>
-                    <h5>SEE ALL</h5>
+                    <Typography variant={"body2"}>SEE ALL</Typography>
                 </Link>
             </Stack>
             <CollectionGridList collections={data && data.length ? data : []} loading={loading} />

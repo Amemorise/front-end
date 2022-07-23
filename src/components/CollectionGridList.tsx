@@ -14,19 +14,16 @@ const CollectionGridList = (props: CollectionGridListProps) => {
     const { loading, collections } = props;
     return (
         <Grid container spacing={3} sx={{ marginTop: 0 }}>
-            {loading ? (
-                <LoadingSkeleton count={4} />
-            ) : (
-                collections.map((collection, index) => {
-                    return (
-                        <Grid item key={index} xs={12} sm={6} md={3}>
-                            <Link to={`/collections/${collection.collectionId}`} className="card-link">
-                                <CollectionCard {...collection} />
-                            </Link>
-                        </Grid>
-                    );
-                })
-            )}
+            {collections.map((collection, index) => {
+                return (
+                    <Grid item key={index} xs={12} sm={6} md={3}>
+                        <Link to={`/collections/${collection.collectionId}`} className="card-link">
+                            <CollectionCard {...collection} />
+                        </Link>
+                    </Grid>
+                );
+            })}
+            {loading ? <LoadingSkeleton count={4} /> : null}
         </Grid>
     );
 };

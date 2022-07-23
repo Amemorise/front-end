@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import LoadingSkeleton from "../../../components/LoadingSkeleton";
 import { useFetch } from "../../../helpers/apiHelpers";
@@ -32,10 +32,10 @@ const FeaturedCategories = () => {
         });
     return (
         <div>
-            <Stack direction="row" justifyContent={"space-between"}>
-                <h4>Featured Categories</h4>
+            <Stack direction="row" justifyContent={"space-between"} alignItems="center">
+                <Typography variant={"h6"}>Featured Categories</Typography>
                 <Link to={"/search?"} style={{ color: "inherit", textDecoration: "none" }}>
-                    <h5>SEE ALL</h5>
+                    <Typography variant={"body2"}>SEE ALL</Typography>
                 </Link>
             </Stack>
             <div className="featured-category">

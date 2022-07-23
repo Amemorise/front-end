@@ -1,5 +1,5 @@
 import { Search } from "@mui/icons-material";
-import { Container, InputAdornment, TextField, Button, Grid, Skeleton, Box, DialogTitle, Dialog } from "@mui/material";
+import { Container, InputAdornment, TextField, Button, Grid, Box, DialogTitle, Dialog } from "@mui/material";
 import Paginate from "./components/Paginate";
 import { Link, useSearchParams } from "react-router-dom";
 import "./styles/search-collection.scss";
@@ -9,6 +9,7 @@ import CollectionCard from "../../components/CollectionCard";
 import { PublishedCollection } from "../../helpers/baseTypes";
 import { usePageTitle } from "../../helpers/helpers";
 import SearchFilters from "./components/SearchFilters";
+import LoadingSkeleton from "../../components/LoadingSkeleton";
 
 const SearchCollection = () => {
     usePageTitle("Search");
@@ -91,19 +92,7 @@ const SearchCollection = () => {
                     />
                     <Grid container spacing={3} sx={{ width: "100%", marginBottom: "1rem", marginLeft: "unset" }}>
                         {loading ? (
-                            Array.from(Array(8)).map((_arr, index) => {
-                                return (
-                                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                                        <Skeleton
-                                            animation="wave"
-                                            key={index}
-                                            variant="rectangular"
-                                            height={300}
-                                            sx={{ flex: 1, borderRadius: "1rem" }}
-                                        />
-                                    </Grid>
-                                );
-                            })
+                            <LoadingSkeleton count={8} />
                         ) : collections && collections.length ? (
                             collections.map((collection, index) => {
                                 return (

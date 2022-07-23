@@ -178,15 +178,11 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                                 alt="Amemorise Logo"
                             />
                         </Link>
-                        <Button>
-                            <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
-                                Home
-                            </Link>
+                        <Button onClick={() => navigate("/home")} sx={{ color: "white" }}>
+                            Home
                         </Button>
-                        <Button>
-                            <Link to="/collections" style={{ color: "white", textDecoration: "none" }}>
-                                Collections
-                            </Link>
+                        <Button onClick={() => navigate("/collections")} sx={{ color: "white" }}>
+                            Collections
                         </Button>
                         <Button>
                             <Link
