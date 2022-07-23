@@ -39,7 +39,7 @@ export const useFetch = (url: string, loadingOverlay?: boolean) => {
             setLoading(false);
         };
         fetchData();
-    }, [url, dispatch]);
+    }, [url, dispatch, navigate]);
 
     useEffect(() => {
         if (loadingOverlay) {
