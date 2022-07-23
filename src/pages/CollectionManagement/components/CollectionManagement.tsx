@@ -242,9 +242,16 @@ const CollectionManagement = (props: CollectionManagementProps) => {
             </div>
             <div className="create-footer">
                 <Tooltip title={cards.length < 3 ? "Collection should have at least 3 cards" : ""}>
-                    <Button disabled={cards.length < 3} variant="contained" endIcon={<Save />} onClick={saveCollection}>
-                        Save Collection
-                    </Button>
+                    <span>
+                        <Button
+                            disabled={cards.length < 3}
+                            variant="contained"
+                            endIcon={<Save />}
+                            onClick={saveCollection}
+                        >
+                            Save Collection
+                        </Button>
+                    </span>
                 </Tooltip>
             </div>
         </div>
