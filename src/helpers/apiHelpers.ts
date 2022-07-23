@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setIsLoading } from "../redux/loading";
 import { setToast } from "../redux/toast";
 
@@ -14,6 +15,7 @@ export const useFetch = (url: string, loadingOverlay?: boolean) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<any>(undefined);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -29,6 +31,10 @@ export const useFetch = (url: string, loadingOverlay?: boolean) => {
                         message: err.message,
                     })
                 );
+
+                if (err.status === 401) {
+                    navigate("/login");
+                }
             }
             setLoading(false);
         };

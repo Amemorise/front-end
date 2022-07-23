@@ -55,6 +55,25 @@ export const Categories = [
         },
     },
     {
+        name: "Science: Astronomy",
+        image: Astronomy,
+        attr: {
+            userProfile: "https://unsplash.com/@aldebarans",
+            user: "Aldebaran S",
+            unsplashLink:
+                "https://unsplash.com/s/photos/astronomy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+        },
+    },
+    {
+        name: "Astrology",
+        image: "",
+        attr: {
+            userProfile: "",
+            user: "",
+            unsplashLink: "",
+        },
+    },
+    {
         name: "Entertainment: Musicals & Theatres",
         image: Theatre,
         attr: {
@@ -99,13 +118,13 @@ export const Categories = [
         },
     },
     {
-        name: "Science: Astronomy",
-        image: Astronomy,
+        name: "Geography",
+        image: Geography,
         attr: {
-            userProfile: "https://unsplash.com/@aldebarans",
-            user: "Aldebaran S",
+            userProfile: "https://unsplash.com/@kylejglenn",
+            user: "Kyle Glenn",
             unsplashLink:
-                "https://unsplash.com/s/photos/astronomy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
+                "https://unsplash.com/s/photos/geography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
 
@@ -147,16 +166,6 @@ export const Categories = [
             userProfile: "",
             user: "",
             unsplashLink: "",
-        },
-    },
-    {
-        name: "Geography",
-        image: Geography,
-        attr: {
-            userProfile: "https://unsplash.com/@kylejglenn",
-            user: "Kyle Glenn",
-            unsplashLink:
-                "https://unsplash.com/s/photos/geography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
     },
     {
