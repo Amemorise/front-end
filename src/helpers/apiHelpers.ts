@@ -33,7 +33,6 @@ export const useFetch = (url: string, loadingOverlay?: boolean) => {
                     })
                 );
 
-                console.log(err);
                 if (err?.response?.status === 401) {
                     dispatch(logout());
                     navigate("/login");

@@ -18,7 +18,7 @@ const ProtectedRoute = (props: ProtectedRouteProps) => {
     const user = useSelector((state: RootState) => state.user.value);
     if (!user) {
         if (isFirstTimeGuest()) {
-            return <Navigate to={"/landingPage"} replace />;
+            return <Navigate to={"/landing"} replace />;
         }
         return <Navigate to={"/login"} replace />;
     }

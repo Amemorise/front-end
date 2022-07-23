@@ -46,7 +46,7 @@ function App() {
                             <Route path="users" element={<Users />} />
                         </Route>
                         <Route path="login" element={<Login />} />
-                        <Route path="landingPage" element={<LandingPage />} />
+                        <Route path="landing" element={<LandingPage />} />
                         <Route path="register" element={<SignUp />} />
                         <Route path="reset-password" element={<ForgotPassword />} />
                     </Routes>

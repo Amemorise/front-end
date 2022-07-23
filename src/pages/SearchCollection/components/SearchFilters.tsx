@@ -46,7 +46,7 @@ const SearchFilters = ({ searchParams, setSearchParams, handleClose, mobileView 
     const getSortDirectionIcon = (name: string) => {
         return sortCriteria === name ? sortDescending ? <ArrowDropDown /> : <ArrowDropUp /> : null;
     };
-    const sortTypes = ["popular", "date", "name"];
+    const sortTypes = ["date", "name"];
     const categories = Categories.map((cat) => cat.name).sort();
 
     const applyFilters = () => {
