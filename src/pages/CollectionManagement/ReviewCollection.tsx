@@ -5,7 +5,7 @@ import { Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead,
 import StartQuizButton from "./components/StartQuizButton";
 import CollectionSummary from "./components/CollectionSummary";
 import { useParams } from "react-router-dom";
-import { useCallLoadingOverlay, useFetch } from "../../helpers/apiHelpers";
+import { useFetch } from "../../helpers/apiHelpers";
 import { getLessonRowData, usePageTitle } from "../../helpers/helpers";
 import "./styles/review-collection.scss";
 
@@ -14,10 +14,8 @@ export interface ReviewState {
 }
 const ReviewCollection = () => {
     const params = useParams();
-    const { data, loading, error } = useFetch(`/learning/${params.id}`);
+    const { data, loading, error } = useFetch(`/learning/${params.id}`, true);
     usePageTitle(data?.collection?.collectionMetaData?.title || "");
-
-    useCallLoadingOverlay(loading);
 
     const reviews = (useLocation().state as ReviewState)?.review;
 

@@ -9,13 +9,7 @@ export const api = axios.create({
     withCredentials: true,
 });
 
-export const useCallLoadingOverlay = (loading: boolean) => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(setIsLoading(loading));
-    }, [loading, dispatch]);
-};
-export const useFetch = (url: string) => {
+export const useFetch = (url: string, loadingOverlay?: boolean) => {
     const [data, setData] = useState<any>(undefined);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<any>(undefined);
@@ -41,5 +35,10 @@ export const useFetch = (url: string) => {
         fetchData();
     }, [url, dispatch]);
 
+    useEffect(() => {
+        if (loadingOverlay) {
+            dispatch(setIsLoading(loading));
+        }
+    }, [loading, dispatch, loadingOverlay]);
     return { data, loading, error };
 };

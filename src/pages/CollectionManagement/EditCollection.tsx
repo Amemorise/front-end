@@ -2,16 +2,14 @@ import { PublishedCollection } from "../../helpers/baseTypes";
 import { usePageTitle } from "../../helpers/helpers";
 import CollectionManagement from "./components/CollectionManagement";
 import { useParams } from "react-router-dom";
-import { useCallLoadingOverlay, useFetch } from "../../helpers/apiHelpers";
+import { useFetch } from "../../helpers/apiHelpers";
 
 const EditCollection = () => {
     usePageTitle("Edit Collection");
 
     const params = useParams();
 
-    const { data, loading } = useFetch(`/collections/${params.id}`);
-
-    useCallLoadingOverlay(loading);
+    const { data } = useFetch(`/collections/${params.id}`, true);
 
     const collection = data as PublishedCollection;
 

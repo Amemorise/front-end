@@ -90,8 +90,6 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                         let photoURL = card.photoURL;
                         if (typeof photoURL !== "string" && photoURL.file) {
                             const imageFile = photoURL.file;
-                            console.log("originalFile instanceof Blob", imageFile instanceof Blob); // true
-                            console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
                             const options = {
                                 maxSizeMB: 1,
@@ -99,8 +97,6 @@ const CollectionManagement = (props: CollectionManagementProps) => {
                                 useWebWorker: true,
                             };
                             const compressedFile = await imageCompression(imageFile, options);
-                            console.log("compressedFile instanceof Blob", compressedFile instanceof Blob); // true
-                            console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
 
                             const bodyFormData = new FormData();
                             bodyFormData.append(

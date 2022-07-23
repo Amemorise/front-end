@@ -5,7 +5,6 @@ import CollectionGridList from "../../../components/CollectionGridList";
 
 const RecentCollections = () => {
     const { data, loading } = useFetch(`/home/learnings`);
-    console.log(data);
     return (
         <div>
             <Stack direction="row" justifyContent={"space-between"} alignItems="center">

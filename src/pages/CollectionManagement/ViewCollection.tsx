@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { Lesson, PublishedCollection } from "../../helpers/baseTypes";
 import StartQuizButton from "./components/StartQuizButton";
 import CollectionSummary from "./components/CollectionSummary";
-import { useCallLoadingOverlay, useFetch } from "../../helpers/apiHelpers";
+import { useFetch } from "../../helpers/apiHelpers";
 import "./styles/view-collection.scss";
 import { getLessonRowData, usePageTitle } from "../../helpers/helpers";
 
@@ -16,11 +16,9 @@ const ViewCollection = () => {
     };
     const params = useParams();
 
-    const { data, loading } = useFetch(`/collections/${params.id}`);
+    const { data, loading } = useFetch(`/collections/${params.id}`, true);
     const lessonFetch = useFetch(`/learning/${params.id}`);
     usePageTitle(data?.collectionMetaData?.title || "");
-
-    useCallLoadingOverlay(loading);
 
     const collection = data as PublishedCollection;
     if (loading) {
