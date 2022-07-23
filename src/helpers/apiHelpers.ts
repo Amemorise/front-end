@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setIsLoading } from "../redux/loading";
 import { setToast } from "../redux/toast";
+import { logout } from "../redux/user";
 
 export const api = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8080",
@@ -28,11 +29,13 @@ export const useFetch = (url: string, loadingOverlay?: boolean) => {
                 dispatch(
                     setToast({
                         type: "error",
-                        message: err.message,
+                        message: err?.response?.data?.message || err?.message,
                     })
                 );
 
-                if (err.status === 401) {
+                console.log(err);
+                if (err?.response?.status === 401) {
+                    dispatch(logout());
                     navigate("/login");
                 }
             }
