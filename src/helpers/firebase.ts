@@ -60,10 +60,19 @@ export const completeSignIn = async (
 ) => {
     dispatch(setIsLoading(true));
     if (userCredential) {
-        const { displayName, email, photoURL, emailVerified } = userCredential.user;
-
         try {
-            const res = await api.post("/users/signIn", { displayName, email, photoURL, emailVerified });
+            const { displayName, email, photoURL, emailVerified } = userCredential.user;
+
+            const token = await userCredential.user.getIdToken();
+            const res = await api.post(
+                "/users/signIn",
+                { displayName, email, photoURL, emailVerified },
+                {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    },
+                }
+            );
             if (res.status === 200) {
                 dispatch(login({ ...res.data }));
                 if (isFirstTimeGuest()) {
