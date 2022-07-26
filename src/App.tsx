@@ -20,6 +20,7 @@ import SearchCollection from "./pages/SearchCollection";
 import AlertToast from "./components/AlertToast";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingOverlay from "./components/LoadingOverlay";
+import Error404 from "./pages/404";
 
 function App() {
     return (
@@ -49,6 +50,7 @@ function App() {
                         <Route path="landing" element={<LandingPage />} />
                         <Route path="register" element={<SignUp />} />
                         <Route path="reset-password" element={<ForgotPassword />} />
+                        <Route path="*" element={<Error404 />} />
                     </Routes>
                     <AlertToast />
                 </LoadingOverlay>
