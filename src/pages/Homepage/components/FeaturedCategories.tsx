@@ -1,5 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import ImageRenderer from "../../../components/ImageRenderer";
 import LoadingSkeleton from "../../../components/LoadingSkeleton";
 import { useFetch } from "../../../helpers/apiHelpers";
 import { Categories } from "../../../helpers/Categories";
@@ -45,7 +46,7 @@ const FeaturedCategories = () => {
                             const { image, name, count } = feat;
                             return (
                                 <Link to={`/search?category=${name.toString()}`} key={index + name.toString()}>
-                                    <img src={image} alt={name} className="featured-image" />
+                                    <ImageRenderer src={image} alt={name} className="featured-image" />
                                     <div className="featured-label">
                                         <h2>{name.split(": ").pop()}</h2>
                                         <h3>{count} Collections</h3>

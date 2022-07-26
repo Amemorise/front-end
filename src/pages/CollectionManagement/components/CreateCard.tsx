@@ -4,6 +4,7 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import { AddPhotoAlternate, Delete } from "@mui/icons-material";
 import { EditingCard } from "../../../helpers/baseTypes";
 import _ from "lodash";
+import ImageRenderer from "../../../components/ImageRenderer";
 
 interface CreateCardProps {
     card: EditingCard;
@@ -63,7 +64,7 @@ const CreateCard = (props: CreateCardProps) => {
                             {imageList.length ? (
                                 imageList.map((image, newIndex) => (
                                     <div key={newIndex} className="image-item">
-                                        <img src={image["dataURL"]} alt="" width="100" />
+                                        <ImageRenderer src={image["dataURL"]} alt="" width="100" />
                                         <div className="image-item__btn-wrapper">
                                             <IconButton
                                                 size="small"

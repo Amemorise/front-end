@@ -8,6 +8,7 @@ import { signOut } from "../helpers/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/user";
+import ImageRenderer from "./ImageRenderer";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -167,7 +168,7 @@ const Navbar = ({ user, leftBarOpen, toggleLeftBarOpen }: NavbarProps) => {
                     </IconButton>
                     <Box sx={{ height: "100%", flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         <Link style={{ height: "100%" }} to="/home">
-                            <img
+                            <ImageRenderer
                                 style={{
                                     boxSizing: "border-box",
                                     maxHeight: "100%",

@@ -13,12 +13,7 @@ const RecentCollections = () => {
                     <Typography variant={"body2"}>SEE ALL</Typography>
                 </Link>
             </Stack>
-            <CollectionGridList collections={data && data.length ? data : []} loading={loading} />
-            {data && data.length === 0 ? (
-                <Typography variant="body2" sx={{ marginTop: 1, textAlign: "center" }}>
-                    No active learning collections! <Link to="/search"> Start Learning</Link>
-                </Typography>
-            ) : null}
+            <CollectionGridList collections={data && data.length ? data : []} loading={loading} learningList={true} />
         </div>
     );
 };

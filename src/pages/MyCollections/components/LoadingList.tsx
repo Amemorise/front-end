@@ -7,8 +7,9 @@ import CollectionGridList from "../../../components/CollectionGridList";
 
 interface LoadingListProps {
     url: string;
+    learningList?: boolean;
 }
-const LoadingList = ({ url }: LoadingListProps) => {
+const LoadingList = ({ url, learningList }: LoadingListProps) => {
     const [page, setPage] = useState(1);
 
     const { data, loading } = useFetch(`${url}?page=${page}`);
@@ -24,7 +25,7 @@ const LoadingList = ({ url }: LoadingListProps) => {
     };
     return (
         <Stack spacing={3}>
-            <CollectionGridList loading={loading} collections={collections} />
+            <CollectionGridList loading={loading} collections={collections} learningList={learningList} />
             {data && data.moreToLoad ? (
                 <LoadingButton
                     sx={{ alignSelf: "center" }}

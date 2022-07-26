@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../../helpers/apiHelpers";
 import { getLessonRowData, usePageTitle } from "../../helpers/helpers";
 import "./styles/review-collection.scss";
+import ImageRenderer from "../../components/ImageRenderer";
 
 export interface ReviewState {
     review?: { card: Card; isCorrect: boolean; userResponse: string }[];
@@ -69,7 +70,11 @@ const ReviewCollection = () => {
                                             }}
                                         >
                                             <TableCell align="center">
-                                                <img src={photoURL} alt={label} className={"review-table-image"} />
+                                                <ImageRenderer
+                                                    src={photoURL}
+                                                    alt={label}
+                                                    className={"review-table-image"}
+                                                />
                                             </TableCell>
                                             <TableCell align="center">{label}</TableCell>
                                             {cardResponse ? (

@@ -2,6 +2,7 @@ import { Send } from "@mui/icons-material";
 import { Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ImageRenderer from "../../../components/ImageRenderer";
 import { api } from "../../../helpers/apiHelpers";
 import { Card, PublishedCollection } from "../../../helpers/baseTypes";
 import { ReviewState } from "../ReviewCollection";
@@ -66,7 +67,11 @@ const CardViews = ({ cards, collectionMetaData, collectionId }: PublishedCollect
             <h2>{collectionMetaData.prompt}</h2>
             <div className="flashcard-container-inner">
                 <div className="flashcard-image-container">
-                    <img className={`flashcard-image ${flipCard ? "active" : ""}`} src={photoURL} alt={hint} />
+                    <ImageRenderer
+                        className={`flashcard-image ${flipCard ? "active" : ""}`}
+                        src={photoURL}
+                        alt={hint}
+                    />
                     <span
                         className={`flashcard-label d-flex ${flipCard ? "active" : ""} ${
                             isCorrect ? "correct" : "incorrect"

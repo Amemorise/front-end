@@ -13,7 +13,7 @@ const Collections = () => {
                 </div>
                 <div>
                     <Typography variant="h6">Learning Collections</Typography>
-                    <LoadingList url="/collections/learning" />
+                    <LoadingList url="/collections/learning" learningList={true} />
                 </div>
             </Stack>
         </div>

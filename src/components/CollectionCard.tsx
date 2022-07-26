@@ -2,6 +2,7 @@ import { Lock, Verified } from "@mui/icons-material";
 import { PublishedCollection } from "../helpers/baseTypes";
 import { Avatar, Paper } from "@mui/material";
 import { convertToDateString, isNewCollection } from "../helpers/helpers";
+import ImageRenderer from "./ImageRenderer";
 
 const CollectionCard = (props: PublishedCollection & { showTags?: boolean }) => {
     const { title, verified, createdBy, creationDate, description, tags } = props.collectionMetaData;
@@ -11,8 +12,16 @@ const CollectionCard = (props: PublishedCollection & { showTags?: boolean }) => 
     return (
         <Paper className="card" variant="outlined" sx={{ borderRadius: "1rem" }}>
             <div className="card-image">
-                <img src={props.cards[0].photoURL} className="img-fluid rounded-start underlay-image" alt="..." />
-                <img src={props.cards[1].photoURL} className="img-fluid rounded-start overlay-image" alt="..." />
+                <ImageRenderer
+                    src={props.cards[0].photoURL}
+                    className="img-fluid rounded-start underlay-image"
+                    alt="..."
+                />
+                <ImageRenderer
+                    src={props.cards[1].photoURL}
+                    className="img-fluid rounded-start overlay-image"
+                    alt="..."
+                />
             </div>
             <div className="card-details">
                 <span className="d-flex">
