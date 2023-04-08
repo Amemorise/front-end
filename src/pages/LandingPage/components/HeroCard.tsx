@@ -1,4 +1,3 @@
-import { Paper } from "@mui/material";
 import { useRef, useEffect, useState } from "react";
 
 const HeroCard = () => {
@@ -109,9 +108,7 @@ const HeroCard = () => {
     return (
         <div className={`hero-card ${flipped ? "flipped" : ""}`} ref={reference} onClick={flipCard}>
             <span className="inner-card-backface">
-                <span className="flip-inner-card">
-                    
-                </span>
+                <span className="flip-inner-card"></span>
             </span>
             <span className="inner-card">
                 <span className="glare"></span>
