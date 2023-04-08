@@ -1,0 +1,111 @@
+.landing {
+    .landing-info-section {
+        margin-top: -64px;
+    }
+    .hero-card {
+        box-shadow: none;
+        backface-visibility: visible;
+        background: transparent;
+        transform-style: preserve-3d;
+        padding: 0;
+        height: auto;
+        width: 70%;
+        height: 25rem;
+        color: black;
+        transition: all 0.2s ease-out;
+        border: none;
+        letter-spacing: 1px;
+        .flip-inner-card {
+            transform: rotateY(180deg);
+            position: absolute;
+            top: 0;
+            padding: 2rem 1.5rem;
+            box-sizing: border-box;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        &.flipped {
+            transform: rotateY(180deg);
+        }
+        .flip-inner-card {
+            transform: rotateY(180deg);
+            position: absolute;
+            top: 0;
+            padding: 2rem 1.5rem;
+            box-sizing: border-box;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .inner-card,
+        .inner-card-backface {
+            background-color: rgb(246, 242, 234);
+            border-radius: 14px;
+            padding: 2rem;
+            box-sizing: border-box;
+            will-change: transform, filter;
+            transition: all 0.15s ease-out;
+            top: 0;
+        }
+        .inner-card-backface {
+            transform: rotateX(0) rotateY(0deg) scale(1) translateZ(-4px);
+            position: absolute;
+            color: black;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .inner-card {
+            float: none;
+            background-size: calc(100% + 6px) auto;
+            background-position: -3px -3px;
+            margin: 0;
+            height: auto;
+            overflow: hidden;
+            display: block;
+            margin: 0px auto;
+            transform: rotateX(0deg) rotateY(0deg) scale(1);
+            height: 100%;
+            filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.3));
+            perspective-origin: 0 0;
+        }
+        .glare {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: all 0.1s ease-out;
+            opacity: 0.6;
+            pointer-events: none;
+            height: 100%;
+            border-radius: 14px;
+            z-index: 9999;
+            mix-blend-mode: hard-light;
+            background: radial-gradient(circle at 50% 50%, rgb(199 198 243), transparent);
+        }
+    }
+    .hero-container-1 {
+        background-image: url(https://d1oco4z2z1fhwp.cloudfront.net/templates/default/6216/bkg-section-page-20.png);
+    }
+
+    .hero-container-2 {
+        background-image: url(https://d1oco4z2z1fhwp.cloudfront.net/templates/default/6216/bkg-section-page-10.png);
+    }
+    .hero-container-1,
+    .hero-container-2 {
+        padding: 4rem 0;
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .landing {
+        .hero-card {
+            width: 90%;
+        }
+    }
+}
